@@ -1,0 +1,77 @@
+body {
+    background-color: #d4d4d4;
+    color: #d4d4d4; 
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    margin: 0;
+    font-size: 16px;
+}
+
+a:link, a:visited{
+    color: #FF9933;
+    text-decoration: none;
+}
+
+a:hover, a:active{
+    color: #F57A00;
+}
+
+#topBar {
+    background-color: #202020;
+    background-image: url( ../images/UpitIO-300.png );
+    background-repeat: no-repeat;
+    background-position: left;
+
+    padding: 5px 5px 5px 5px;
+    height: 60px;
+    border-bottom: 1px solid #447cbf;
+
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+}
+
+#content {
+    background-color: #202020;
+    border-radius: 2em;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #447cbf;
+}
+
+#uploadForm {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.uploadBtn {
+    height: 32px;
+    width: 200px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background-color: #447cbf;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.uploadBtn input {
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    font-size: 50px;
+    opacity: 0;
+}
+
+.uploadBtn label {
+    margin-top: 5px;
+    display: block;
+    font-weight: bold;
+}
