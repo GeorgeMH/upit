@@ -13,6 +13,7 @@ public class UpitApiServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setStatus(HttpServletResponse.SC_OK);
+		
 		try (PrintWriter out = resp.getWriter()) {
 			out.println("API: " + req.getParameterMap());
 			out.flush();
