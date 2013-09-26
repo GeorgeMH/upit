@@ -12,7 +12,7 @@ public class UpitWebModule extends ServletModule {
 	protected void configureServlets() {
 		Map<String, String> guiceInitParams = new HashMap<String, String>();
 		guiceInitParams.put("com.sun.jersey.config.property.packages", "io.upit.web.resources");
-		serve("/*").with(GuiceContainer.class, guiceInitParams);
+		serve("/api/*").with(GuiceContainer.class, guiceInitParams);
 	}
 	
 }
