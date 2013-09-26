@@ -1,11 +1,10 @@
 package io.upit.web.dal.models;
 
 import org.bson.types.ObjectId;
-
-import com.github.jmkgreen.morphia.annotations.Entity;
-import com.github.jmkgreen.morphia.annotations.Id;
-import com.github.jmkgreen.morphia.annotations.Indexed;
-import com.github.jmkgreen.morphia.utils.IndexDirection;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.utils.IndexDirection;
 
 @Entity
 public class UploadedFile {

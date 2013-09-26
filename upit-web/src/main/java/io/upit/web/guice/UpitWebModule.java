@@ -1,24 +1,18 @@
 package io.upit.web.guice;
 
-import io.upit.web.servlets.DynamicViewServlet;
-import io.upit.web.servlets.UpitApiServlet;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.servlet.http.HttpServlet;
-
-import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
+import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 
 public class UpitWebModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
-		bindServlet("/views/*", DynamicViewServlet.class);
-		bindServlet("/api*", UpitApiServlet.class);
-	}
-
-	private void bindServlet(String path, Class<? extends HttpServlet> servletClass) {
-		bind(servletClass).in(Singleton.class);
-		serve(path).with(servletClass);
+		Map<String, String> guiceInitParams = new HashMap<String, String>();
+		guiceInitParams.put("com.sun.jersey.config.property.packages", "io.upit.web.resources");
+		serve("/*").with(GuiceContainer.class, guiceInitParams);
 	}
 	
 }
