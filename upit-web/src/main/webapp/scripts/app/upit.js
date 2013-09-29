@@ -1,5 +1,6 @@
-define(['knockout-2.3.0', 'app/viewmodels/UpitViewModel'], function(ko, upitViewModel) {
-
-	ko.applyBindings(new upitViewModel());
+define(['knockout', 'viewmodels/UpitViewModel'], function(ko, UpitViewModel) {
+	
+	//The main View Model
+	ko.applyBindings(new UpitViewModel());
 	
 });
