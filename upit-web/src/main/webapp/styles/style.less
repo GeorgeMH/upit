@@ -1,4 +1,37 @@
 
 
-@import "bootstrap/bootstrap.less";
+@import 'utils.less';
+@import "BaseLayout.less";
 
+@BASE_URL: "/upit-web";
+@LOGO_URL: "@{BASE_URL}/images/UpitIO-LOGO1.png";
+
+#container{
+
+    #logoArea {
+        #logo {
+            height: 60px;
+            background-image: url("@{LOGO_URL}");
+            background-repeat: no-repeat;
+        }
+    }
+
+    #primaryNavArea {
+		text-align: right;
+    }
+    
+
+    #contentArea {
+        border: 1px solid #00ff00;
+        margin-top: 100px;
+        height: 30%;
+        //display: none; 
+    }
+
+    .fooBar{
+        height: 100px;
+        border-bottom: 1px solid #ff0000;
+    }
+    
+    
+}

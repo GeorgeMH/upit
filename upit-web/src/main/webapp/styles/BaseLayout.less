@@ -1,0 +1,37 @@
+@import 'GridContainer.less';
+@colCount: 10;
+@gridWidth: 992px;
+@gutter: 28px;
+
+body {
+	width: @gridWidth;
+	margin: auto;
+	
+	#container {
+		#GridContainer > .gridContainer (@colCount , @gridWidth);
+		
+		#logoArea {
+			#GridContainer > .gridCell (3);
+			#GridContainer > .alpha();
+		}
+	
+		#primaryNavArea {
+			#GridContainer > .gridCell (3);
+			#GridContainer > .push (4);
+			#GridContainer > .omega();
+		}
+
+		#contentArea {
+			#GridContainer > .alpha();
+			#GridContainer > .gridCell (10);
+			#GridContainer > .omega();
+		}
+
+		.fooBar {
+			#GridContainer>.gridCell(1);
+		}
+	}
+}
+
+
+

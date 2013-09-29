@@ -1,0 +1,71 @@
+/**
+ * GridContainer
+ * 
+ * Based on Grid LESS ( http://xdissent.github.io/grid-less/ )
+ * 
+ * //TODO: Calculate using percentages like semantic.gs: https://github.com/twigkit/semantic.gs/blob/master/stylesheets/less/grid.less
+ */
+ 
+* { .border-box() }
+
+/* Ensure grid columns are set to border-boxes. This is essential */
+.border-box(){
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+ 
+@import 'reset.less';
+#GridContainer () {
+	@columnCount: 0;
+	@gridWidth: 0;
+	@colMargin: 0;
+	@columnWidth: 0;
+	
+	.gridContainer (@columns: 10 , @width: 992px , @margin: 5px) {
+		@columnCount: @columns;
+		@gridWidth: @width;
+		@colMargin: @margin;
+		@columnWidth: ((@width / @columnCount) - (@colMargin * 2));
+		max-width: @gridWidth;
+		width: 100%;
+		overflow: hidden;
+		margin-right: auto;
+		margin-left: auto;
+		padding: 0;
+	}
+
+	.gridCell (@columnSpan: 10) {
+		display: inline;
+		float: left;
+		position: relative;
+		margin: @colMargin;//0px;
+		width: (@columnSpan * @columnWidth);
+		border: 1px solid #ff0000;
+		//border-right: 1px dotted #ff0000;
+	}
+
+	.prefix (@prefix: 0) {
+		padding-left: @columnWidth * @prefix;
+	}
+
+	.suffix (@suffix: 0) {
+		padding-right: @columnWidth * @suffix;
+	}
+
+	.pull (@pull: 0) {
+		left: 0 - @columnWidth * @pull + ((@colMargin * 2) * @pull);
+	}
+
+	.push (@push: 0) {
+		left: @columnWidth * @push + ((@colMargin * 2) * @push);
+	}
+
+	.alpha {
+		margin-left: 0;
+	}
+
+	.omega {
+		margin-right: 0;
+	}
+}
