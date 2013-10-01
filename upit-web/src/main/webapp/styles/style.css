@@ -2,8 +2,8 @@
  * GridContainer
  * 
  * Based on Grid LESS ( http://xdissent.github.io/grid-less/ )
- * 
- * //TODO: Calculate using percentages like semantic.gs: https://github.com/twigkit/semantic.gs/blob/master/stylesheets/less/grid.less
+ * And semantic.gs: https://github.com/twigkit/semantic.gs/blob/master/stylesheets/less/grid.less
+ * And https://github.com/Abban/Responsable-Grid-System/blob/master/assets/less/grid.less
  */
 * {
   -webkit-box-sizing: border-box;
@@ -168,12 +168,8 @@ input,
 select {
   vertical-align: middle;
 }
-body {
-  width: 992px;
-  margin: auto;
-}
 body #container {
-  max-width: 992px;
+  max-width: 1008px;
   width: 100%;
   overflow: hidden;
   margin-right: auto;
@@ -181,56 +177,54 @@ body #container {
   padding: 0;
 }
 body #container #logoArea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: inline;
   float: left;
   position: relative;
-  margin: 5px;
-  width: 267.6px;
-  border: 1px solid #ff0000;
-  margin-left: 0;
+  padding: 10px;
+  width: 33.33333333333333%;
 }
 body #container #primaryNavArea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: inline;
   float: left;
   position: relative;
-  margin: 5px;
-  width: 267.6px;
-  border: 1px solid #ff0000;
-  left: 396.8px;
-  margin-right: 0;
+  padding: 10px;
+  width: 33.33333333333333%;
+  margin-left: 33.33333333333333%;
 }
 body #container #contentArea {
-  margin-left: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: inline;
   float: left;
   position: relative;
-  margin: 5px;
-  width: 892px;
-  border: 1px solid #ff0000;
-  margin-right: 0;
+  padding: 10px;
+  width: 100%;
 }
-body #container .fooBar {
-  display: inline;
-  float: left;
-  position: relative;
-  margin: 5px;
-  width: 89.2px;
+#container #logoArea {
   border: 1px solid #ff0000;
 }
 #container #logoArea #logo {
   height: 60px;
   background-image: url("/upit-web/images/UpitIO-LOGO1.png");
   background-repeat: no-repeat;
+  border: 1px solid #00ff00;
 }
 #container #primaryNavArea {
   text-align: right;
+  border: 1px solid #ff0000;
+}
+#container #primaryNavArea #primaryNavList {
+  border: 1px solid #00ff00;
+  height: 60px;
 }
 #container #contentArea {
   border: 1px solid #00ff00;
   margin-top: 100px;
-  height: 30%;
-}
-#container .fooBar {
-  height: 100px;
-  border-bottom: 1px solid #ff0000;
 }

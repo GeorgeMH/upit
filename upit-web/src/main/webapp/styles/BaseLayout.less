@@ -1,35 +1,29 @@
 @import 'GridContainer.less';
-@colCount: 10;
-@gridWidth: 992px;
-@gutter: 28px;
+
+@colCount: 12;
+@gridWidth: 1008px;
+@gutter: 20px;
 
 body {
-	width: @gridWidth;
-	margin: auto;
+	//width: @gridWidth;
+	//margin: auto;
 	
 	#container {
-		#GridContainer > .gridContainer (@colCount , @gridWidth);
+		#GridContainer > .gridContainer (@colCount , @gridWidth, @gutter);
 		
 		#logoArea {
-			#GridContainer > .gridCell (3);
-			#GridContainer > .alpha();
+			#GridContainer > .gridCell (4);
 		}
 	
 		#primaryNavArea {
-			#GridContainer > .gridCell (3);
+			#GridContainer > .gridCell (4);
 			#GridContainer > .push (4);
-			#GridContainer > .omega();
 		}
 
 		#contentArea {
-			#GridContainer > .alpha();
-			#GridContainer > .gridCell (10);
-			#GridContainer > .omega();
+			#GridContainer > .gridCell (12);
 		}
 
-		.fooBar {
-			#GridContainer>.gridCell(1);
-		}
 	}
 }
 
