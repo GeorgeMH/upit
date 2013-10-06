@@ -1,6 +1,6 @@
-define(['knockout', 'viewmodels/UpitViewModel'], function(ko, UpitViewModel) {
+define(['knockout', 'AppRouter'], function(ko, AppRouter) {
 	
 	//The main View Model
-	ko.applyBindings(new UpitViewModel());
+	ko.applyBindings(new AppRouter());
 	
 });

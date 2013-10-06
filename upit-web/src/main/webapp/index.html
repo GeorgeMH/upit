@@ -14,10 +14,8 @@
 		</header>
 
 		<nav id="primaryNavArea">
-			<ul id="primaryNavList">
-				<li>Foo</li>
-				<li>Bar</li>
-				<li>Star</li>
+			<ul id="primaryNavList" data-bind="foreach: primaryNavList">
+				<li data-bind="text: $data"></li>
 			</ul>
 		</nav>
 

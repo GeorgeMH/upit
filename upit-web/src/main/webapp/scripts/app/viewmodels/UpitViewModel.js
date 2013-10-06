@@ -2,14 +2,12 @@ define([ 'jquery', 'knockout', 'sammy' ], function($, ko, SammyJS) {
 	return function UpitViewModel() {
 		var self = this;
 
-		// Client-side routes
-		var sammy = SammyJS('body', function() {
+		self.primaryNavigation = ['Home', 'About', 'Register', 'Login'];
+		self.currentPage = ko.observable();
+		
+		self.goToPage = function(page) {
+			self.currentPage(page);
+		};
 
-			this.get('#/', function(context) {
-				console.log('foo');
-			});
-
-		});
-		sammy.run('#/');
 	};
 });
