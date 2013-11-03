@@ -1,39 +1,4 @@
-//Basic utility mixins
-@import 'utils.less';
-
-//Import our Page Structure
-@import "BaseLayout.less";
-
-@BASE_URL: "/upit-web";
-@LOGO_URL: "@{BASE_URL}/images/UpitIO-LOGO1.png";
 
 
-//Style the page!
-#container {
-	#logoArea {
-		border: 1px solid #ff0000;
-		
-		#logo {
-			height: 60px;
-			background-image: url("@{LOGO_URL}");
-			background-repeat: no-repeat;
-			border: 1px solid #00ff00;
-		}
-	}
-
-	#primaryNavArea {
-		text-align: right;
-		border: 1px solid #ff0000;
-		
-		#primaryNavList {
-			border: 1px solid #00ff00;
-			height: 60px;
-		}
-	}
-
-	#contentArea {
-		border: 1px solid #00ff00;
-		margin-top: 100px;
-	}
-}
+@import (css) "bootstrap.css";
 

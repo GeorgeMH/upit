@@ -2,7 +2,7 @@ define([ 'jquery', 'sammy', 'knockout', 'viewmodels/UpitViewModel' ], function($
 	return function Router() {
 		var self = this;
 		
-		self.primaryNavigation = ['Home', 'About', 'Register', 'Login'];
+		self.primaryNavigation = ['home', 'about', 'register', 'login'];
 		self.currentPage = ko.observable('Home');
 		
 		// Client-side routes

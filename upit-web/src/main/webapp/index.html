@@ -1,29 +1,41 @@
 <!DOCTYPE HTML>
-<html>
-<head>
-<title>Upit.IO</title>
-<link rel="stylesheet" type="text/css" href="styles/style.css" />
-<script data-main="scripts/app" src="scripts/require.js"></script>
-</head>
+<html lang="en">
+	<head>
+		<title>Upit.IO</title>
+		<link rel="stylesheet" type="text/css" href="styles/style.css" />
 
-<body>
-	<div id="container">
+		<script data-main="scripts/app" src="scripts/require.js"></script>
+	</head>
 
-		<header id="logoArea">
-			<div id="logo"></div>
-		</header>
+	<body>
+		<div class="container">
 
-		<nav id="primaryNavArea">
-			<ul id="primaryNavList" data-bind="foreach: primaryNavList">
-				<li data-bind="text: $data"></li>
-			</ul>
-		</nav>
+			<header class="row">
+				<div class="span12">
+				
+					<nav class="navbar">
+					
+						<div class="navbar-inner">
+							<a href="#/" class="brand">upit.io</a>
+							<ul class="nav" data-bind="foreach: primaryNavigation">
+								<li><a href="" data-bind="text: $data"></a></li>
+							</ul>
+						</div>
+						
+					</nav>
+				
+				</div>
+			</header>
 
-		<section id="contentArea">
-			<h1>content or something</h1>
-		</section>
+			<div class="row" id="content">
+			
+			</div>
+			
+			<footer class="row">
+			</footer>
 
-	</div>
-</body>
+
+		</div>
+	</body>
 
 </html>
