@@ -1,6 +1,16 @@
-define(['knockout', 'AppRouter'], function(ko, AppRouter) {
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (system, app, viewLocator) {
+	system.debug(true);
 	
-	//The main View Model
-	ko.applyBindings(new AppRouter());
+	app.title = 'Upit.IO';
 	
+	app.configurePlugins({
+		router: true,
+		dialog: true,
+		widget: true
+	});
+	
+	app.start().then(function(){
+        viewLocator.useConvention();
+        app.setRoot('viewmodels/shell', 'entrance');
+	});
 });
