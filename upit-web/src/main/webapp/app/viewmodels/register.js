@@ -7,7 +7,7 @@ define([ 'jquery', 'knockout', 'durandal/app', 'plugins/router' ], function($, k
 
 		self.email = ko.observable();
 		self.password = ko.observable();
-		self.confirmPassword = ko.observable('Foo');
+		self.confirmPassword = ko.observable();
 
 		self.submitRegistration = function() {
 			app.showMessage('Register not yet implemented...');

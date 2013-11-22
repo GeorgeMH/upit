@@ -2,21 +2,31 @@ package io.upit.web.dal.models;
 
 import java.util.Date;
 
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.utils.IndexDirection;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class User {
 	
+
 	@Id
-	@Indexed(value = IndexDirection.ASC, unique = true)
+	private int id;
+
+	@Column(unique = true)
 	private String userName;
 	
 	private String password;
 	
 	private Date dateCreated;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getUserName() {
 		return userName;
