@@ -14,17 +14,13 @@
 	<description>Upit Data Access Layer</description>
 
 	<dependencies>
+		<!-- Hibernate -->
 		<dependency>
-			<groupId>org.mongodb.morphia</groupId>
-			<artifactId>morphia</artifactId>
-			<version>0.106-SNAPSHOT</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.2.7.SP1</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>2.11.1</version>
-		</dependency>
+				
 	</dependencies>
 
 </project>
