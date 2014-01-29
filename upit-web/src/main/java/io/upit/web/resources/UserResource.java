@@ -1,9 +1,7 @@
 package io.upit.web.resources;
 
-import io.upit.core.dal.dao.UserDAO;
+import io.upit.core.api.UserManager;
 import io.upit.core.dal.models.User;
-
-import java.util.Date;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -20,11 +18,11 @@ import com.google.inject.persist.Transactional;
 @Produces("application/json")
 public class UserResource {
 
-	private final UserDAO userDao;
+	private final UserManager userManager;
 
 	@Inject
-	public UserResource(UserDAO userDao) {
-		this.userDao = userDao;
+	public UserResource(UserManager userManager) {
+		this.userManager = userManager;
 	}
 
 	@GET
@@ -32,8 +30,7 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
 	public User getUserById(@PathParam("id") String idStr) {
-		// TODO: Authentication/Authorization
-		return userDao.getById(Integer.parseInt(idStr));
+		return userManager.getUserById(Long.parseLong(idStr));
 	}
 
 	@POST
@@ -41,15 +38,7 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Transactional
 	public User register(User user) {
-		// TODO: Input Validation
-
-		//if (null == user.getEmail() || "".equals(user.getEmail().trim())) {
-		//	throw new Invalid
-		//}
-
-		// Hash the password
-		user.setDateCreated(new Date());
-		return userDao.create(user);
+		return userManager.register(user);
 	}
 
 

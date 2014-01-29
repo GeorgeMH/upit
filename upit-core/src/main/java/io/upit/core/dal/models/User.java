@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.google.common.primitives.Longs;
+
 @Entity
 public class User {
 
@@ -54,5 +56,20 @@ public class User {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof User)) {
+			return false;
+		}
+		User check = (User) obj;
+		// Identity based equality
+		return getId() == check.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		// Identity based equality
+		return Longs.hashCode(getId());
+	}
 }

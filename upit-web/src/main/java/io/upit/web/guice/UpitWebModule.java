@@ -1,6 +1,6 @@
 package io.upit.web.guice;
 
-import io.upit.core.guice.UpitDalModule;
+import io.upit.core.guice.UpitCoreModule;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,8 @@ public class UpitWebModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
-		install(new UpitDalModule());
+		install(new UpitCoreModule());
+
 		filter("/api/*").through(PersistFilter.class);
 
 		Map<String, String> guiceInitParams = new HashMap<String, String>();
