@@ -6,6 +6,7 @@
 		'plugins' : '../lib/durandal/js/plugins',
 		'transitions' : '../lib/durandal/js/transitions',
 		'knockout' : '../lib/knockout/knockout-2.3.0',
+		'knockoutMapping' : '../lib/knockout/knockout.mapping-2.4.1',
 		'bootstrap' : '../lib/bootstrap/js/bootstrap',
 		'jquery' : '../lib/jquery/jquery-1.9.1'
 	},
@@ -13,15 +14,20 @@
 		'bootstrap' : {
 			deps : [ 'jquery' ],
 			exports : 'jQuery'
+		},
+		'knockoutMapping': {
+			deps : [ 'knockout' ],
+			exports : 'knockoutMapping'
 		}
 	}
 });
 
-define([ 'durandal/system', 'durandal/app', 'durandal/viewLocator' ], function(
-		system, app, viewLocator) {
-	// >>excludeStart("build", true);
+define([ 'durandal/system', 'durandal/app', 'durandal/viewLocator', 'knockout', 'knockoutMapping'], function(system, app, viewLocator, ko, koMapping) {
+	// >>excludeStart("build", true);.
 	system.debug(true);
 	// >>excludeEnd("build");
+
+	ko.mapping = koMapping;
 
 	app.title = 'Upit.IO';
 
@@ -32,6 +38,7 @@ define([ 'durandal/system', 'durandal/app', 'durandal/viewLocator' ], function(
 	});
 
 	app.start().then(function() {
+		
 		// Replace 'viewmodels' in the moduleId with 'views' to locate the view.
 		// Look for partial views in a 'views' folder in the root.
 		viewLocator.useConvention();

@@ -1,21 +1,17 @@
-﻿define([ 'plugins/router', 'durandal/app' ], function(router, app) {
+﻿define([ 'plugins/router', 'durandal/app', 'models/UserSession'], function(router, app, userSession) {
 	return {
 		router : router,
-		search : function() {
-			// It's really easy to show a message box.
-			// You can add custom options too. Also, it returns a promise for
-			// the user's response.
-			app.showMessage('Search not yet implemented...');
-		},
+		
 		activate : function() {
 			router.map([ {
 				route : '',
-				title : 'About',
-				moduleId : 'viewmodels/about',
+				title : 'Main',
+				moduleId : 'viewmodels/main',
 				nav : true
 			}, {
-				route : 'pastebin',
-				moduleId : 'viewmodels/pastebin',
+				route : 'about',
+				title : 'About',
+				moduleId : 'viewmodels/about',
 				nav : true
 			}, {
 				route : 'signin',
@@ -27,8 +23,10 @@
 				moduleId : 'viewmodels/register',
 				nav : true
 			} ]).buildNavigationModel();
+			
+			userSession.init();
 
 			return router.activate();
-		}
+		},
 	};
 });

@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>io.upit.web</groupId>
 			<version>0.0.1-SNAPSHOT</version>
-			<artifactId>upit-dal</artifactId>
+			<artifactId>upit-core</artifactId>
 		</dependency>
 
 		<!-- Third party deps -->
@@ -43,11 +43,24 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.17.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.sun.jersey.contribs</groupId>
 			<artifactId>jersey-guice</artifactId>
 			<version>1.17.1</version>
 		</dependency>
 
 	</dependencies>
+
+	<build>
+		<plugins>
+
+
+		</plugins>
+	</build>
 
 </project>

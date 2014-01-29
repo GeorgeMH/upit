@@ -1,39 +1,42 @@
-package io.upit.web.dal.models;
+package io.upit.core.dal.models;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class User {
-	
 
 	@Id
-	private int id;
+	@GeneratedValue
+	private long id;
 
-	@Column(unique = true)
-	private String userName;
+	@Column(unique = true, nullable = false)
+	private String email;
 	
+	@Column(nullable = false)
 	private String password;
-	
+
+	@Column(nullable = false)
 	private Date dateCreated;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {

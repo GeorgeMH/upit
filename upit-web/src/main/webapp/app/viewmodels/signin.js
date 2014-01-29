@@ -1,5 +1,4 @@
-define([ 'jquery', 'knockout', 'durandal/app', 'plugins/router' ], function($,
-		ko, app, router) {
+define([ 'jquery', 'knockout', 'durandal/app', 'plugins/router' ], function($, ko, app, router) {
 	return function() {
 		var self = this;
 
