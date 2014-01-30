@@ -1,6 +1,4 @@
-package io.upit.core.dal.dao;
-
-import io.upit.core.dal.DAO;
+package io.upit.core.jpa.api.dal;
 
 import javax.persistence.EntityManager;
 
@@ -34,7 +32,7 @@ public abstract class EntityManagerDAO<TYPE, ID> implements DAO<TYPE, ID> {
 	}
 
 	/* (non-Javadoc)
-	 * @see io.upit.core.dal.DAO#getById(java.lang.Object)
+	 * @see io.upit.core.jpa.api.dal.DAO#getById(java.lang.Object)
 	 */
 	@Override
 	@Transactional
@@ -43,7 +41,7 @@ public abstract class EntityManagerDAO<TYPE, ID> implements DAO<TYPE, ID> {
 	}
 
 	/* (non-Javadoc)
-	 * @see io.upit.core.dal.DAO#create(java.lang.Object)
+	 * @see io.upit.core.jpa.api.dal.DAO#create(java.lang.Object)
 	 */
 	@Override
 	@Transactional
@@ -53,7 +51,7 @@ public abstract class EntityManagerDAO<TYPE, ID> implements DAO<TYPE, ID> {
 	}
 
 	/* (non-Javadoc)
-	 * @see io.upit.core.dal.DAO#update(java.lang.Object)
+	 * @see io.upit.core.jpa.api.dal.DAO#update(java.lang.Object)
 	 */
 	@Override
 	@Transactional
@@ -62,7 +60,7 @@ public abstract class EntityManagerDAO<TYPE, ID> implements DAO<TYPE, ID> {
 	}
 
 	/* (non-Javadoc)
-	 * @see io.upit.core.dal.DAO#delete(java.lang.Object)
+	 * @see io.upit.core.jpa.api.dal.DAO#delete(java.lang.Object)
 	 */
 	@Override
 	public void delete(TYPE entity) {

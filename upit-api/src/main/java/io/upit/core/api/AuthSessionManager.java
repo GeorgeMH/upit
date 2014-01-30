@@ -1,17 +1,16 @@
 package io.upit.core.api;
 
-import io.upit.core.api.support.LoginRequest;
-import io.upit.core.dal.models.AuthSession;
+import io.upit.core.api.models.AuthSession;
+import io.upit.core.api.models.LoginRequest;
 
-/**
- * The Interface AuthSessionManager.
- */
 public interface AuthSessionManager {
 
 	/**
-	 * Attempt to login with the specified credentials. Returns a newly created AuthSession object if successful, null on failure.
-	 *
-	 * @param loginRequest the login request object
+	 * Attempt to login with the specified credentials. Returns a newly created
+	 * AuthSession object if successful, null on failure.
+	 * 
+	 * @param loginRequest
+	 *            the login request object
 	 * @return the AuthSession if successful, otherwise null
 	 */
 	public AuthSession login(LoginRequest loginRequest);
@@ -28,8 +27,8 @@ public interface AuthSessionManager {
 	/**
 	 * Ends the specified AuthSession, making it inactive
 	 * 
-	 * @param session the session to end
+	 * @param session
+	 *            the session to end
 	 */
 	public void endSession(AuthSession session);
-
 }

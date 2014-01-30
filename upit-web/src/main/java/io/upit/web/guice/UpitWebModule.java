@@ -1,6 +1,6 @@
 package io.upit.web.guice;
 
-import io.upit.core.guice.UpitCoreModule;
+import io.upit.core.jpa.guice.UpitCoreModule;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,7 @@
 package io.upit.core.api;
 
-import io.upit.core.dal.models.User;
+import io.upit.core.api.models.User;
+
 
 /**
  * The UserManager, responsible for all business logic related to managing User accounts.

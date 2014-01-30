@@ -1,8 +1,9 @@
-package io.upit.core.api.impls;
+package io.upit.core.jpa.api;
 
 import io.upit.core.api.UserManager;
-import io.upit.core.dal.dao.UserDAO;
-import io.upit.core.dal.models.User;
+import io.upit.core.api.models.User;
+import io.upit.core.jpa.api.dal.dao.UserDAO;
+import io.upit.core.jpa.api.dal.models.JpaUser;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
@@ -16,19 +17,21 @@ import javax.crypto.spec.PBEKeySpec;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 
-public class UserManagerImpl implements UserManager {
+public class JpaUserManager implements UserManager {
 	private static final int ITERATIONS = 2048;
 	private static final int KEY_LENGTH = 256; // bits
 
 	private final UserDAO userDao;
 
 	@Inject
-	public UserManagerImpl(UserDAO userDao) {
+	public JpaUserManager(UserDAO userDao) {
 		this.userDao = userDao;
 	}
 
 	@Override
-	public User register(User user) {
+	public User register(User iUser) {
+		JpaUser user = JpaUser.toJpaUser(iUser);
+
 		if (Strings.isNullOrEmpty(user.getEmail())) {
 			throw new IllegalStateException("Email is not set");
 		}
@@ -56,7 +59,7 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public User authenticateUser(String email, String password) {
-		User user = userDao.getUserByEmail(email);
+		JpaUser user = userDao.getUserByEmail(email);
 
 		String realPassword = user.getPassword();
 
@@ -78,16 +81,16 @@ public class UserManagerImpl implements UserManager {
 			// We authenticated ! yay
 			return user;
 		}
-		// Failed to authenticate
+		// Failed to authenticate....
 		return null;
 	}
 
 	@Override
-	public User getUserById(long id) {
+	public JpaUser getUserById(long id) {
 		return userDao.getById(id);
 	}
 
-	public static String hashPassword(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	private static String hashPassword(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		// We use $ as a special separator character to store the salt within
 		// the same password field in the db.
 		salt = salt.replaceAll("$", "");

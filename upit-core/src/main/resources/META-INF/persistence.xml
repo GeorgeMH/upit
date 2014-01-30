@@ -10,8 +10,8 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<!-- JPA entities must be registered here -->
-		<class>io.upit.core.dal.models.User</class>
-		<class>io.upit.core.dal.models.AuthSession</class>
+		<class>io.upit.core.jpa.api.dal.models.User</class>
+		<class>io.upit.core.jpa.api.dal.models.AuthSession</class>
 
 		<properties>
 			<!-- 

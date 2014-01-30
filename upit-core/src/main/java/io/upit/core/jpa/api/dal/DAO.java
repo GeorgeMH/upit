@@ -1,4 +1,4 @@
-package io.upit.core.dal;
+package io.upit.core.jpa.api.dal;
 
 
 /**

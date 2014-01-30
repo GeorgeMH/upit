@@ -1,6 +1,7 @@
-package io.upit.core.dal.dao;
+package io.upit.core.jpa.api.dal.dao;
 
-import io.upit.core.dal.models.AuthSession;
+import io.upit.core.jpa.api.dal.EntityManagerDAO;
+import io.upit.core.jpa.api.dal.models.JpaAuthSession;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -11,11 +12,11 @@ import com.google.inject.Singleton;
 import com.google.inject.persist.Transactional;
 
 @Singleton
-public class AuthSessionDAO extends EntityManagerDAO<AuthSession, String> {
+public class AuthSessionDAO extends EntityManagerDAO<JpaAuthSession, String> {
 
 	@Inject
 	public AuthSessionDAO(EntityManager entityManager) {
-		super(entityManager, AuthSession.class);
+		super(entityManager, JpaAuthSession.class);
 	}
 
 	/**
@@ -27,10 +28,10 @@ public class AuthSessionDAO extends EntityManagerDAO<AuthSession, String> {
 	 * @return the active matching session
 	 */
 	@Transactional
-	public AuthSession getActiveMatchingSession(AuthSession session) {
-		TypedQuery<AuthSession> query = entityManager.createQuery("SELECT authSession FROM AuthSession authSession WHERE authSession.active = true " +
+	public JpaAuthSession getActiveMatchingSession(JpaAuthSession session) {
+		TypedQuery<JpaAuthSession> query = entityManager.createQuery("SELECT authSession FROM AuthSession authSession WHERE authSession.active = true " +
 																"AND authSession.sessionId = :sessionId " +
-																"AND authSession.authToken = :authToken", AuthSession.class);
+																"AND authSession.authToken = :authToken", JpaAuthSession.class);
 		query.setParameter("sessionId", session.getSessionId());
 		query.setParameter("authToken", session.getAuthToken());
 		try {
