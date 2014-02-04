@@ -1,1 +1,1 @@
-Upit.IO Data Access Layer
+Upit.IO JPA Implementation

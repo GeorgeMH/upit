@@ -1,1 +1,1 @@
-Upit.IO Web Frontend
+Upit.IO REST API bindings and Web Front-end
