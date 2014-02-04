@@ -1,7 +1,7 @@
 package io.upit.web.resources;
 
 import io.upit.core.api.UserManager;
-import io.upit.core.jpa.api.dal.models.JpaUser;
+import io.upit.core.api.models.User;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -29,7 +29,7 @@ public class UserResource {
 	@Path("get/{id}/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
-	public JpaUser getUserById(@PathParam("id") String idStr) {
+	public User getUserById(@PathParam("id") String idStr) {
 		return userManager.getUserById(Long.parseLong(idStr));
 	}
 
@@ -37,10 +37,8 @@ public class UserResource {
 	@Path("register/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Transactional
-	public JpaUser register(JpaUser user) {
+	public User register(User user) {
 		return userManager.register(user);
 	}
-
-
 
 }

@@ -3,10 +3,12 @@ package io.upit.core.jpa.guice;
 import io.upit.core.api.AuthSessionManager;
 import io.upit.core.api.UserManager;
 import io.upit.core.api.models.AuthSession;
+import io.upit.core.api.models.LoginRequest;
 import io.upit.core.api.models.User;
 import io.upit.core.jpa.api.JpaAuthSessionManager;
 import io.upit.core.jpa.api.JpaUserManager;
 import io.upit.core.jpa.api.dal.models.JpaAuthSession;
+import io.upit.core.jpa.api.dal.models.JpaLoginRequest;
 import io.upit.core.jpa.api.dal.models.JpaUser;
 
 import com.google.inject.AbstractModule;
@@ -24,6 +26,7 @@ public class UpitCoreModule extends AbstractModule {
 
 		bind(User.class).to(JpaUser.class);
 		bind(AuthSession.class).to(JpaAuthSession.class);
+		bind(LoginRequest.class).to(JpaLoginRequest.class);
 	}
 
 }
