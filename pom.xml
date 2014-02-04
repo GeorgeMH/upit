@@ -10,9 +10,9 @@
 	<name>Upit</name>
 
 	<modules>
-		<module>upit-web</module>
-		<module>upit-core</module>
 		<module>upit-api</module>
+		<module>upit-core</module>
+		<module>upit-web</module>
 	</modules>
 	
 	<dependencies>

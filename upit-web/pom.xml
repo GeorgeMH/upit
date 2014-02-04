@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>io.upit</groupId>
 			<version>0.0.1-SNAPSHOT</version>
-			<artifactId>upit-core</artifactId>
+			<artifactId>upit-core-jpa</artifactId>
 		</dependency>
 
 		<!-- Third party deps -->
