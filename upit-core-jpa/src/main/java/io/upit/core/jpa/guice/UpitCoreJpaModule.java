@@ -15,7 +15,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.persist.jpa.JpaPersistModule;
 
-public class UpitCoreModule extends AbstractModule {
+public class UpitCoreJpaModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

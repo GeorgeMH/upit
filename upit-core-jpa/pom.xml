@@ -11,7 +11,7 @@
 	<artifactId>upit-core-jpa</artifactId>
 
 	<name>Upit - CORE</name>
-	<description>Upit API Core</description>
+	<description>Upit API Core JPA implementation</description>
 
 	<dependencies>
 	

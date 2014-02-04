@@ -11,7 +11,7 @@
 
 	<modules>
 		<module>upit-api</module>
-		<module>upit-core</module>
+		<module>upit-core-jpa</module>
 		<module>upit-web</module>
 	</modules>
 	

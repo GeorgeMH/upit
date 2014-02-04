@@ -11,7 +11,7 @@ import javax.persistence.Id;
 
 import com.google.common.primitives.Longs;
 
-@Entity
+@Entity(name = "User")
 public class JpaUser implements User {
 
 	@Id
