@@ -8,14 +8,14 @@
         }
     ],
 	paths : {
-		'text' : '../lib/require/text',
-		'durandal' : '../lib/durandal/js',
-		'plugins' : '../lib/durandal/js/plugins',
-		'transitions' : '../lib/durandal/js/transitions',
-		'knockout' : '../lib/knockout/knockout-2.3.0',
-		'knockoutMapping' : '../lib/knockout/knockout.mapping-2.4.1',
+		'text' : './lib/require/text',
+		'durandal' : './lib/durandal/js',
+		'plugins' : './lib/durandal/js/plugins',
+		'transitions' : './lib/durandal/js/transitions',
+		'knockout' : './lib/knockout/knockout-2.3.0',
+		'knockoutMapping' : './lib/knockout/knockout.mapping-2.4.1',
 		'bootstrap' : '../lib/bootstrap/js/bootstrap',
-		'jquery' : '../lib/jquery/jquery-1.9.1'
+		'jquery' : './lib/jquery/jquery-1.9.1'
 	},
 	shim : {
 		'bootstrap' : {
