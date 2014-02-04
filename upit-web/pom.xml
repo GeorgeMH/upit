@@ -12,10 +12,6 @@
 	<packaging>war</packaging>
 	<name>upit-web</name>
 
-	<properties>
-		<preassembly.dir>${basedir}/target/preassembly</preassembly.dir>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
@@ -51,7 +47,7 @@
 			</plugin>
 
 			<plugin>
-				<groupId>jp.co.worksap.jax_rs</groupId>
+@				<groupId>jp.co.worksap.jax_rs</groupId>
 				<artifactId>js-generator-for-jax-rs</artifactId>
 				<version>1.0.1-SNAPSHOT</version>
 
@@ -94,10 +90,10 @@
 				</executions>
 				<configuration>
 					<!-- optional path to a nodejs executable -->
-					<!-- ><nodeExecutable> /opt/nodejs/node </nodeExecutable> -->
+					<!-- <nodeExecutable> /opt/nodejs/node </nodeExecutable> -->
 					<!-- path to optimizer json config file -->
 
-					<configFile>src/main/config/app/build.js</configFile>
+					<configFile>src/main/config/build.js</configFile>
 
 					<!-- optional parameters to optimizer executable -->
 					<!-- <optimizerParameters> 
