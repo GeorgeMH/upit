@@ -1,4 +1,4 @@
-﻿requirejs.config({
+﻿/*requirejs.config({
 	urlArgs : "bust=" + (new Date()).getTime(),
 	paths : {
 		'text' : '../lib/require/text',
@@ -20,9 +20,9 @@
 			exports : 'knockoutMapping'
 		}
 	}
-});
+}); */
 
-define([ 'durandal/system', 'durandal/app', 'durandal/viewLocator', 'knockout', 'knockoutMapping'], function(system, app, viewLocator, ko, koMapping) {
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'knockout', 'knockoutMapping'], function(system, app, viewLocator, ko, koMapping) {
 	// >>excludeStart("build", true);.
 	system.debug(true);
 	// >>excludeEnd("build");
