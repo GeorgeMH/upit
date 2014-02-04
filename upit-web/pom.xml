@@ -165,62 +165,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!-- This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. TODO: Fix the lifecycle 
-					mapping stuff to work in eclipse for the jax_rs generator properly -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											jp.co.worksap.jax_rs
-										</groupId>
-										<artifactId>
-											js-generator-for-jax-rs
-										</artifactId>
-										<versionRange>
-											[1.0.1-SNAPSHOT,)
-										</versionRange>
-										<goals>
-											<goal>generate</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											com.github.bringking
-										</groupId>
-										<artifactId>
-											requirejs-maven-plugin
-										</artifactId>
-										<versionRange>
-											[2.0.2,)
-										</versionRange>
-										<goals>
-											<goal>optimize</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+
 	</build>
 
 </project>
