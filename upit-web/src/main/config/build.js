@@ -1,7 +1,7 @@
 ({
-    appDir: "../",
-    baseUrl: "app",
-    dir: "../../webapp",
+    appDir: "../webapp",
+    baseUrl: "../webapp/app",
+    dir: "../../app-build",
     modules: [
         {
             name: "main"
@@ -27,4 +27,4 @@
 			exports : 'knockoutMapping'
 		}
 	}
-})
+});
