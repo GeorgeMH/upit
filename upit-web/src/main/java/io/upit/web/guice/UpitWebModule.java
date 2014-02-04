@@ -1,6 +1,7 @@
 package io.upit.web.guice;
 
 import io.upit.web.guice.providers.JacksonJsonProviderProvider;
+import io.upit.web.guice.providers.ObjectMapperProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,12 +18,11 @@ public class UpitWebModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
-		//What is the diff between using install() here, and adding it to the ContextListener  Guice.createInjector ?
-		//install(new UpitCoreJpaModule());
-
 		filter("/api/*").through(PersistFilter.class);
 
 		//Setup our object mappings for Interface -> Concrete implementation mappings
+		// It's to bad we can't let the guice module in upit-core-jpa define these mappings alone,
+		// but upit-core-jpa has no context (and should not have context) for jersey/jackson.
 		bind(ObjectMapper.class).toProvider(ObjectMapperProvider.class).in(Singleton.class);
 		bind(JacksonJsonProvider.class).toProvider(JacksonJsonProviderProvider.class).in(Singleton.class);
 

@@ -12,8 +12,7 @@ public interface AuthSessionManager {
 	 * Attempt to login with the specified credentials. Returns a newly created
 	 * AuthSession object if successful, null on failure.
 	 * 
-	 * @param loginRequest
-	 *            the login request object
+	 * @param loginRequest the login request object
 	 * @return the AuthSession if successful, otherwise null
 	 */
 	public AuthSession login(LoginRequest loginRequest);
