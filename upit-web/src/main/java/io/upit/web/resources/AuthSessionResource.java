@@ -3,10 +3,10 @@ package io.upit.web.resources;
 import io.upit.core.api.AuthSessionManager;
 import io.upit.core.api.models.AuthSession;
 import io.upit.core.api.models.LoginRequest;
-import io.upit.core.jpa.api.dal.models.JpaAuthSession;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,20 +30,20 @@ public class AuthSessionResource {
 	@Path("login/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Transactional
-	public AuthSession login(LoginRequest loginRequest) {
+	public AuthSession login(@FormParam("loginRequest") LoginRequest loginRequest) {
 		return authSessionManager.login(loginRequest);
 	}
 
 	@POST
 	@Path("validate/")
 	@Transactional
-	public AuthSession validateSession(JpaAuthSession session) {
+	public AuthSession validateSession(@FormParam("session") AuthSession session) {
 		return authSessionManager.validateSession(session);
 	}
 
 	@DELETE
-	@Path("delete/")
-	public void endSession(AuthSession session) {
+	@Path("end/")
+	public void endSession(@FormParam("session") AuthSession session) {
 		authSessionManager.endSession(session);
 	}
 

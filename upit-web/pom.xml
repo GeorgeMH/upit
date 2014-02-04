@@ -11,8 +11,11 @@
 	<artifactId>upit-web</artifactId>
 
 	<packaging>war</packaging>
-
 	<name>Upit Web</name>
+
+	<properties>
+		<preassembly.dir>${basedir}/target/preassembly</preassembly.dir>
+	</properties>
 
 	<dependencies>
 
@@ -58,9 +61,126 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<!-- copy resources from this folder into the webapp before packaging -->
+							<directory>${preassembly.dir}</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
 
+			<plugin>
+				<groupId>jp.co.worksap.jax_rs</groupId>
+				<artifactId>js-generator-for-jax-rs</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
 
+				<configuration>
+					<packageName>io.upit.web.resources</packageName>
+					<outputDirectory>target/preassembly/app/upit/api/gen/</outputDirectory>
+				</configuration>
+
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<dependencies>
+
+					<!-- The code generator plugin needs build-time access to upit-core-jpa -->
+					<dependency>
+						<groupId>io.upit</groupId>
+						<version>0.0.1-SNAPSHOT</version>
+						<artifactId>upit-core-jpa</artifactId>
+					</dependency>
+
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.bringking</groupId>
+				<artifactId>requirejs-maven-plugin</artifactId>
+				<version>2.0.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>optimize</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- optional path to a nodejs executable -->
+					<!-- ><nodeExecutable> /opt/nodejs/node </nodeExecutable> -->
+					<!-- path to optimizer json config file -->
+
+					<configFile>src/main/webapp/app/build.js</configFile>
+					
+					<!-- optional path to optimizer executable -->
+					<!-- <optimizerFile> ${basedir}/src/main/scripts/r.js </optimizerFile> -->
+
+					<!-- optional parameters to optimizer executable -->
+					<!-- <optimizerParameters> <parameter>optimize=uglify</parameter> <parameter>baseUrl=${baseDir}</parameter> 
+						</optimizerParameters> -->
+
+					<!-- Whether or not to process configFile with maven filters. If you 
+						use this option, some options in your configFile must resolve to absolute 
+						paths (see below) -->
+					<filterConfig>
+						false
+					</filterConfig>
+					<!-- Skip requirejs optimization if true -->
+					<skip>
+						false
+					</skip>
+				</configuration>
+			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!-- This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. TODO: Fix the lifecycle 
+					mapping stuff to work in eclipse for the jax_rs generator properly -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											jp.co.worksap.jax_rs
+										</groupId>
+										<artifactId>
+											js-generator-for-jax-rs
+										</artifactId>
+										<versionRange>
+											[1.0.1-SNAPSHOT,)
+										</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

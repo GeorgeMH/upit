@@ -1,4 +1,4 @@
-define([ 'jquery', 'knockout', 'durandal/app', 'upit/api/UserResource', 'models/UserSession' ], function($, ko, app, userResource, userSession) {
+define([ 'jquery', 'knockout', 'durandal/app', 'upit/api/gen/userResource', 'models/UserSession' ], function($, ko, app, userResource, userSession) {
 	return function() {
 		var self = this;
 

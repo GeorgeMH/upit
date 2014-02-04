@@ -29,8 +29,8 @@ public class JpaUserManager implements UserManager {
 	}
 
 	@Override
-	public User register(User iUser) {
-		JpaUser user = JpaUser.toJpaUser(iUser);
+	public User register(User intfUser) {
+		JpaUser user = JpaUser.toJpaUser(intfUser);
 
 		if (Strings.isNullOrEmpty(user.getEmail())) {
 			throw new IllegalStateException("Email is not set");

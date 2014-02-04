@@ -10,7 +10,7 @@
 
 	<artifactId>upit-core-jpa</artifactId>
 
-	<name>Upit - CORE</name>
+	<name>upit-core-jpa</name>
 	<description>Upit API Core JPA implementation</description>
 
 	<dependencies>

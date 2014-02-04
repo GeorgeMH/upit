@@ -19,6 +19,9 @@ public class JpaUser implements User {
 	private long id;
 
 	@Column(unique = true, nullable = false)
+	private String userName;
+
+	@Column(unique = true, nullable = true)
 	private String email;
 	
 	@Column(nullable = false)
@@ -35,6 +38,16 @@ public class JpaUser implements User {
 	@Override
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String getUserName() {
+		return userName;
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	@Override
@@ -92,11 +105,12 @@ public class JpaUser implements User {
 		// TODO: This should never actually get called since guice and jersey
 		// handle all bindings to implementations during app startup, but should
 		// we really assert that it never happens?
-		// assert false;
+		assert false;
 
-		// bleh, manually convert.
+		// Manually convert to the JPA impl of User
 		JpaUser ret = new JpaUser();
 		ret.setId(user.getId());
+		ret.setUserName(user.getUserName());
 		ret.setEmail(user.getEmail());
 		ret.setPassword(user.getPassword());
 		ret.setDateCreated(user.getDateCreated());

@@ -5,6 +5,9 @@ import java.util.Date;
 public interface User {
 	public long getId();
 	public void setId(long id);
+	
+	public String getUserName();
+	void setUserName(String userName);
 
 	public String getEmail();
 	public void setEmail(String email);
