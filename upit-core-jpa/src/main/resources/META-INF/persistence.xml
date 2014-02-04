@@ -6,7 +6,8 @@
 	version="1.0">
 
 	<!-- A JPA Persistence Unit -->
-	<persistence-unit name="upit-dal-hibernate" transaction-type="RESOURCE_LOCAL">
+	<!-- transaction-type="RESOURCE_LOCAL" -->
+	<persistence-unit name="upit-dal-hibernate">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<!-- JPA entities must be registered here -->
@@ -26,7 +27,7 @@
 			<!--  <property name="hibernate.hbm2ddl.auto" value="update"/>  -->
 			
 			<!-- Re-create the DB from scratch every time . testing only -->
-			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-update"/>
 			
  			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
  			<!-- <property name="hibernate.archive.autodetection" value="class" /> -->

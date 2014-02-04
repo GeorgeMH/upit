@@ -85,8 +85,16 @@ public class JpaUser implements User {
 	
 	public static JpaUser toJpaUser(User user) {
 		if (user instanceof JpaUser) {
+			// We match! just cast it and get out!
 			return (JpaUser) user;
 		}
+		
+		// TODO: This should never actually get called since guice and jersey
+		// handle all bindings to implementations during app startup, but should
+		// we really assert that it never happens?
+		// assert false;
+
+		// bleh, manually convert.
 		JpaUser ret = new JpaUser();
 		ret.setId(user.getId());
 		ret.setEmail(user.getEmail());
