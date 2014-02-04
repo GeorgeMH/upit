@@ -19,6 +19,7 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<artifactId>upit-jax-rs</artifactId>
 		 	<type>war</type>
+		 	<scope>runtime</scope>
 		</dependency>
 
 	</dependencies>

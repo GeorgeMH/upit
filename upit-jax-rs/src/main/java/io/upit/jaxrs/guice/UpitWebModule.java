@@ -1,7 +1,7 @@
-package io.upit.web.guice;
+package io.upit.jaxrs.guice;
 
-import io.upit.web.guice.providers.JacksonJsonProviderProvider;
-import io.upit.web.guice.providers.ObjectMapperProvider;
+import io.upit.jaxrs.guice.providers.JacksonJsonProviderProvider;
+import io.upit.jaxrs.guice.providers.ObjectMapperProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class UpitWebModule extends ServletModule {
 		bind(JacksonJsonProvider.class).toProvider(JacksonJsonProviderProvider.class).in(Singleton.class);
 
 		Map<String, String> guiceInitParams = new HashMap<String, String>();
-		guiceInitParams.put("com.sun.jersey.config.property.packages", "io.upit.web.resources");
+		guiceInitParams.put("com.sun.jersey.config.property.packages", "io.upit.jaxrs.resources");
 		// See:http://www.mkyong.com/webservices/jax-rs/json-example-with-jersey-jackson/
 		guiceInitParams.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
 

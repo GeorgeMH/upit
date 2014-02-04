@@ -1,4 +1,4 @@
-package io.upit.web.guice;
+package io.upit.jaxrs.guice;
 
 import io.upit.core.jpa.guice.UpitCoreJpaModule;
 

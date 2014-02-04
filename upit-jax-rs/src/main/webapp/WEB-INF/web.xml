@@ -15,7 +15,7 @@
 	</filter-mapping>
 
 	<listener>
-		<listener-class>io.upit.web.guice.UpitContextListener</listener-class>
+		<listener-class>io.upit.jaxrs.guice.UpitContextListener</listener-class>
 	</listener>
 
 </web-app>

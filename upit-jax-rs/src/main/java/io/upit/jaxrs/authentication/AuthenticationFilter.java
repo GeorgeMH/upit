@@ -1,4 +1,4 @@
-package io.upit.web.authentication;
+package io.upit.jaxrs.authentication;
 
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;

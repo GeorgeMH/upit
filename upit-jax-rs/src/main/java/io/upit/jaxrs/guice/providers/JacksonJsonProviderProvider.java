@@ -1,4 +1,4 @@
-package io.upit.web.guice.providers;
+package io.upit.jaxrs.guice.providers;
 
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.map.ObjectMapper;

@@ -1,4 +1,4 @@
-package io.upit.web.guice.providers;
+package io.upit.jaxrs.guice.providers;
 
 import io.upit.core.api.models.AuthSession;
 import io.upit.core.api.models.LoginRequest;

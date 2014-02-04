@@ -1,4 +1,4 @@
-package io.upit.web.resources;
+package io.upit.jaxrs.resources;
 
 import io.upit.core.api.UserManager;
 import io.upit.core.api.models.User;
