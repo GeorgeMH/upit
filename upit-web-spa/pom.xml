@@ -10,7 +10,7 @@
 	<artifactId>upit-web-spa</artifactId>
 
 	<packaging>war</packaging>
-	<name>upit-web</name>
+	<name>upit-web-spa</name>
 
 	<dependencies>
 
