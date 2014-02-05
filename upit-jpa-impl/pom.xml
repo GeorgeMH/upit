@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>upit-core-jpa</artifactId>
+	<artifactId>upit-jpa-impl</artifactId>
 
 	<name>upit-core-jpa</name>
 	<description>Upit API Core JPA implementation</description>

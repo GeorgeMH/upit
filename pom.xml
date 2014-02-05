@@ -10,10 +10,10 @@
 	<name>Upit</name>
 
 	<modules>
-		<module>upit-api</module>
-		<module>upit-core-jpa</module>
+		<module>upit-core-api</module>
+		<module>upit-jpa-impl</module>
 		<module>upit-jax-rs</module>
-		<module>upit-web</module>
+		<module>upit-web-spa</module>
 	</modules>
 	
 	<dependencies>
