@@ -1,17 +1,13 @@
 package io.upit.core.jpa.api.dal.models;
 
 import io.upit.core.api.models.AuthSession;
-import io.upit.core.api.models.User;
 
 import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity(name = "AuthSession")
 public class JpaAuthSession implements AuthSession {
@@ -40,10 +36,6 @@ public class JpaAuthSession implements AuthSession {
 
 	@Column(nullable = false)
 	private boolean secure;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId")
-	private JpaUser user;
 
 	@Override
 	public String getSessionId() {
@@ -123,14 +115,6 @@ public class JpaAuthSession implements AuthSession {
 	@Override
 	public void setSecure(boolean secure) {
 		this.secure = secure;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = JpaUser.toJpaUser(user);
 	}
 
 	@Override

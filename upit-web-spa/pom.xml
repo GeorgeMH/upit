@@ -45,6 +45,13 @@
 
 	<build>
 		<plugins>
+
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.1.1.v20140108</version>
+			</plugin>
+			
 			<plugin>
 				<groupId>org.lesscss</groupId>
 				<artifactId>lesscss-maven-plugin</artifactId>
@@ -107,9 +114,10 @@
 						<goals>
 							<goal>optimize</goal>
 						</goals>
+						<phase>none</phase>
 					</execution>
 				</executions>
-				
+
 				<configuration>
 					<!-- optional path to a nodejs executable -->
 					<!-- <nodeExecutable> /opt/nodejs/node </nodeExecutable> -->

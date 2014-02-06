@@ -13,7 +13,7 @@ public class UpitContextListener extends GuiceServletContextListener {
 	@Override
 	protected Injector getInjector() {
 		if (null == injector) {
-			injector = Guice.createInjector(new UpitCoreJpaModule(), new UpitWebModule());
+			injector = Guice.createInjector(new UpitCoreJpaModule(), new UpitJaxRSModule());
 		}
 		return injector;
 	}

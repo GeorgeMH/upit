@@ -14,7 +14,7 @@ import com.google.inject.persist.PersistFilter;
 import com.google.inject.servlet.ServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 
-public class UpitWebModule extends ServletModule {
+public class UpitJaxRSModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
