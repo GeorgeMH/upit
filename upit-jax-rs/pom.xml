@@ -10,7 +10,7 @@
 
 	<artifactId>upit-jaxrs-bindings</artifactId>
 
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>upit-jax-rs</name>
 	<description>Upit JAX-RS bindings</description>
 
