@@ -6,7 +6,6 @@ import io.upit.core.api.models.LoginRequest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -17,6 +16,7 @@ import com.google.inject.persist.Transactional;
 
 @Path("/auth")
 @Produces("application/json")
+@Consumes(MediaType.APPLICATION_JSON)
 public class AuthSessionResource {
 
 	private final AuthSessionManager authSessionManager;
@@ -28,22 +28,22 @@ public class AuthSessionResource {
 
 	@POST
 	@Path("login/")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Transactional
-	public AuthSession login(@FormParam("loginRequest") LoginRequest loginRequest) {
+	public AuthSession login(LoginRequest loginRequest) {
 		return authSessionManager.login(loginRequest);
 	}
 
 	@POST
 	@Path("validate/")
 	@Transactional
-	public AuthSession validateSession(@FormParam("session") AuthSession session) {
+	public AuthSession validateSession(AuthSession session) {
 		return authSessionManager.validateSession(session);
 	}
 
 	@DELETE
 	@Path("end/")
-	public void endSession(@FormParam("session") AuthSession session) {
+	@Transactional
+	public void endSession(AuthSession session) {
 		authSessionManager.endSession(session);
 	}
 

@@ -18,12 +18,14 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
 	@Override
 	public ObjectMapper get() {
 
-		// TODO: Load the version information dynamically via .properties file
+		// TODO: Load the version information dynamically via .properties file or something
 		ObjectMapper objectMapper = new ObjectMapper();
+
 		SimpleModule abstractTypeModule = new SimpleModule("upit-api-mappings", new Version(0, 0, 1, "SNAPSHOT"));
 		abstractTypeModule.addAbstractTypeMapping(AuthSession.class, JpaAuthSession.class);
 		abstractTypeModule.addAbstractTypeMapping(User.class, JpaUser.class);
 		abstractTypeModule.addAbstractTypeMapping(LoginRequest.class, JpaLoginRequest.class);
+
 		objectMapper.registerModule(abstractTypeModule);
 
 		return objectMapper;
