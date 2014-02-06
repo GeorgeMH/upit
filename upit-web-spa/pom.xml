@@ -92,7 +92,7 @@
 					<dependency>
 						<groupId>io.upit</groupId>
 						<version>0.0.1-SNAPSHOT</version>
-						<artifactId>upit-core-jpa</artifactId>
+						<artifactId>upit-jpa-impl</artifactId>
 					</dependency>
 
 				</dependencies>
@@ -109,6 +109,7 @@
 						</goals>
 					</execution>
 				</executions>
+				
 				<configuration>
 					<!-- optional path to a nodejs executable -->
 					<!-- <nodeExecutable> /opt/nodejs/node </nodeExecutable> -->

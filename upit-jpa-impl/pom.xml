@@ -17,7 +17,7 @@
 	
 		<dependency>
 			<groupId>io.upit</groupId>
-			<artifactId>upit-api</artifactId>
+			<artifactId>upit-core-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	
