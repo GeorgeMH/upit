@@ -76,7 +76,7 @@
 
 			<plugin>
 				<groupId>io.upit.tools</groupId>
-				<artifactId>jax-js-gen</artifactId>
+				<artifactId>jaxrs-js-gen</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 
 				<configuration>
