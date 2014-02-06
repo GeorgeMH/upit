@@ -15,7 +15,8 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 
 @Path("/user")
-@Produces("application/json")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
 	private final UserManager userManager;
@@ -27,7 +28,6 @@ public class UserResource {
 
 	@GET
 	@Path("get/{id}/")
-	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
 	public User getUserById(@PathParam("id") String idStr) {
 		return userManager.getUserById(Long.parseLong(idStr));
@@ -35,7 +35,6 @@ public class UserResource {
 
 	@POST
 	@Path("register/")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Transactional
 	public User register(User user) {
 		return userManager.register(user);
