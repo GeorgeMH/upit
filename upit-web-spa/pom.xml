@@ -45,14 +45,14 @@
 
 	<build>
 		<plugins>
-		
+
 			<plugin>
 				<groupId>io.upit.tools</groupId>
 				<artifactId>jaxrs-js-gen</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 
 				<configuration>
-					<outputDirectory>target/generated/</outputDirectory>
+					<outputDirectory>src/main/webapp/app/models/api/</outputDirectory>
 					
 					<!-- Classes to generate from -->
 					<resourceClasses>
@@ -69,7 +69,7 @@
 						</goals>
 					</execution>
 				</executions>
-				
+
 				<dependencies>
 					<!-- The code generator plugin needs build-time access to upit-core-jpa 
 						so we must list it explicitly as a plugin dependency -->
@@ -87,6 +87,8 @@
 				<version>9.1.1.v20140108</version>
 			</plugin>
 
+
+<!-- 
 			<plugin>
 				<groupId>org.lesscss</groupId>
 				<artifactId>lesscss-maven-plugin</artifactId>
@@ -107,33 +109,9 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>com.github.bringking</groupId>
-				<artifactId>requirejs-maven-plugin</artifactId>
-				<version>2.0.2</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>optimize</goal>
-						</goals>
-					</execution>
-				</executions>
-
-				<configuration>
-					<configFile>src/main/config/build.js</configFile>
-					
-					<!-- optional parameters to optimizer executable -->
-					<!-- <optimizerParameters> <parameter>optimize=uglify</parameter> <parameter>baseUrl=${baseDir}</parameter> 
-						</optimizerParameters> -->
-
-					<filterConfig>true</filterConfig>
-
-					<!-- Skip requirejs optimization if true -->
-					<skip>false</skip>
-				</configuration>
-			</plugin>
+			</plugin> 
+-->
+			
 
 		</plugins>
 
