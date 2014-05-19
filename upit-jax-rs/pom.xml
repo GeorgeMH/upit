@@ -11,6 +11,7 @@
 	<artifactId>upit-jaxrs-bindings</artifactId>
 
 	<packaging>jar</packaging>
+
 	<name>upit-jax-rs</name>
 	<description>Upit JAX-RS bindings</description>
 

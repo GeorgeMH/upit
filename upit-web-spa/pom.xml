@@ -11,7 +11,9 @@
 	<artifactId>upit-web-spa</artifactId>
 
 	<packaging>war</packaging>
+	
 	<name>upit-web-spa</name>
+	<description>Single Page Application Frontend for Upit.IO</description>
 
 	<dependencies>
 

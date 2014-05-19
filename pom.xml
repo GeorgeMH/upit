@@ -8,6 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>Upit.IO</name>
+	<description>Upit.IO Parent Project</description>
 
 	<modules>
 		<module>upit-core-api</module>
@@ -15,23 +16,24 @@
 		<module>upit-jax-rs</module>
 		<module>upit-web-spa</module>
 	</modules>
-	
+
 	<dependencies>
+
 		<!-- Base Guice Dep -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<version>3.0</version>
 		</dependency>
-		
 
-		<!--  Common Utils from Apache foundation -->
+
+		<!-- Common Utils from Apache foundation -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.2.1</version>
 		</dependency>
-		
+
 		<!-- Logging Libraries -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -44,12 +46,12 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.5</version>
 		</dependency>
-	
+
 	</dependencies>
 
 	<build>
 		<plugins>
-		
+
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -60,7 +62,7 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 </project>

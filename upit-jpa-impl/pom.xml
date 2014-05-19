@@ -11,7 +11,7 @@
 	<artifactId>upit-jpa-impl</artifactId>
 
 	<name>upit-jpa-impl</name>
-	<description>Upit API Core JPA implementation</description>
+	<description>JPA implementation of the Upit.IO core API</description>
 
 	<dependencies>
 	

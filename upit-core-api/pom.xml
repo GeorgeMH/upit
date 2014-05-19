@@ -8,5 +8,8 @@
   </parent>
 
   <artifactId>upit-core-api</artifactId>
+  
+  <name>upit-core-api</name>
+  <description>Core API of Upit.IO</description>
 
 </project>
