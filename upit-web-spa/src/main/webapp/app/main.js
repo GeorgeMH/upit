@@ -1,3 +1,34 @@
+requirejs.config({
+    //appDir: "../webapp",
+    baseUrl: "app",
+	urlArgs : 'bust=' + new Date().getTime(),
+    modules: [
+        {
+            name: "main"
+        }
+    ],
+	paths : {
+		'text' : './lib/require/text',
+		'durandal' : './lib/durandal/js',
+		'plugins' : './lib/durandal/js/plugins',
+		'transitions' : './lib/durandal/js/transitions',
+		'knockout' : './lib/knockout/knockout-2.3.0',
+		'knockoutMapping' : './lib/knockout/knockout.mapping-2.4.1',
+		'bootstrap' : './lib/bootstrap/js/bootstrap',
+		'jquery' : './lib/jquery/jquery-1.9.1'
+	},
+	shim : {
+		'bootstrap' : {
+			deps : [ 'jquery' ],
+			exports : 'jQuery'
+		},
+		'knockoutMapping': {
+			deps : [ 'knockout' ],
+			exports : 'knockoutMapping'
+		}
+	}
+});
+
 define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'knockout', 'knockoutMapping'], function(system, app, viewLocator, ko, koMapping) {
 	// >>excludeStart("build", true);.
 	system.debug(true);

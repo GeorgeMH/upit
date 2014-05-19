@@ -3,6 +3,7 @@ package io.upit.core.api.models;
 import java.util.Date;
 
 public interface User {
+
 	public long getId();
 	public void setId(long id);
 	
@@ -17,4 +18,5 @@ public interface User {
 
 	public Date getDateCreated();
 	public void setDateCreated(Date dateCreated);
+
 }

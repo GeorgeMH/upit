@@ -19,7 +19,6 @@ import com.google.inject.persist.Transactional;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthSessionResource {
 
-
 	private final AuthSessionManager authSessionManager;
 
 	@Inject

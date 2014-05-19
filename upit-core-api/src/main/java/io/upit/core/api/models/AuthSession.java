@@ -27,4 +27,5 @@ public interface AuthSession {
 
 	public boolean isSecure();
 	public void setSecure(boolean secure);
+
 }

@@ -52,15 +52,20 @@
 				<version>0.0.1-SNAPSHOT</version>
 
 				<configuration>
-					<outputDirectory>src/main/webapp/app/models/api/</outputDirectory>
-					
+					<outputDirectory>src/main/webapp/app/models/generated/</outputDirectory>
+
+					<modelClasses>
+						<modelClass></modelClass>
+					</modelClasses>
+
 					<!-- Classes to generate from -->
 					<resourceClasses>
 						<resourceClass>io.upit.jaxrs.resources.UserResource</resourceClass>
 						<resourceClass>io.upit.jaxrs.resources.AuthSessionResource</resourceClass>
 					</resourceClasses>
+
 				</configuration>
-				
+
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -80,7 +85,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>

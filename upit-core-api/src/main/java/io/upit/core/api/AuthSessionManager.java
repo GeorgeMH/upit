@@ -20,15 +20,15 @@ public interface AuthSessionManager {
 	/**
 	 * Validate session is still valid and active.
 	 *
-	 * @param session            the session
-	 * @return the auth session
+	 * @param authSession the auth session
+	 * @return the auth session as it is represented in the database.
 	 */
-	public AuthSession validateSession(AuthSession session);
+	public AuthSession validateSession(AuthSession authSession);
 
 	/**
 	 * Ends the specified AuthSession, making it inactive.
 	 *
-	 * @param session            the session to end
+	 * @param authSession the auth session
 	 */
-	public void endSession(AuthSession session);
+	public void endSession(AuthSession authSession);
 }
