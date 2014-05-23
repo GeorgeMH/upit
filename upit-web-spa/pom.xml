@@ -11,7 +11,7 @@
 	<artifactId>upit-web-spa</artifactId>
 
 	<packaging>war</packaging>
-	
+
 	<name>upit-web-spa</name>
 	<description>Single Page Application Frontend for Upit.IO</description>
 
@@ -94,31 +94,75 @@
 				<version>9.1.1.v20140108</version>
 			</plugin>
 
-
-<!-- 
 			<plugin>
-				<groupId>org.lesscss</groupId>
-				<artifactId>lesscss-maven-plugin</artifactId>
-				<version>1.3.3</version>
-				<configuration>
-					<sourceDirectory>${project.basedir}/src/main/webapp/css</sourceDirectory>
-					<outputDirectory>${project.build.directory}/${project.build.finalName}/css</outputDirectory>
-
-					<compress>true</compress>
-					<includes>
-						<include>upit.less</include>
-					</includes>
-				</configuration>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
 				<executions>
 					<execution>
+						<phase>generate-sources</phase>
+						<configuration>
+							<target name="building">
+							
+								<echo>
+									<!-- NPM INSTALL -->
+								</echo>
+								
+								<exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+									<arg line="/c npm config set color false" />
+								</exec>
+								
+								<exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
+									<arg line="npm config set color false" />
+								</exec>
+								
+								<exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+									<arg line="/c npm install" />
+								</exec>
+								
+								<exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
+									<arg line="npm install" />
+								</exec>
+								
+								<echo>
+									<!-- GRUNT -->
+								</echo>
+								
+								<exec executable="cmd" dir="${project.basedir}" osfamily="windows" resultproperty="cmdresult">
+									<arg line="/c grunt --no-color > grunt.status " />
+								</exec>
+								
+								<exec executable="bash" dir="${project.basedir}" osfamily="unix" resultproperty="cmdresult">
+									<arg line="grunt --no-color > grunt.status" />
+								</exec>
+								
+								<loadfile property="grunt.status" srcFile="grunt.status" />
+								
+								<echo>${grunt.status}</echo>
+								
+								<delete file="grunt.status" quiet="true" />
+								
+								<condition property="cmdsuccess">
+									<equals arg1="${cmdresult}" arg2="0" />
+								</condition>
+								
+								<fail unless="cmdsuccess" />
+							</target>
+						</configuration>
 						<goals>
-							<goal>compile</goal>
+							<goal>run</goal>
 						</goals>
 					</execution>
 				</executions>
-			</plugin> 
--->
-			
+			</plugin>
+
+
+			<!-- <plugin> <groupId>org.lesscss</groupId> <artifactId>lesscss-maven-plugin</artifactId> 
+				<version>1.3.3</version> <configuration> <sourceDirectory>${project.basedir}/src/main/webapp/css</sourceDirectory> 
+				<outputDirectory>${project.build.directory}/${project.build.finalName}/css</outputDirectory> 
+				<compress>true</compress> <includes> <include>upit.less</include> </includes> 
+				</configuration> <executions> <execution> <goals> <goal>compile</goal> </goals> 
+				</execution> </executions> </plugin> -->
+
 
 		</plugins>
 

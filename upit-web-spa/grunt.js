@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 		},
 
 		jasmine : {
-			src : gruntSupport.getVendeorDependency().concat(['src/main/webapp/js/**/*.js']),
+			src : gruntSupport.getVendeorDependency().concat(['src/main/webapp/app/**/*.js']),
 			specs : 'src/test/js/jasmine-specs/**/*_spec.js',
 			timeout : 5000,
 			junit : {
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 function GruntSupport(grunt) {
 	
 	function getLintFiles() {
-		var jsRoots =['grunt.js', 'src/test/js/jasmine-specs/**/*.js', 'src/main/webapp/js/**/*.js'];
+		var jsRoots =['grunt.js', 'src/test/js/jasmine-specs/**/*.js', 'src/main/webapp/app/**/*.js'];
 		var files = grunt.file.expandFiles(jsRoots).filter(function(file) {
 			return file.indexOf('/vendor/') < 0;
 		});
