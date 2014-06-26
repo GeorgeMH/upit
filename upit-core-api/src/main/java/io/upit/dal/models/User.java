@@ -1,11 +1,11 @@
-package io.upit.core.api.models;
+package io.upit.dal.models;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 public interface User {
 
-	public long getId();
-	public void setId(long id);
+	public String getId();
+	public void setId(String id);
 	
 	public String getUserName();
 	void setUserName(String userName);
@@ -16,7 +16,7 @@ public interface User {
 	public String getPassword();
 	public void setPassword(String password);
 
-	public Date getDateCreated();
-	public void setDateCreated(Date dateCreated);
+	public DateTime getDateCreated();
+	public void setDateCreated(DateTime dateCreated);
 
 }

@@ -12,9 +12,9 @@
 
 	<modules>
 		<module>upit-core-api</module>
-		<module>upit-jpa-impl</module>
 		<module>upit-jax-rs</module>
 		<module>upit-web-spa</module>
+		<module>upit-jdbi-mysql</module>
 	</modules>
 
 	<dependencies>
@@ -25,7 +25,6 @@
 			<artifactId>guice</artifactId>
 			<version>3.0</version>
 		</dependency>
-
 
 		<!-- Common Utils from Apache foundation -->
 		<dependency>

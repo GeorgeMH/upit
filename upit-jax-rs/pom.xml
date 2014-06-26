@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>io.upit</groupId>
 			<version>0.0.1-SNAPSHOT</version>
-			<artifactId>upit-jpa-impl</artifactId>
+			<artifactId>upit-jdbi-mysql</artifactId>
 		</dependency>
 
 		<!-- Third party deps -->

@@ -1,11 +1,11 @@
-package io.upit.core.api.models;
+package io.upit.dal.models;
 
 public interface LoginRequest {
 	
 	public String getUserName();
 	public void setUserName(String userName);
 
-	public String getPassWord();
-	public void setPassWord(String passWord);
+	public String getPassword();
+	public void setPassword(String password);
 
 }

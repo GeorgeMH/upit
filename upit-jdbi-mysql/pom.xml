@@ -1,26 +1,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>io.upit</groupId>
 		<artifactId>upit</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>upit-core-dal</artifactId>
-
-	<name>upit-core-dal</name>
-	<description>Core API of Upit.IO</description>
+	<artifactId>upit-jdbi-mysql</artifactId>
+	<name>uipt-jdbi-mysql</name>
 
 	<dependencies>
-
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.3</version>
+			<groupId>io.upit</groupId>
+			<artifactId>upit-core-dal</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Third Party Dependencies -->
+		<dependency>
+			<groupId>org.jdbi</groupId>
+			<artifactId>jdbi</artifactId>
+			<version>2.55</version>
 		</dependency>
 
 	</dependencies>
-
 </project>
