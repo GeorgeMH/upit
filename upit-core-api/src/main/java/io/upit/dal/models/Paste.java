@@ -19,6 +19,6 @@ public interface Paste {
 	public String getParentId();
 	public void setParentId(String parentId);
 
-	public int getSyntaxId();
-	public void setSyntaxId(int syntaxId);
+	public String getSyntaxId();
+	public void setSyntaxId(String syntaxId);
 }

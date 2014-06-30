@@ -1,6 +1,8 @@
-package io.upit.dal.models.impls;
+package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.LoginRequest;
+
+import java.util.Objects;
 
 public class LoginRequestImpl implements LoginRequest {
 
@@ -27,5 +29,18 @@ public class LoginRequestImpl implements LoginRequest {
 		this.password = password;
 	}
 
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(userName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof LoginRequest)) {
+			return false;
+		}
+		return Objects.equals(getUserName(), ((LoginRequest) obj).getUserName());
+	}
 
 }

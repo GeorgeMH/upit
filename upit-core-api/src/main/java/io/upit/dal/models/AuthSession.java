@@ -10,9 +10,6 @@ public interface AuthSession {
 	public String getUserId();
 	public void setUserId(String userId);
 
-	public String getToken();
-	public void setToken(String authToken);
-
 	public DateTime getCreated();
 	public void setCreated(DateTime created);
 
@@ -20,12 +17,10 @@ public interface AuthSession {
 	public void setExpires(DateTime expires);
 
 	public DateTime getLastAccessed();
-	public DateTime setLastAccessed(DateTime lastAccessed);
+
+	public void setLastAccessed(DateTime lastAccessed);
 
 	public boolean isActive();
 	public void setActive(boolean active);
-
-	public boolean isSecure();
-	public void setSecure(boolean secure);
 
 }

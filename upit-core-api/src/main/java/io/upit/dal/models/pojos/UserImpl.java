@@ -1,4 +1,4 @@
-package io.upit.dal.models.impls;
+package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.User;
 
@@ -67,7 +67,7 @@ public class UserImpl implements io.upit.dal.models.User {
 
 	@Override
 	public int hashCode() {
-		return null == getId() ? -1 : getId().hashCode();
+		return Objects.hash(getId());
 	}
 
 	@Override

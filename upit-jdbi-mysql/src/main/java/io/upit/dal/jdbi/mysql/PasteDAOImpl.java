@@ -3,36 +3,33 @@ package io.upit.dal.jdbi.mysql;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.models.Paste;
 
-public class PasteDAOImpl implements PasteDAO {
+import org.skife.jdbi.v2.sqlobject.Bind;
+import org.skife.jdbi.v2.sqlobject.BindBean;
+import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
+import org.skife.jdbi.v2.sqlobject.SqlQuery;
+import org.skife.jdbi.v2.sqlobject.SqlUpdate;
+
+public abstract class PasteDAOImpl implements PasteDAO {
 
 	@Override
-	public String create(Paste data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@GetGeneratedKeys
+	@SqlUpdate("jdbi_sql/Paste.create.sql")
+	public abstract String create(@BindBean Paste data);
 
 	@Override
-	public void update(Paste data) {
-		// TODO Auto-generated method stub
-
-	}
+	@SqlUpdate("jdbi_sql/Paste.update.sql")
+	public abstract void update(@BindBean Paste data);
 
 	@Override
-	public void delete(Paste data) {
-		// TODO Auto-generated method stub
-
-	}
+	@SqlUpdate("jdbi_sql/Paste.deleteById.sql")
+	public abstract void delete(@BindBean Paste data);
 
 	@Override
-	public void deleteById(String id) {
-		// TODO Auto-generated method stub
-
-	}
+	@SqlUpdate("jdbi_sql/Paste.deleteById.sql")
+	public abstract void deleteById(@Bind("id") String id);
 
 	@Override
-	public Paste getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@SqlQuery("jdbi_sql/Paste.getById.sql")
+	public abstract Paste getById(@Bind("id") String id);
 
 }

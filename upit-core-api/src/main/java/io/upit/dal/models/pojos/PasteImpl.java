@@ -1,22 +1,24 @@
-package io.upit.dal.models.impls;
+package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.Paste;
+
+import java.util.Objects;
 
 import org.joda.time.DateTime;
 
 public class PasteImpl implements Paste {
-	
+
 	private String id;
 
 	private String text;
-	
+
 	private String userId;
 
 	private DateTime dateCreated;
 
 	private String parentId;
 
-	private int syntaxId;
+	private String syntaxId;
 
 	@Override
 	public String getId() {
@@ -69,13 +71,25 @@ public class PasteImpl implements Paste {
 	}
 
 	@Override
-	public int getSyntaxId() {
+	public String getSyntaxId() {
 		return syntaxId;
 	}
 
 	@Override
-	public void setSyntaxId(int syntaxId) {
+	public void setSyntaxId(String syntaxId) {
 		this.syntaxId = syntaxId;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Paste)) {
+			return false;
+		}
+		return Objects.equals(getId(), ((Paste) obj).getId());
+	}
 }
