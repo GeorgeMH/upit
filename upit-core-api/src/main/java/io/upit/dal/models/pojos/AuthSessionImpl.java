@@ -10,7 +10,6 @@ public class AuthSessionImpl implements AuthSession {
 	
 	private String sessionId;
 	private String userId;
-	private String token;
 	private DateTime created;
 	private DateTime expires;
 	private DateTime lastAccessed;
@@ -34,16 +33,6 @@ public class AuthSessionImpl implements AuthSession {
 	@Override
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	@Override
-	public String getToken() {
-		return token;
-	}
-
-	@Override
-	public void setToken(String token) {
-		this.token = token;
 	}
 
 	@Override
