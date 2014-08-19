@@ -22,9 +22,9 @@ public class UpitMySQLModule extends AbstractModule {
 	@Singleton
 	public DataSource getUpitDataSource() {
 		// TODO: Load these properly
-		String dbHost = "";
-		String dbUser = "";
-		String dbPass = "";
+		String dbHost = "10.10.10.100";
+		String dbUser = "upit";
+		String dbPass = "blackdoor";
 		String dbName = "";
 
 		BoneCPDataSource dataSource = new BoneCPDataSource();
@@ -34,7 +34,6 @@ public class UpitMySQLModule extends AbstractModule {
 
 		dataSource.setDefaultAutoCommit(false);
 		dataSource.setDefaultTransactionIsolation("READ_COMMITTED");
-
 		return dataSource;
 	}
 

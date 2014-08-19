@@ -13,7 +13,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.upit</groupId>
-			<artifactId>upit-core-dal</artifactId>
+			<artifactId>upit-core-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

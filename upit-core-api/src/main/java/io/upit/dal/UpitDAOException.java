@@ -1,7 +1,7 @@
 package io.upit.dal;
 
 /**
- * The Class UpitException represents a general exception in the upit code base
+ * The Class UpitDAOException represents a general exception in the upit code base
  */
 public class UpitDAOException extends Exception {
 
@@ -15,7 +15,7 @@ public class UpitDAOException extends Exception {
 	}
 
 	/**
-	 * Instantiates a new UpitException.
+	 * Instantiates a new UpitDAOException.
 	 *
 	 * @param msg the msg
 	 */
@@ -24,7 +24,7 @@ public class UpitDAOException extends Exception {
 	}
 
 	/**
-	 * Instantiates a new UpitException.
+	 * Instantiates a new UpitDAOException.
 	 *
 	 * @param msg the msg
 	 * @param parent the parent
