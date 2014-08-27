@@ -39,8 +39,8 @@ public class UpitMySQLModule extends AbstractModule {
 
 	@Provides
 	@Singleton
-	private IDBI getUpitDBI() {
-		DBI ret = new DBI(getUpitDataSource());
+	private IDBI getUpitDBI(DataSource dataSource) {
+		DBI ret = new DBI(dataSource);
 		ret.setStatementLocator(new ClasspathStatementLocator());
 		return ret;
 	}
