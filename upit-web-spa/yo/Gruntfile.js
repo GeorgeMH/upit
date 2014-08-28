@@ -364,6 +364,10 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    complexity: {
+
     }
   });
 
@@ -378,7 +382,6 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer',
-      'configureProxies',
       'connect:livereload',
       'watch'
     ]);

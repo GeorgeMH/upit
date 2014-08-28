@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('yoJaxrsTutorialApp', [
+  .module('upitWebSpa', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
