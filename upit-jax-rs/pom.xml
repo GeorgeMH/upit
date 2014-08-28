@@ -1,60 +1,60 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>io.upit</groupId>
-		<artifactId>upit</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>io.upit</groupId>
+        <artifactId>upit</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>upit-jaxrs-bindings</artifactId>
+    <artifactId>upit-jaxrs-bindings</artifactId>
 
-	<packaging>jar</packaging>
+    <packaging>jar</packaging>
 
-	<name>upit-jax-rs</name>
-	<description>Upit JAX-RS bindings</description>
+    <name>upit-jax-rs</name>
+    <description>Upit JAX-RS bindings</description>
 
-	<dependencies>
+    <dependencies>
 
-		<dependency>
-			<groupId>io.upit</groupId>
-			<version>0.0.1-SNAPSHOT</version>
-			<artifactId>upit-jdbi-mysql</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>io.upit</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>upit-jdbi-mysql</artifactId>
+        </dependency>
 
-		<!-- Third party deps -->
+        <!-- Third party deps -->
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>guice-servlet</artifactId>
-			<version>3.0</version>
-		</dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-servlet</artifactId>
+            <version>3.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>1.17.1</version>
-		</dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>1.17.1</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
-			<version>1.17.1</version>
-		</dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>1.17.1</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.sun.jersey.contribs</groupId>
-			<artifactId>jersey-guice</artifactId>
-			<version>1.17.1</version>
-		</dependency>
+        <dependency>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-guice</artifactId>
+            <version>1.17.1</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 </project>

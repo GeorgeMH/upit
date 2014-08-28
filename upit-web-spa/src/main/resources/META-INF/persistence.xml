@@ -4,36 +4,36 @@
  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
  http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
 
-	<!-- A JPA Persistence Unit -->
-	<!--  -->
-	<persistence-unit name="upit-dal-hibernate" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <!-- A JPA Persistence Unit -->
+    <!--  -->
+    <persistence-unit name="upit-dal-hibernate" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<!-- JPA entities must be registered here -->
-		<class>io.upit.core.jpa.api.dal.models.JpaUser</class>
-		<class>io.upit.core.jpa.api.dal.models.JpaAuthSession</class>
+        <!-- JPA entities must be registered here -->
+        <class>io.upit.core.jpa.api.dal.models.JpaUser</class>
+        <class>io.upit.core.jpa.api.dal.models.JpaAuthSession</class>
 
-		<properties>
-			<!-- 
-				Just using MySQL for now, later we will want to make this run-time configurable.
-			 -->
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.10.10.100/upit_test" />
-			<property name="javax.persistence.jdbc.user" value="upit" />
-			<property name="javax.persistence.jdbc.password" value="wtfhax1" />
+        <properties>
+            <!-- 
+                Just using MySQL for now, later we will want to make this run-time configurable.
+             -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.10.10.100/upit_test" />
+            <property name="javax.persistence.jdbc.user" value="upit" />
+            <property name="javax.persistence.jdbc.password" value="wtfhax1" />
 
-			<!-- Update the schema dynamically (saving data in most cases, do nto use in production) -->
-			<!--  <property name="hibernate.hbm2ddl.auto" value="update"/>  -->
-			
-			<!-- Re-create the DB from scratch every time . testing only -->
-			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-			
- 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
- 			<!-- <property name="hibernate.archive.autodetection" value="class" /> -->
- 			<property name="hibernate.format_sql" value="true" />
- 			<property name="hibernate.show_sql" value="true" />
+            <!-- Update the schema dynamically (saving data in most cases, do nto use in production) -->
+            <!--  <property name="hibernate.hbm2ddl.auto" value="update"/>  -->
+            
+            <!-- Re-create the DB from scratch every time . testing only -->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <!-- <property name="hibernate.archive.autodetection" value="class" /> -->
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.show_sql" value="true" />
 
-		</properties>
-	</persistence-unit>
+        </properties>
+    </persistence-unit>
 
 </persistence>
