@@ -15,19 +15,19 @@ import com.google.inject.Provider;
 
 public class ObjectMapperProvider implements Provider<ObjectMapper> {
 
-	@Override
-	public ObjectMapper get() {
+    @Override
+    public ObjectMapper get() {
 
-		ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
 
-		SimpleModule abstractTypeModule = new SimpleModule("upit-api-mappings", new Version(0, 0, 1, "SNAPSHOT"));
-		abstractTypeModule.addAbstractTypeMapping(AuthSession.class, AuthSessionImpl.class);
-		abstractTypeModule.addAbstractTypeMapping(User.class, UserImpl.class);
-		abstractTypeModule.addAbstractTypeMapping(LoginRequest.class, LoginRequestImpl.class);
+        SimpleModule abstractTypeModule = new SimpleModule("upit-api-mappings", new Version(0, 0, 1, "SNAPSHOT"));
+        abstractTypeModule.addAbstractTypeMapping(AuthSession.class, AuthSessionImpl.class);
+        abstractTypeModule.addAbstractTypeMapping(User.class, UserImpl.class);
+        abstractTypeModule.addAbstractTypeMapping(LoginRequest.class, LoginRequestImpl.class);
 
-		objectMapper.registerModule(abstractTypeModule);
+        objectMapper.registerModule(abstractTypeModule);
 
-		return objectMapper;
-	}
+        return objectMapper;
+    }
 
 }

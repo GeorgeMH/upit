@@ -13,24 +13,24 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 @Crud
 public abstract class AuthSessionDAOImpl implements AuthSessionDAO {
 
-	@Override
-	@GetGeneratedKeys
-	@SqlUpdate("jdbi_sql/AuthSession.create.sql")
-	public abstract String create(@BindBean AuthSession data);
+    @Override
+    @GetGeneratedKeys
+    @SqlUpdate("jdbi_sql/AuthSession.create.sql")
+    public abstract String create(@BindBean AuthSession data);
 
-	@Override
-	@SqlUpdate("jdbi_sql/AuthSession.update.sql")
-	public abstract void update(@BindBean AuthSession data);
+    @Override
+    @SqlUpdate("jdbi_sql/AuthSession.update.sql")
+    public abstract void update(@BindBean AuthSession data);
 
-	@Override
-	@SqlUpdate("jdbi_sql/AuthSession.deleteById.sql")
-	public abstract void delete(@BindBean AuthSession data);
+    @Override
+    @SqlUpdate("jdbi_sql/AuthSession.deleteById.sql")
+    public abstract void delete(@BindBean AuthSession data);
 
-	@Override
-	@SqlUpdate("jdbi_sql/AuthSession.deleteById.sql")
-	public abstract void deleteById(@Bind("id") String id);
+    @Override
+    @SqlUpdate("jdbi_sql/AuthSession.deleteById.sql")
+    public abstract void deleteById(@Bind("id") String id);
 
-	@Override
-	@SqlQuery("jdbi_sql/AuthSession.getById.sql")
-	public abstract AuthSession getById(@Bind("id") String id);
+    @Override
+    @SqlQuery("jdbi_sql/AuthSession.getById.sql")
+    public abstract AuthSession getById(@Bind("id") String id);
 }

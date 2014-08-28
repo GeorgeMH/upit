@@ -19,28 +19,28 @@ import com.google.inject.Inject;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
-	private final UserDAO userDao;
+    private final UserDAO userDao;
 
-	@Inject
-	public UserResource(UserDAO userDao) {
-		this.userDao = userDao;
-	}
+    @Inject
+    public UserResource(UserDAO userDao) {
+        this.userDao = userDao;
+    }
 
-	@POST
-	public String create(User user) {
-		return userDao.create(user);
-	}
-	
-	@PUT
-	public void update(User user) {
-		userDao.update(user);
-	}
+    @POST
+    public String create(User user) {
+        return userDao.create(user);
+    }
+    
+    @PUT
+    public void update(User user) {
+        userDao.update(user);
+    }
 
-	@GET
-	@Path("{id}/")
-	public User getUserById(@PathParam("id") String idStr) {
-		return userDao.getById(idStr);
-	}
+    @GET
+    @Path("{id}/")
+    public User getUserById(@PathParam("id") String idStr) {
+        return userDao.getById(idStr);
+    }
 
 
 }

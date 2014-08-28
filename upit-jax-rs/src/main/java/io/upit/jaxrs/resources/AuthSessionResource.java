@@ -25,49 +25,49 @@ import com.google.inject.Inject;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthSessionResource {
 
-	private final AuthSessionDAO authSessionDao;
-	private final UserDAO userDao;
+    private final AuthSessionDAO authSessionDao;
+    private final UserDAO userDao;
 
-	@Inject
-	public AuthSessionResource(AuthSessionDAO authSessionDAO, UserDAO userDao) {
-		this.authSessionDao = authSessionDAO;
-		this.userDao = userDao;
-	}
+    @Inject
+    public AuthSessionResource(AuthSessionDAO authSessionDAO, UserDAO userDao) {
+        this.authSessionDao = authSessionDAO;
+        this.userDao = userDao;
+    }
 
-	@POST
-	@Path("login/")
-	public AuthSession login(@QueryParam("userName") String userName, @QueryParam("password") String password) {
-		User user = userDao.getByUserNameOrEmail(userName);
-		if (null == user) {
-			return null;
-		}
+    @POST
+    @Path("login/")
+    public AuthSession login(@QueryParam("userName") String userName, @QueryParam("password") String password) {
+        User user = userDao.getByUserNameOrEmail(userName);
+        if (null == user) {
+            return null;
+        }
 
-		DateTime currentDate = new DateTime();
+        DateTime currentDate = new DateTime();
 
-		AuthSession authSession = new AuthSessionImpl();
-		authSession.setSessionId(UUID.randomUUID().toString());
-		authSession.setUserId(user.getId());
-		authSession.setCreated(new DateTime());
-		authSession.setActive(true);
+        AuthSession authSession = new AuthSessionImpl();
+        authSession.setSessionId(UUID.randomUUID().toString());
+        authSession.setUserId(user.getId());
+        authSession.setCreated(new DateTime());
+        authSession.setActive(true);
 
-		//TODO: Make Expire Configurable or something
-		authSession.setExpires(currentDate.plusDays(365));
+        //TODO: Make Expire Configurable or something
+        authSession.setExpires(currentDate.plusDays(365));
 
-		authSessionDao.create(authSession);
+        authSessionDao.create(authSession);
 
-		return authSession;
-	}
+        return authSession;
+    }
 
-	@POST
-	@Path("validate/")
-	public AuthSession validate(AuthSession session) {
-		return authSessionDao.getById(session.getSessionId());
-	}
+    @POST
+    @Path("validate/")
+    public AuthSession validate(AuthSession session) {
+        return authSessionDao.getById(session.getSessionId());
+    }
 
-	@DELETE
-	@Path("end/")
-	public void end(AuthSession session) {
-		authSessionDao.delete(session);
-	}
+    @DELETE
+    @Path("end/")
+    public void end(AuthSession session) {
+        authSessionDao.delete(session);
+    }
 
 }

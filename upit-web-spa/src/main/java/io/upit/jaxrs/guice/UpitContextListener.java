@@ -8,14 +8,14 @@ import com.google.inject.servlet.GuiceServletContextListener;
 
 public class UpitContextListener extends GuiceServletContextListener {
 
-	private Injector injector;
-	
-	@Override
-	protected Injector getInjector() {
-		if (null == injector) {
-			injector = Guice.createInjector(new UpitMySQLModule(), new UpitJaxRSModule());
-		}
-		return injector;
-	}
+    private Injector injector;
+    
+    @Override
+    protected Injector getInjector() {
+        if (null == injector) {
+            injector = Guice.createInjector(new UpitMySQLModule(), new UpitJaxRSModule());
+        }
+        return injector;
+    }
 
 }

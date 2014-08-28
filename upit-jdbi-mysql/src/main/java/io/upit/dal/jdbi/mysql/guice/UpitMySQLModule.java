@@ -13,36 +13,36 @@ import com.jolbox.bonecp.BoneCPDataSource;
 
 public class UpitMySQLModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
+    @Override
+    protected void configure() {
 
-	}
+    }
 
-	@Provides
-	@Singleton
-	public DataSource getUpitDataSource() {
-		// TODO: Load these properly
-		String dbHost = "10.10.10.100";
-		String dbUser = "upit";
-		String dbPass = "blackdoor";
-		String dbName = "";
+    @Provides
+    @Singleton
+    public DataSource getUpitDataSource() {
+        // TODO: Load these properly
+        String dbHost = "10.10.10.100";
+        String dbUser = "upit";
+        String dbPass = "blackdoor";
+        String dbName = "";
 
-		BoneCPDataSource dataSource = new BoneCPDataSource();
-		dataSource.setJdbcUrl(String.format("jdbc:mysql://%s/%s", dbHost, dbName));
-		dataSource.setUser(dbUser);
-		dataSource.setPassword(dbPass);
+        BoneCPDataSource dataSource = new BoneCPDataSource();
+        dataSource.setJdbcUrl(String.format("jdbc:mysql://%s/%s", dbHost, dbName));
+        dataSource.setUser(dbUser);
+        dataSource.setPassword(dbPass);
 
-		dataSource.setDefaultAutoCommit(false);
-		dataSource.setDefaultTransactionIsolation("READ_COMMITTED");
-		return dataSource;
-	}
+        dataSource.setDefaultAutoCommit(false);
+        dataSource.setDefaultTransactionIsolation("READ_COMMITTED");
+        return dataSource;
+    }
 
-	@Provides
-	@Singleton
-	private IDBI getUpitDBI(DataSource dataSource) {
-		DBI ret = new DBI(dataSource);
-		ret.setStatementLocator(new ClasspathStatementLocator());
-		return ret;
-	}
+    @Provides
+    @Singleton
+    private IDBI getUpitDBI(DataSource dataSource) {
+        DBI ret = new DBI(dataSource);
+        ret.setStatementLocator(new ClasspathStatementLocator());
+        return ret;
+    }
 
 }
