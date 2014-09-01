@@ -1,6 +1,6 @@
 SELECT 
     * 
 FROM AuthSession 
-WHER userName = :input
+WHERE userName = :input
 OR email = :input
 LIMIT 1

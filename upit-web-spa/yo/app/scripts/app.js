@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc overview
- * @name yoJaxrsTutorialApp
+ * @name upitWebSpa
  * @description
- * # yoJaxrsTutorialApp
+ * # upit
  *
  * Main module of the application.
  */
@@ -23,9 +23,9 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+      .when('/paste', {
+        templateUrl: 'views/paste.html',
+        controller: 'PasteCtrl'
       })
       .otherwise({
         redirectTo: '/'

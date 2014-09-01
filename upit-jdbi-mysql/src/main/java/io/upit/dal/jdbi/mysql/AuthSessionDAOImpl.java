@@ -1,7 +1,6 @@
 package io.upit.dal.jdbi.mysql;
 
 import io.upit.dal.AuthSessionDAO;
-import io.upit.dal.jdbi.utils.Crud;
 import io.upit.dal.models.AuthSession;
 
 import org.skife.jdbi.v2.sqlobject.Bind;
@@ -10,7 +9,6 @@ import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 
-@Crud
 public abstract class AuthSessionDAOImpl implements AuthSessionDAO {
 
     @Override
