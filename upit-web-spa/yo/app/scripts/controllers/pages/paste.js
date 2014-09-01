@@ -8,7 +8,6 @@
  * Controller of upit
  */
 angular.module('upitWebSpa')
-
   .controller('PasteCtrl', function ($scope) {
 
 
