@@ -2,7 +2,6 @@ package io.upit.dal.jdbi.mysql.guice;
 
 import javax.sql.DataSource;
 
-import com.google.inject.Provider;
 import io.upit.dal.AuthSessionDAO;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.UserDAO;
@@ -15,8 +14,6 @@ import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.IDBI;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
 import com.jolbox.bonecp.BoneCPDataSource;
 
 public class UpitMySQLModule extends AbstractModule {
@@ -25,11 +22,11 @@ public class UpitMySQLModule extends AbstractModule {
     protected void configure() {
         DataSource dataSource = getUpitDataSource();
 
-        migrateFlyway(dataSource);
+        flywayMigration(dataSource);
         bindDAOs(dataSource);
     }
 
-    private void migrateFlyway(DataSource dataSource) {
+    private void flywayMigration(DataSource dataSource) {
         Flyway flyway = new Flyway();
         flyway.setDataSource(dataSource);
         flyway.migrate();
@@ -44,7 +41,7 @@ public class UpitMySQLModule extends AbstractModule {
         bind(UserDAO.class).toProvider(new DAOProvider<UserDAO>(dbi, UserDAOImpl.class));
     }
 
-    public DataSource getUpitDataSource() {
+    private DataSource getUpitDataSource() {
         // TODO: Load these properly
         String dbHost = "10.10.10.100";
         String dbUser = "upit";
