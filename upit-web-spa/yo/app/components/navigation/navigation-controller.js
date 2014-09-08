@@ -2,14 +2,15 @@
 
 /**
  * @ngdoc function
- * @name upit.controller:MainCtrl
- * @description # MainCtrl Controller of the upit
+ * @name upitWebSpa.Navigation
+ * @description # Navigation Controller
  */
-angular.module('upitWebSpa').controller('NavigationCtrl', function($scope, $location) {
+angular.module('upitWebSpa.navigation')
+  .controller('NavigationCtrl', function($scope, $location) {
 
     $scope.menuClass = function(page) {
         var currentPath = $location.path().substring(1);
         return page === currentPath ? "active" : "";
     };
 
-});
+  });

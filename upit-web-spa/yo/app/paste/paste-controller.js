@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of upit
  */
-angular.module('upitWebSpa')
+angular.module('upitWebSpa.paste')
   .controller('PasteCtrl', function ($scope) {
 
 

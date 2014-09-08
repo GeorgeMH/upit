@@ -5,7 +5,7 @@
  * @name upit.controller:MainCtrl
  * @description # MainCtrl Controller of the upit
  */
-angular.module('upitWebSpa')
+angular.module('upitWebSpa.main')
   .controller('MainCtrl', function($scope) {
 
 

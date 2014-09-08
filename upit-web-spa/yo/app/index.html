@@ -41,10 +41,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li data-ng-class="menuClass('')">
-                        <a href="#/">Home</a>
+                        <a href="#/">main</a>
                     </li>
                     <li data-ng-class="menuClass('paste')">
-                        <a href="#/paste/">Paste</a>
+                        <a href="#/paste/">paste</a>
+                    </li>
+                    <li data-ng-class="menuClass('upload')">
+                        <a href="#/upload/">upload</a>
                     </li>
                 </ul>
             </div>
@@ -103,10 +106,25 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/common/navigation.js"></script>
-    <script src="scripts/controllers/pages/paste.js"></script>
-    <script src="scripts/controllers/pages/main.js"></script>
+    <script src="components/navigation/navigation.js"></script>
+    <script src="components/navigation/navigation-controller.js"></script>
+
+    <script src="main/main.js"></script>
+    <script src="main/main-controller.js"></script>
+
+    <script src="paste/paste.js"></script>
+    <script src="paste/paste-controller.js"></script>
+
+    <script src="upload/upload.js"></script>
+    <script src="upload/upload-controller.js"></script>
+
+
+    <script src="app.js"></script>
+
+
+
+
+    <script src=""></script>
     <!-- endbuild -->
 
   </body>
