@@ -16,7 +16,7 @@ angular
     'upitWebSpa.paste',
     'upitWebSpa.upload',
 
-     // Third party dependencies
+
     'ngAnimate',
     'ngCookies',
     'ngResource',
