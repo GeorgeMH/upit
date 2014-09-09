@@ -6,6 +6,8 @@
  * @description # Paste Module
  */
 angular.module('upitWebSpa.paste', [
+    'upitWebSpa.upitRestApi',
+
     'ngRoute'
   ])
   .config(function ($routeProvider) {

@@ -2,9 +2,11 @@ package io.upit.jaxrs.guice.providers;
 
 import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.LoginRequest;
+import io.upit.dal.models.Paste;
 import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.AuthSessionImpl;
 import io.upit.dal.models.pojos.LoginRequestImpl;
+import io.upit.dal.models.pojos.PasteImpl;
 import io.upit.dal.models.pojos.UserImpl;
 
 import org.codehaus.jackson.Version;
@@ -24,6 +26,7 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
         abstractTypeModule.addAbstractTypeMapping(AuthSession.class, AuthSessionImpl.class);
         abstractTypeModule.addAbstractTypeMapping(User.class, UserImpl.class);
         abstractTypeModule.addAbstractTypeMapping(LoginRequest.class, LoginRequestImpl.class);
+        abstractTypeModule.addAbstractTypeMapping(Paste.class, PasteImpl.class);
 
         objectMapper.registerModule(abstractTypeModule);
 

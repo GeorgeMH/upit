@@ -65,21 +65,21 @@ module.exports = function (grunt) {
 
     // The actual grunt server settings
     connect: {
+      options: {
+          port: 9000,
+          // Change this to '0.0.0.0' to access the server from outside.
+          hostname: 'localhost',
+          livereload: 35729
+      },
       proxies: [
         {
-          context: ',',
+          context: '/api_v1/',
           host: 'localhost', 
           port: 8080,
           https: false,
           changeOrigin: false
         }
       ],
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        livereload: 35729
-      },
       livereload: {
         options: {
           open: true,
@@ -172,7 +172,7 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app
     wiredep: {
       options: {
-        cwd: '<%= yeoman.app %>'
+//        cwd: '<%= yeoman.app %>'
       },
       app: {
         src: ['<%= yeoman.app %>/index.html'],
@@ -380,6 +380,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'configureProxies:server',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',

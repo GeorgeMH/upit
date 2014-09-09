@@ -9,54 +9,69 @@ angular.module('upitWebSpa.upitRestApi')
     .factory('SimpleResourceClient', function($q, $http) {
         var self = this;
 
-        self.makeRestRequest = function(resourceService, requestContext) {
+        // TODO: Inject this
+        var baseUrl = "/api_v1/";
+
+        var makeRestRequest = function(resourceContext, requestContext) {
             var result = $q.defer();
 
-            if(!resourceService.resourceName) {
+            if(!resourceContext.resourceName) {
                 result.reject("Resource Service does not have ResourceName set: " + resourceService);
                 return result.promise;
             }
 
-            // DO IT
-
-            return result.promise;
-        };
-
-        self.get = function(resourceService, id) {
-            var result = $q.defer();
-
-            var isArray = angular.isArray(id);
-
-            var resultPromises = [];
-
-            if(angular.isArray(id)) {
-
-            } else {
-
+            if(!requestContext.url) {
+                requestContext.url = baseUrl + resourceContext.resourceName;
             }
+            var foo = JSON.stringify(requestContext.data)
+            $http({
+                method: requestContext.method,
+                url: requestContext.url,
+                data: JSON.stringify(requestContext.data)
+            })
+            .success(function(data, status, headers, config) {
+                result.resolve(data);
+            })
+            .error(function(data, status, headers, config) {
+                result.reject(data);
+            });
 
             return result.promise;
         };
 
-        self.create = function(resourceService, object) {
-
+        var get = function(resourceContext, object) {
+            return makeRestRequest(resourceContext, {
+                method: 'GET',
+                data: object
+            });
         };
 
-
-        self.update = function(resourceService, object) {
-
+        var create = function(resourceContext, object) {
+            return makeRestRequest(resourceContext, {
+                method: 'POST',
+                data: object
+            });
         };
 
-
-        self.delete = function(resourceService, object) {
-
+        var update = function(resourceContext, object) {
+            return makeRestRequest(resourceContext, {
+                method: 'PUT',
+                data: object
+            });
         };
 
+        var remove = function(resourceContext, object) {
+            return makeRestRequest(resourceContext, {
+                method: 'DELETE',
+                data: object
+            });
+        };
 
         return {
-            get: self.get,
-            create: self.create,
-            update: self.update,
-            delete: self.delete
+            makeRestRequest: makeRestRequest,
+            get: get,
+            create: create,
+            update: update,
+            remove: remove
         };
     });

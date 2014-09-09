@@ -6,33 +6,35 @@
  * @description # Paste Module
  */
 angular.module('upitWebSpa.upitRestApi')
-  .factory('PasteResource', function($q, simpleResourceClient) {
+  .factory('PasteResource', function($q, SimpleResourceClient) {
 
     var self = this;
 
-    self.resourceName = 'Paste';
-
-    self.get = function(id) {
-      return simpleResourceClient.get(self, id);
+    var resourceContext = {
+      resourceName: 'paste'
     };
 
-    self.create = function(paste) {
-      return simpleResourceClient.create(self, paste);
+    var get = function(id) {
+      return SimpleResourceClient.get(resourceContext, id);
     };
 
-    self.update = function(paste) {
-      return simpleResourceClient.update(self, paste);
+    var create = function(paste) {
+      return SimpleResourceClient.create(resourceContext, paste);
     };
 
-    self.delete = function(paste) {
-      return simpleResourceClient.delete(self, paste);
+    var update = function(paste) {
+      return SimpleResourceClient.update(resourceContext, paste);
+    };
+
+    var remove = function(paste) {
+      return SimpleResourceClient.remove(resourceContext, paste);
     };
 
     return {
-      get: self.get,
-      create: self.create,
-      update: self.update,
-      delete: self.delete
+      get: get,
+      create: create,
+      update: update,
+      remove: remove
     };
 
   });

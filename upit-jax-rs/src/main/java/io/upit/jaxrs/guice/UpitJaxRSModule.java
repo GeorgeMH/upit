@@ -17,7 +17,6 @@ public class UpitJaxRSModule extends ServletModule {
 
     @Override
     protected void configureServlets() {
-
         // Setup our object mappings for Interface -> Concrete implementation mappings
         // It's too bad we can't let the guice module in upit-jpa-impl define these mappings alone,
         // but upit-jpa-impl has no context (and should not) for jersey.
@@ -30,8 +29,7 @@ public class UpitJaxRSModule extends ServletModule {
         guiceInitParams.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
 
         //filter("/api/*").through(PersistFilter.class);
-        serve("/api/*").with(GuiceContainer.class, guiceInitParams);
-
+        serve("/api_v1/*").with(GuiceContainer.class, guiceInitParams);
     }
 
 }
