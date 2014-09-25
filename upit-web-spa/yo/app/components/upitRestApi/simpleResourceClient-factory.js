@@ -10,71 +10,78 @@ angular.module('upitWebSpa.upitRestApi')
         var self = this;
 
         // TODO: Inject this
-        var  = "/api_v1/";
+        var urlBaseContext = "/api_v1/";
 
-        var getBase
+        var getResourceURL = function(requestContext) {
+            return urlBaseContext + requestContext.resourceName + '/';
+        };
 
         var makeRestRequest = function(resourceContext, requestContext) {
             var result = $q.defer();
 
             if(!resourceContext.resourceName) {
-                result.reject("Resource Service does not have ResourceName set: " + resourceService);
+                result.reject("Resource Context does not have ResourceName set: " + resourceContext);
                 return result.promise;
             }
 
-            if(!requestContext.url) {
-                requestContext.url = baseUrl + resourceContext.resourceName;
+            var httpReq = {
+                method: requestContext.method,
+                url: getResourceURL(resourceContext)
+            };
+
+            if(requestContext.data) {
+                //httpReq.data = JSON.stringify(requestContext.data);
+                httpReq.data = requestContext.data;
+            }
+
+            // Append the context url onto the base Resource URL
+            if(requestContext.url) {
+               httpReq.url += requestContext.url;
             }
 
             $log.debug('RequestContext: ' + requestContext);
 
-            $http({
-                method: requestContext.method,
-                url: requestContext.url,
-                data: JSON.stringify(requestContext.data)
-            })
-            .success(function(data, status, headers, config) {
+            $http(httpReq).success(function(data, status, headers, config) {
                 result.resolve(data);
-            })
-            .error(function(data, status, headers, config) {
+            }).error(function(data, status, headers, config) {
                 result.reject(data);
             });
 
             return result.promise;
         };
 
-        var get = function(resourceContext, object) {
+        var getById = function(resourceContext, resourceId) {
             return makeRestRequest(resourceContext, {
-                url: baseUrl + resourceContext.resourceName + object,
-                method: 'GET',
-                data: object
+                url: resourceId,
+                method: 'GET'
             });
         };
 
-        var create = function(resourceContext, object) {
+        var create = function(resourceContext, resource) {
             return makeRestRequest(resourceContext, {
                 method: 'POST',
-                data: object
+                data: resource
             });
         };
 
-        var update = function(resourceContext, object) {
+        var update = function(resourceContext, resource) {
             return makeRestRequest(resourceContext, {
                 method: 'PUT',
-                data: object
+                data: resource
             });
         };
 
-        var remove = function(resourceContext, object) {
+        var remove = function(resourceContext, resource) {
             return makeRestRequest(resourceContext, {
                 method: 'DELETE',
-                data: object
+                data: resource
             });
         };
 
         return {
+            getResourceURL: getResourceURL,
             makeRestRequest: makeRestRequest,
-            get: get,
+            getById: getById,
             create: create,
             update: update,
             remove: remove

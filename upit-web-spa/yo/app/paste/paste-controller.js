@@ -24,7 +24,7 @@ angular.module('upitWebSpa.paste')
 
 
             //var foo = PasteResource.create(paste);
-            PasteResource.get(1).then(function(paste){
+            PasteResource.getById(1).then(function(paste){
                 console.log('success! ' + paste);
             }, function(failure){
                 console.log('failure! ' + failure);

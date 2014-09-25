@@ -73,7 +73,7 @@ module.exports = function (grunt) {
       },
       proxies: [
         {
-          context: '/api_v1/',
+          context: '/api_v1',
           host: 'localhost', 
           port: 8080,
           https: false,
@@ -84,15 +84,17 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect.static(appConfig.app)
-            ];
+          middleware: function (connect, options) {
+              return [
+                  require('grunt-connect-proxy/lib/utils').proxyRequest,
+                  connect.static('.tmp'),
+                  connect.static('test'),
+                  connect().use(
+                      '/bower_components',
+                      connect.static('./bower_components')
+                  ),
+                  connect.static(appConfig.app)
+              ];
           }
         }
       },
@@ -113,6 +115,7 @@ module.exports = function (grunt) {
               ),
               connect.static(appConfig.app)
             ]);
+            return middlewares;
           }
         }
       },

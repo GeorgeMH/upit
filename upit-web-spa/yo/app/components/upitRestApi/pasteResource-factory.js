@@ -14,8 +14,8 @@ angular.module('upitWebSpa.upitRestApi')
       resourceName: 'paste'
     };
 
-    var get = function(id) {
-      return SimpleResourceClient.get(resourceContext, id);
+    var getById = function(id) {
+      return SimpleResourceClient.getById(resourceContext, id);
     };
 
     var create = function(paste) {
@@ -31,7 +31,7 @@ angular.module('upitWebSpa.upitRestApi')
     };
 
     return {
-      get: get,
+      getById: getById,
       create: create,
       update: update,
       remove: remove
