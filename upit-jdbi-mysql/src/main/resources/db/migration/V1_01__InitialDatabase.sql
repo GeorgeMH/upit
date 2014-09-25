@@ -26,8 +26,9 @@ CREATE TABLE `Paste` (
     `id` VARCHAR (32) NOT NULL,
     `text` LONGTEXT NOT NULL,
     `userId` VARCHAR(32) NOT NULL,
+    `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `parentId` VARCHAR(32) NULL,
-    `syntaxId` VARCHAR(32) NULL,    
+    `syntaxId` VARCHAR(32) NULL,
     PRIMARY KEY ( `id` ),
     INDEX `Paste_userId_idx` ( `userId` ),
     CONSTRAINT `Paste_userId_fk` FOREIGN KEY (`userId`) REFERENCES `User`(`id`)

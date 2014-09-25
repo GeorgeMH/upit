@@ -5,9 +5,11 @@ import io.upit.dal.PasteDAO;
 import io.upit.dal.models.Paste;
 import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.PasteImpl;
+import org.joda.time.DateTime;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.UUID;
 
 @Path("paste")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -23,6 +25,8 @@ public class PasteResource {
 
     @POST
     public String create(Paste paste) {
+        paste.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        paste.setCreated(new DateTime());
         return pasteDAO.create(paste);
     }
 

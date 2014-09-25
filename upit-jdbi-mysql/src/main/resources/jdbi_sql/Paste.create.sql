@@ -1,15 +1,15 @@
 INSERT INTO Paste (
-    `id`
+    `id`,
     `text`,
     `userId`,
-    `dateCreated`,
+    `created`,
     `parentId`,
     `syntaxId`
 ) VALUES (
     :id,
     :text,
     :userId,
-    :dateCreated,
+    :created,
     :parentId,
     :syntaxId
 )

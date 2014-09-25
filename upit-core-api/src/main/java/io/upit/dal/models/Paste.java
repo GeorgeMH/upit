@@ -13,8 +13,8 @@ public interface Paste {
     public String getUserId();
     public void setUserId(String userId);
     
-    public DateTime getDateCreated();
-    public void setDateCreated(DateTime date);
+    public DateTime getCreated();
+    public void setCreated(DateTime date);
 
     public String getParentId();
     public void setParentId(String parentId);

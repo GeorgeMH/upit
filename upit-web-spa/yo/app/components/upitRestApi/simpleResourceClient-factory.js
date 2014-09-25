@@ -60,14 +60,14 @@ angular.module('upitWebSpa.upitRestApi')
         var create = function(resourceContext, resource) {
             return makeRestRequest(resourceContext, {
                 method: 'POST',
-                data: resource
+                data: JSON.stringify(resource)
             });
         };
 
         var update = function(resourceContext, resource) {
             return makeRestRequest(resourceContext, {
                 method: 'PUT',
-                data: resource
+                data: JSON.stringify(resource)
             });
         };
 

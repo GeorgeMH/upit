@@ -14,7 +14,7 @@ public class PasteImpl implements Paste {
 
     private String userId;
 
-    private DateTime dateCreated;
+    private DateTime created;
 
     private String parentId;
 
@@ -51,13 +51,13 @@ public class PasteImpl implements Paste {
     }
 
     @Override
-    public DateTime getDateCreated() {
-        return dateCreated;
+    public DateTime getCreated() {
+        return created;
     }
 
     @Override
-    public void setDateCreated(DateTime date) {
-        this.dateCreated = date;
+    public void setCreated(DateTime date) {
+        this.created = date;
     }
 
     @Override
