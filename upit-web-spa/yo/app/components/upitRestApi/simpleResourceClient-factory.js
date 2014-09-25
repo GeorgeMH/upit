@@ -6,11 +6,13 @@
  * @description # Paste Module
  */
 angular.module('upitWebSpa.upitRestApi')
-    .factory('SimpleResourceClient', function($q, $http) {
+    .factory('SimpleResourceClient', function($log, $q, $http) {
         var self = this;
 
         // TODO: Inject this
-        var baseUrl = "/api_v1/";
+        var  = "/api_v1/";
+
+        var getBase
 
         var makeRestRequest = function(resourceContext, requestContext) {
             var result = $q.defer();
@@ -23,7 +25,9 @@ angular.module('upitWebSpa.upitRestApi')
             if(!requestContext.url) {
                 requestContext.url = baseUrl + resourceContext.resourceName;
             }
-            var foo = JSON.stringify(requestContext.data)
+
+            $log.debug('RequestContext: ' + requestContext);
+
             $http({
                 method: requestContext.method,
                 url: requestContext.url,
@@ -41,6 +45,7 @@ angular.module('upitWebSpa.upitRestApi')
 
         var get = function(resourceContext, object) {
             return makeRestRequest(resourceContext, {
+                url: baseUrl + resourceContext.resourceName + object,
                 method: 'GET',
                 data: object
             });

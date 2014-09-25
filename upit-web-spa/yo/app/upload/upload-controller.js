@@ -10,6 +10,4 @@
 angular.module('upitWebSpa.upload')
     .controller('UploadCtrl', function ($scope) {
 
-
-
     });

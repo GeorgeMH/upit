@@ -14,7 +14,10 @@ public class PropertiesConfigurationProvider implements Provider<PropertiesConfi
 
     @Override
     public PropertiesConfiguration get() {
+        System.getProperties();
+
         PropertiesConfiguration configuration = new PropertiesConfiguration();
+
 
         InputStream propertiesFileInputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("");
         if (null == propertiesFileInputStream) {

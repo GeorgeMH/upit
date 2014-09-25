@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.models.Paste;
 import io.upit.dal.models.User;
+import io.upit.dal.models.pojos.PasteImpl;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -38,7 +39,8 @@ public class PasteResource {
     @GET
     @Path("{id}/")
     public Paste getUserById(@PathParam("id") String idStr) {
-        return pasteDAO.getById(idStr);
+        //return pasteDAO.getById(idStr);
+        return new PasteImpl();
     }
 
 }

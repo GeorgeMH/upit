@@ -22,14 +22,13 @@ angular.module('upitWebSpa.paste')
 
             var paste = angular.copy($scope.pasteForm);
 
-            var foo = PasteResource.create(paste);
-            //var foo = PasteResource.get(1);
-            console.log('' + foo);
-                /*.then(function(paste){
+
+            //var foo = PasteResource.create(paste);
+            PasteResource.get(1).then(function(paste){
                 console.log('success! ' + paste);
             }, function(failure){
                 console.log('failure! ' + failure);
-            });*/
+            });
         };
 
   });
