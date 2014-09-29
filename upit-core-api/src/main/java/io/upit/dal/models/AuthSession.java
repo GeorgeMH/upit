@@ -1,6 +1,6 @@
 package io.upit.dal.models;
 
-import org.joda.time.DateTime;
+import java.util.Date;
 
 public interface AuthSession {
 
@@ -10,15 +10,14 @@ public interface AuthSession {
     public String getUserId();
     public void setUserId(String userId);
 
-    public DateTime getCreated();
-    public void setCreated(DateTime created);
+    public Date getCreated();
+    public void setCreated(Date created);
 
-    public DateTime getExpires();
-    public void setExpires(DateTime expires);
+    public Date getExpires();
+    public void setExpires(Date expires);
 
-    public DateTime getLastAccessed();
-
-    public void setLastAccessed(DateTime lastAccessed);
+    public Date getLastAccessed();
+    public void setLastAccessed(Date lastAccessed);
 
     public boolean isActive();
     public void setActive(boolean active);

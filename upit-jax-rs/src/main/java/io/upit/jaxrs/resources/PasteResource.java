@@ -5,10 +5,10 @@ import io.upit.dal.PasteDAO;
 import io.upit.dal.models.Paste;
 import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.PasteImpl;
-import org.joda.time.DateTime;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Date;
 import java.util.UUID;
 
 @Path("paste")
@@ -24,10 +24,12 @@ public class PasteResource {
     }
 
     @POST
-    public String create(Paste paste) {
+    public Paste create(Paste paste) {
         paste.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        paste.setCreated(new DateTime());
-        return pasteDAO.create(paste);
+        paste.setCreated(new Date());
+        String ret = pasteDAO.create(paste);
+
+        return paste;
     }
 
     @PUT
@@ -43,8 +45,7 @@ public class PasteResource {
     @GET
     @Path("{id}/")
     public Paste getUserById(@PathParam("id") String idStr) {
-        //return pasteDAO.getById(idStr);
-        return new PasteImpl();
+        return pasteDAO.getById(idStr);
     }
 
 }

@@ -7,7 +7,6 @@
  */
 angular.module('upitWebSpa.upitRestApi')
   .factory('PasteResource', function($q, SimpleResourceClient) {
-
     var self = this;
 
     var resourceContext = {

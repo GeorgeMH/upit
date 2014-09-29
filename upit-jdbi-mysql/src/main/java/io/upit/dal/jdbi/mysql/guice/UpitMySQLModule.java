@@ -1,7 +1,11 @@
 package io.upit.dal.jdbi.mysql.guice;
 
+import javax.inject.Provider;
 import javax.sql.DataSource;
 
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
 import io.upit.dal.AuthSessionDAO;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.UserDAO;
@@ -15,32 +19,47 @@ import org.skife.jdbi.v2.IDBI;
 
 import com.google.inject.AbstractModule;
 import com.jolbox.bonecp.BoneCPDataSource;
+import org.skife.jdbi.v2.StatementContext;
+import org.skife.jdbi.v2.tweak.Argument;
+import org.skife.jdbi.v2.tweak.ArgumentFactory;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class UpitMySQLModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        DataSource dataSource = getUpitDataSource();
+        bind(IDBI.class).toProvider(DBIProvider.class).in(Singleton.class);
 
-        flywayMigration(dataSource);
-        bindDAOs(dataSource);
+        bind(AuthSessionDAO.class).toProvider(new TypeLiteral<Provider<AuthSessionDAOImpl>>(){}).in(Singleton.class);
+        bind(PasteDAO.class).toProvider(new TypeLiteral<Provider<PasteDAOImpl>>(){}).in(Singleton.class);
+        bind(UserDAO.class).toProvider(new TypeLiteral<Provider<UserDAOImpl>>(){}).in(Singleton.class);
+
+
+        //bind(AuthSessionDAO.class).toProvider(new TypeLiteral<DBIProvider<AuthSessionDAO>>(){});
+        //flywayMigration(dataSource);
+        //bindDAOs(dataSource);
     }
 
-    private void flywayMigration(DataSource dataSource) {
-        Flyway flyway = new Flyway();
-        flyway.setDataSource(dataSource);
-        flyway.migrate();
-    }
+//    private void flywayMigration(DataSource dataSource) {
+//        Flyway flyway = new Flyway();
+//        flyway.setDataSource(dataSource);
+//        flyway.migrate();
+//    }
+//
+//    private void bindDAOs(DataSource dataSource) {
+//        IDBI dbi = getUpitDBI(dataSource);
+//        bind(IDBI.class).toInstance(dbi);
+//
+//        bind(AuthSessionDAO.class).toProvider(new DAOProvider<AuthSessionDAO>(dbi, AuthSessionDAOImpl.class));
+//        bind(PasteDAO.class).toProvider(new DAOProvider<PasteDAO>(dbi,PasteDAOImpl.class));
+//        bind(UserDAO.class).toProvider(new DAOProvider<UserDAO>(dbi, UserDAOImpl.class));
+//    }
 
-    private void bindDAOs(DataSource dataSource) {
-        IDBI dbi = getUpitDBI(dataSource);
-        bind(IDBI.class).toInstance(dbi);
-
-        bind(AuthSessionDAO.class).toProvider(new DAOProvider<AuthSessionDAO>(dbi, AuthSessionDAOImpl.class));
-        bind(PasteDAO.class).toProvider(new DAOProvider<PasteDAO>(dbi,PasteDAOImpl.class));
-        bind(UserDAO.class).toProvider(new DAOProvider<UserDAO>(dbi, UserDAOImpl.class));
-    }
-
+    @Provides
     private DataSource getUpitDataSource() {
         // TODO: Load these properly
         String dbHost = "10.10.10.100";
@@ -57,12 +76,5 @@ public class UpitMySQLModule extends AbstractModule {
         dataSource.setDefaultTransactionIsolation("READ_COMMITTED");
         return dataSource;
     }
-
-    private IDBI getUpitDBI(DataSource dataSource) {
-        DBI ret = new DBI(dataSource);
-        ret.setStatementLocator(new ClasspathStatementLocator());
-        return ret;
-    }
-
 
 }

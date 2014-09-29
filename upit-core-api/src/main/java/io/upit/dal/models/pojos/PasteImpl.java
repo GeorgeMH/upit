@@ -2,22 +2,16 @@ package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.Paste;
 
+import java.util.Date;
 import java.util.Objects;
-
-import org.joda.time.DateTime;
 
 public class PasteImpl implements Paste {
 
     private String id;
-
     private String text;
-
     private String userId;
-
-    private DateTime created;
-
+    private Date created;
     private String parentId;
-
     private String syntaxId;
 
     @Override
@@ -51,12 +45,12 @@ public class PasteImpl implements Paste {
     }
 
     @Override
-    public DateTime getCreated() {
+    public Date getCreated() {
         return created;
     }
 
     @Override
-    public void setCreated(DateTime date) {
+    public void setCreated(Date date) {
         this.created = date;
     }
 

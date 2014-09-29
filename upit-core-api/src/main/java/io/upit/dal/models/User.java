@@ -1,6 +1,6 @@
 package io.upit.dal.models;
 
-import org.joda.time.DateTime;
+import java.util.Date;
 
 public interface User {
 
@@ -16,7 +16,7 @@ public interface User {
     public String getPassword();
     public void setPassword(String password);
 
-    public DateTime getDateCreated();
-    public void setDateCreated(DateTime dateCreated);
+    public Date getDateCreated();
+    public void setDateCreated(Date dateCreated);
 
 }

@@ -2,9 +2,8 @@ package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.User;
 
+import java.util.Date;
 import java.util.Objects;
-
-import org.joda.time.DateTime;
 
 public class UserImpl implements io.upit.dal.models.User {
 
@@ -12,7 +11,7 @@ public class UserImpl implements io.upit.dal.models.User {
     private String userName;
     private String email;
     private String password;
-    private DateTime dateCreated;
+    private Date dateCreated;
 
     @Override
     public String getId() {
@@ -56,12 +55,12 @@ public class UserImpl implements io.upit.dal.models.User {
     }
 
     @Override
-    public DateTime getDateCreated() {
+    public Date getDateCreated() {
         return dateCreated;
     }
 
     @Override
-    public void setDateCreated(DateTime dateCreated) {
+    public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 

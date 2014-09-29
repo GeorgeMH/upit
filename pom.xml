@@ -32,7 +32,6 @@
             <version>2.0</version>
         </dependency>
 
-
         <!-- Common Utils from Apache foundation -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -40,11 +39,11 @@
             <version>3.2.1</version>
         </dependency>
 
-        <dependency>
+        <!-- <dependency>
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
             <version>1.10</version>
-        </dependency>
+        </dependency> -->
 
 
         <!-- Logging Libraries -->

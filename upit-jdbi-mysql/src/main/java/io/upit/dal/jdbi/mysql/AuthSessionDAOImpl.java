@@ -31,4 +31,5 @@ public abstract class AuthSessionDAOImpl implements AuthSessionDAO {
     @Override
     @SqlQuery("jdbi_sql/AuthSession.getById.sql")
     public abstract AuthSession getById(@Bind("id") String id);
+
 }

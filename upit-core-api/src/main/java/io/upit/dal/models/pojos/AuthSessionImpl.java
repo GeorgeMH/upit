@@ -2,17 +2,16 @@ package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.AuthSession;
 
+import java.util.Date;
 import java.util.Objects;
-
-import org.joda.time.DateTime;
 
 public class AuthSessionImpl implements AuthSession {
     
     private String sessionId;
     private String userId;
-    private DateTime created;
-    private DateTime expires;
-    private DateTime lastAccessed;
+    private Date created;
+    private Date expires;
+    private Date lastAccessed;
     private boolean active;
 
     @Override
@@ -36,32 +35,32 @@ public class AuthSessionImpl implements AuthSession {
     }
 
     @Override
-    public DateTime getCreated() {
+    public java.util.Date getCreated() {
         return created;
     }
 
     @Override
-    public void setCreated(DateTime created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
     @Override
-    public DateTime getExpires() {
+    public Date getExpires() {
         return expires;
     }
 
     @Override
-    public void setExpires(DateTime expires) {
+    public void setExpires(Date expires) {
         this.expires = expires;
     }
 
     @Override
-    public DateTime getLastAccessed() {
+    public Date getLastAccessed() {
         return lastAccessed;
     }
 
     @Override
-    public void setLastAccessed(DateTime lastAccessed) {
+    public void setLastAccessed(Date lastAccessed) {
         this.lastAccessed = lastAccessed;
     }
 
@@ -88,6 +87,5 @@ public class AuthSessionImpl implements AuthSession {
         AuthSession check = (AuthSession)obj;
         return Objects.equals(getSessionId(), check.getSessionId());
     }
-
 
 }

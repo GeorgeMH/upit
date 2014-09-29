@@ -1,6 +1,6 @@
 package io.upit.dal.models;
 
-import org.joda.time.DateTime;
+import java.util.Date;
 
 public interface Paste {
     
@@ -13,8 +13,8 @@ public interface Paste {
     public String getUserId();
     public void setUserId(String userId);
     
-    public DateTime getCreated();
-    public void setCreated(DateTime date);
+    public Date getCreated();
+    public void setCreated(Date date);
 
     public String getParentId();
     public void setParentId(String parentId);

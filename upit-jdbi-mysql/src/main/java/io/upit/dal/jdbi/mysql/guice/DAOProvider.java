@@ -2,24 +2,22 @@ package io.upit.dal.jdbi.mysql.guice;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import io.upit.dal.AbstractDAO;
 import org.skife.jdbi.v2.IDBI;
 
-/**
- * Created by george on 9/1/14.
- */
-public class DAOProvider<T> implements Provider<T> {
+public class DAOProvider<DAO extends AbstractDAO<?, ?>> implements Provider<DAO> {
 
-    private final Class<? extends T> daoClass;
     private final IDBI dbi;
+    private final Class<DAO> daoClass;
 
     @Inject
-    public DAOProvider(IDBI dbi, Class<? extends T> daoClass) {
+    public DAOProvider(IDBI dbi, Class<DAO> daoClass) {
         this.dbi = dbi;
         this.daoClass = daoClass;
     }
 
     @Override
-    public T get() {
+    public DAO get() {
         return dbi.onDemand(daoClass);
     }
 

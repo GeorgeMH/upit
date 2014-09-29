@@ -25,7 +25,7 @@ CREATE TABLE `AuthSession` (
 CREATE TABLE `Paste` (
     `id` VARCHAR (32) NOT NULL,
     `text` LONGTEXT NOT NULL,
-    `userId` VARCHAR(32) NOT NULL,
+    `userId` VARCHAR(32) NULL DEFAULT NULL,
     `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `parentId` VARCHAR(32) NULL,
     `syntaxId` VARCHAR(32) NULL,

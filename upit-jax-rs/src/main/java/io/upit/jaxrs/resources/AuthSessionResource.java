@@ -6,6 +6,9 @@ import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.AuthSessionImpl;
 
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.ws.rs.Consumes;
@@ -15,8 +18,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-import org.joda.time.DateTime;
 
 import com.google.inject.Inject;
 
@@ -42,16 +43,18 @@ public class AuthSessionResource {
             return null;
         }
 
-        DateTime currentDate = new DateTime();
+        Calendar currentCalendar = Calendar.getInstance();
 
         AuthSession authSession = new AuthSessionImpl();
         authSession.setSessionId(UUID.randomUUID().toString());
         authSession.setUserId(user.getId());
-        authSession.setCreated(new DateTime());
+        authSession.setCreated(currentCalendar.getTime());
         authSession.setActive(true);
 
-        //TODO: Make Expire Configurable or something
-        authSession.setExpires(currentDate.plusDays(365));
+        currentCalendar.add(Calendar.YEAR, 1);
+
+        //TODO: Make Expire Configurable
+        authSession.setExpires(currentCalendar.getTime());
 
         authSessionDao.create(authSession);
 

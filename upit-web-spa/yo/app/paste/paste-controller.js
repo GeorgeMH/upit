@@ -12,7 +12,7 @@ angular.module('upitWebSpa.paste')
 
         $scope.pasteForm = {
             text: "",
-            userId: 0,
+            userId: null,
             parentId: null,
             syntaxId: null
         };
@@ -20,7 +20,7 @@ angular.module('upitWebSpa.paste')
         $scope.createPaste = function() {
             var paste = angular.copy($scope.pasteForm);
 
-            PasteResource.create(paste).then(function(createdPaste){
+            PasteResource.create(paste).then(function(createdPaste) {
                 console.log('success! ' + createdPaste);
             }, function(failure){
                 console.log('failure! ' + failure);
