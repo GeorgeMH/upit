@@ -1,5 +1,6 @@
 package io.upit.jaxrs.resources;
 
+import com.google.inject.Provider;
 import io.upit.dal.AuthSessionDAO;
 import io.upit.dal.UserDAO;
 import io.upit.dal.models.AuthSession;
@@ -21,11 +22,11 @@ import com.google.inject.Inject;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthSessionResource extends AbstractResource<AuthSession, String> {
 
-    private final AuthSessionDAO authSessionDao;
-    private final UserDAO userDao;
+    private final Provider<AuthSessionDAO> authSessionDao;
+    private final Provider<UserDAO> userDao;
 
     @Inject
-    public AuthSessionResource(AuthSessionDAO authSessionDAO, UserDAO userDao) {
+    public AuthSessionResource(Provider<AuthSessionDAO> authSessionDAO, Provider<UserDAO> userDao) {
         super(AuthSession.class, authSessionDAO);
         this.authSessionDao = authSessionDAO;
         this.userDao = userDao;
@@ -34,7 +35,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("login/")
     public AuthSession login(@QueryParam("userName") String userName, @QueryParam("password") String password) {
-        User user = userDao.getByUserNameOrEmail(userName);
+        User user = userDao.get().getByUserNameOrEmail(userName);
         if (null == user) {
             return null;
         }
@@ -52,7 +53,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
         //TODO: Make Expire Configurable
         authSession.setExpires(currentCalendar.getTime());
 
-        authSessionDao.create(authSession);
+        authSessionDao.get().create(authSession);
 
         return authSession;
     }
@@ -60,13 +61,13 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("validate/${sessionId}")
     public AuthSession validate(@PathParam("sessionId") String sessionId) {
-        return authSessionDao.getById(sessionId);
+        return authSessionDao.get().getById(sessionId);
     }
 
     @DELETE
     @Path("end/")
     public void end(AuthSession session) {
-        authSessionDao.delete(session);
+        authSessionDao.get().delete(session);
     }
 
 }

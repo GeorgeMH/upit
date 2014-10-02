@@ -1,5 +1,6 @@
 package io.upit.jaxrs.resources;
 
+import com.google.inject.Provider;
 import io.upit.dal.UserDAO;
 import io.upit.dal.models.User;
 
@@ -19,10 +20,10 @@ import com.google.inject.Inject;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource extends AbstractResource<User, String>{
 
-    private final UserDAO userDao;
+    private final Provider<UserDAO> userDao;
 
     @Inject
-    public UserResource(UserDAO userDao) {
+    public UserResource(Provider<UserDAO> userDao) {
         super(User.class, userDao);
         this.userDao = userDao;
     }

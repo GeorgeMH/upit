@@ -17,13 +17,6 @@
 
     <dependencies>
 
-        
-        <dependency>
-            <groupId>io.upit</groupId>
-            <version>0.0.1-SNAPSHOT</version>
-            <artifactId>upit-jdbi-mysql</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>io.upit</groupId>
             <version>0.0.1-SNAPSHOT</version>

@@ -1,6 +1,6 @@
 package io.upit.jaxrs.guice;
 
-import io.upit.dal.jdbi.mysql.guice.UpitMySQLModule;
+import io.upit.dal.jdbi.guice.UpitMySQLModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

@@ -14,7 +14,7 @@
         <module>upit-core-api</module>
         <module>upit-jersey-rest</module>
         <module>upit-web-spa</module>
-        <module>upit-jdbi-mysql</module>
+        <module>upit-jdbi-dal</module>
     </modules>
 
     <dependencies>

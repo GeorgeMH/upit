@@ -1,6 +1,7 @@
 package io.upit.jaxrs.resources;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.models.Paste;
 import io.upit.dal.models.User;
@@ -16,10 +17,10 @@ import java.util.UUID;
 @Produces(MediaType.APPLICATION_JSON)
 public class PasteResource extends AbstractResource<Paste, String> {
 
-    private final PasteDAO pasteDAO;
+    private final Provider<PasteDAO> pasteDAO;
 
     @Inject
-    public PasteResource(PasteDAO pasteDAO) {
+    public PasteResource(Provider<PasteDAO> pasteDAO) {
         super(Paste.class, pasteDAO);
         this.pasteDAO = pasteDAO;
     }

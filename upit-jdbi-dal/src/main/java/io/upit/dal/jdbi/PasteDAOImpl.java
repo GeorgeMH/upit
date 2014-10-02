@@ -1,4 +1,4 @@
-package io.upit.dal.jdbi.mysql;
+package io.upit.dal.jdbi;
 
 import io.upit.dal.PasteDAO;
 import io.upit.dal.models.Paste;
@@ -13,23 +13,23 @@ public abstract class PasteDAOImpl implements PasteDAO {
 
     @Override
     @GetGeneratedKeys
-    @SqlUpdate("jdbi_sql/Paste.create.sql")
+    @SqlUpdate("jdbi/h2/Paste.create.sql")
     public abstract String create(@BindBean Paste data);
 
     @Override
-    @SqlUpdate("jdbi_sql/Paste.update.sql")
+    @SqlUpdate("jdbi/h2/Paste.update.sql")
     public abstract void update(@BindBean Paste data);
 
     @Override
-    @SqlUpdate("jdbi_sql/Paste.deleteById.sql")
+    @SqlUpdate("jdbi/h2/Paste.deleteById.sql")
     public abstract void delete(@BindBean Paste data);
 
     @Override
-    @SqlUpdate("jdbi_sql/Paste.deleteById.sql")
+    @SqlUpdate("jdbi/h2/Paste.deleteById.sql")
     public abstract void deleteById(@Bind("id") String id);
 
     @Override
-    @SqlQuery("jdbi_sql/Paste.getById.sql")
+    @SqlQuery("jdbi/h2/Paste.getById.sql")
     public abstract Paste getById(@Bind("id") String id);
 
 }

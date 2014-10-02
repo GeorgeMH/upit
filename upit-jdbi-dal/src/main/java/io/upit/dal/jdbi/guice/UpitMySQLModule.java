@@ -1,32 +1,18 @@
-package io.upit.dal.jdbi.mysql.guice;
+package io.upit.dal.jdbi.guice;
 
 import javax.inject.Provider;
 import javax.sql.DataSource;
 
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
+import com.google.inject.*;
 import io.upit.dal.AuthSessionDAO;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.UserDAO;
-import io.upit.dal.jdbi.mysql.AuthSessionDAOImpl;
-import io.upit.dal.jdbi.mysql.PasteDAOImpl;
-import io.upit.dal.jdbi.mysql.UserDAOImpl;
-import org.flywaydb.core.Flyway;
-import org.skife.jdbi.v2.ClasspathStatementLocator;
-import org.skife.jdbi.v2.DBI;
+import io.upit.dal.jdbi.AuthSessionDAOImpl;
+import io.upit.dal.jdbi.PasteDAOImpl;
+import io.upit.dal.jdbi.UserDAOImpl;
 import org.skife.jdbi.v2.IDBI;
 
-import com.google.inject.AbstractModule;
 import com.jolbox.bonecp.BoneCPDataSource;
-import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.tweak.Argument;
-import org.skife.jdbi.v2.tweak.ArgumentFactory;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
 
 public class UpitMySQLModule extends AbstractModule {
 
@@ -34,9 +20,11 @@ public class UpitMySQLModule extends AbstractModule {
     protected void configure() {
         bind(IDBI.class).toProvider(DBIProvider.class).in(Singleton.class);
 
-        bind(AuthSessionDAO.class).toProvider(new TypeLiteral<Provider<AuthSessionDAOImpl>>(){}).in(Singleton.class);
-        bind(PasteDAO.class).toProvider(new TypeLiteral<Provider<PasteDAOImpl>>(){}).in(Singleton.class);
-        bind(UserDAO.class).toProvider(new TypeLiteral<Provider<UserDAOImpl>>(){}).in(Singleton.class);
+        bind(new TypeLiteral<Provider<? extends AuthSessionDAO>>(){}).to(new TypeLiteral<DAOProvider<AuthSessionDAOImpl>>(){}).in(Singleton.class);
+
+        bind(PasteDAO.class).toProvider(new TypeLiteral<DAOProvider<PasteDAOImpl>>(){}).in(Singleton.class);
+        bind(UserDAO.class).toProvider(new TypeLiteral<DAOProvider<UserDAOImpl>>(){}).in(Singleton.class);
+
 
 
         //bind(AuthSessionDAO.class).toProvider(new TypeLiteral<DBIProvider<AuthSessionDAO>>(){});

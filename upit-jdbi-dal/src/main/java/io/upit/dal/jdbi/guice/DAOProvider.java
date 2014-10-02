@@ -1,4 +1,4 @@
-package io.upit.dal.jdbi.mysql.guice;
+package io.upit.dal.jdbi.guice;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;

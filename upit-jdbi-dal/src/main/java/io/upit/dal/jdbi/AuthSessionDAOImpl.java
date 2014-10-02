@@ -1,4 +1,4 @@
-package io.upit.dal.jdbi.mysql;
+package io.upit.dal.jdbi;
 
 import io.upit.dal.AuthSessionDAO;
 import io.upit.dal.models.AuthSession;
@@ -13,23 +13,23 @@ public abstract class AuthSessionDAOImpl implements AuthSessionDAO {
 
     @Override
     @GetGeneratedKeys
-    @SqlUpdate("jdbi_sql/AuthSession.create.sql")
+    @SqlUpdate("jdbi/h2/AuthSession.create.sql")
     public abstract String create(@BindBean AuthSession data);
 
     @Override
-    @SqlUpdate("jdbi_sql/AuthSession.update.sql")
+    @SqlUpdate("jdbi/h2/AuthSession.update.sql")
     public abstract void update(@BindBean AuthSession data);
 
     @Override
-    @SqlUpdate("jdbi_sql/AuthSession.deleteById.sql")
+    @SqlUpdate("jdbi/h2/AuthSession.deleteById.sql")
     public abstract void delete(@BindBean AuthSession data);
 
     @Override
-    @SqlUpdate("jdbi_sql/AuthSession.deleteById.sql")
+    @SqlUpdate("jdbi/h2/AuthSession.deleteById.sql")
     public abstract void deleteById(@Bind("id") String id);
 
     @Override
-    @SqlQuery("jdbi_sql/AuthSession.getById.sql")
+    @SqlQuery("jdbi/h2/AuthSession.getById.sql")
     public abstract AuthSession getById(@Bind("id") String id);
 
 }

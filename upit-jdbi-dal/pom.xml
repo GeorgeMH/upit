@@ -7,8 +7,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>upit-jdbi-mysql</artifactId>
-    <name>uipt-jdbi-mysql</name>
+    <artifactId>upit-jdbi-dal</artifactId>
+    <name>uipt-jdbi-dal</name>
 
     <dependencies>
         <dependency>
@@ -31,9 +31,9 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.31</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.181</version>
         </dependency>
 
         <dependency>
