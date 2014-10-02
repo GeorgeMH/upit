@@ -12,7 +12,7 @@
 
     <modules>
         <module>upit-core-api</module>
-        <module>upit-jax-rs</module>
+        <module>upit-jersey-rest</module>
         <module>upit-web-spa</module>
         <module>upit-jdbi-mysql</module>
     </modules>

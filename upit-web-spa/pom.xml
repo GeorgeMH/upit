@@ -27,7 +27,7 @@
         <dependency>
             <groupId>io.upit</groupId>
             <version>0.0.1-SNAPSHOT</version>
-            <artifactId>upit-jaxrs-bindings</artifactId>
+            <artifactId>upit-jersey-rest</artifactId>
         </dependency>
 
         <!-- Third party deps -->
