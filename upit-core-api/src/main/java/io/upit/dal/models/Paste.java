@@ -2,10 +2,7 @@ package io.upit.dal.models;
 
 import java.util.Date;
 
-public interface Paste {
-    
-    public String getId();
-    public void setId(String id);
+public interface Paste extends Resource<String> {
 
     public String getText();
     public void setText(String text);
@@ -21,4 +18,5 @@ public interface Paste {
 
     public String getSyntaxId();
     public void setSyntaxId(String syntaxId);
+
 }

@@ -2,10 +2,7 @@ package io.upit.dal.models;
 
 import java.util.Date;
 
-public interface AuthSession {
-
-    public String getSessionId();
-    public void setSessionId(String sessionId);
+public interface AuthSession extends Resource<String> {
 
     public String getUserId();
     public void setUserId(String userId);

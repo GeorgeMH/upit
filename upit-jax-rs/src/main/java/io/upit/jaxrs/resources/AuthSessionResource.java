@@ -11,12 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Inject;
@@ -24,13 +19,14 @@ import com.google.inject.Inject;
 @Path("/auth")
 @Produces("application/json")
 @Consumes(MediaType.APPLICATION_JSON)
-public class AuthSessionResource {
+public class AuthSessionResource extends AbstractResource<AuthSession, String> {
 
     private final AuthSessionDAO authSessionDao;
     private final UserDAO userDao;
 
     @Inject
     public AuthSessionResource(AuthSessionDAO authSessionDAO, UserDAO userDao) {
+        super(AuthSession.class, authSessionDAO);
         this.authSessionDao = authSessionDAO;
         this.userDao = userDao;
     }
@@ -46,7 +42,7 @@ public class AuthSessionResource {
         Calendar currentCalendar = Calendar.getInstance();
 
         AuthSession authSession = new AuthSessionImpl();
-        authSession.setSessionId(UUID.randomUUID().toString());
+        authSession.setId(UUID.randomUUID().toString());
         authSession.setUserId(user.getId());
         authSession.setCreated(currentCalendar.getTime());
         authSession.setActive(true);
@@ -62,9 +58,9 @@ public class AuthSessionResource {
     }
 
     @POST
-    @Path("validate/")
-    public AuthSession validate(AuthSession session) {
-        return authSessionDao.getById(session.getSessionId());
+    @Path("validate/${sessionId}")
+    public AuthSession validate(@PathParam("sessionId") String sessionId) {
+        return authSessionDao.getById(sessionId);
     }
 
     @DELETE

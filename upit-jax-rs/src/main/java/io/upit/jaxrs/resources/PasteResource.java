@@ -14,38 +14,22 @@ import java.util.UUID;
 @Path("paste")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class PasteResource {
+public class PasteResource extends AbstractResource<Paste, String> {
 
     private final PasteDAO pasteDAO;
 
     @Inject
     public PasteResource(PasteDAO pasteDAO) {
+        super(Paste.class, pasteDAO);
         this.pasteDAO = pasteDAO;
     }
 
     @POST
+    @Override
     public Paste create(Paste paste) {
         paste.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        paste.setCreated(new Date());
-        String ret = pasteDAO.create(paste);
-
-        return paste;
+        return super.create(paste);
     }
 
-    @PUT
-    public void update(Paste paste) {
-        pasteDAO.update(paste);
-    }
-
-    @DELETE
-    public void delete(Paste paste) {
-        pasteDAO.delete(paste);
-    }
-
-    @GET
-    @Path("{id}/")
-    public Paste getUserById(@PathParam("id") String idStr) {
-        return pasteDAO.getById(idStr);
-    }
 
 }

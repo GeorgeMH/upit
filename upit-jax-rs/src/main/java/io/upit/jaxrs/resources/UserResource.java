@@ -17,30 +17,14 @@ import com.google.inject.Inject;
 @Path("/user")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UserResource {
+public class UserResource extends AbstractResource<User, String>{
 
     private final UserDAO userDao;
 
     @Inject
     public UserResource(UserDAO userDao) {
+        super(User.class, userDao);
         this.userDao = userDao;
     }
-
-    @POST
-    public String create(User user) {
-        return userDao.create(user);
-    }
-    
-    @PUT
-    public void update(User user) {
-        userDao.update(user);
-    }
-
-    @GET
-    @Path("{id}/")
-    public User getUserById(@PathParam("id") String idStr) {
-        return userDao.getById(idStr);
-    }
-
 
 }

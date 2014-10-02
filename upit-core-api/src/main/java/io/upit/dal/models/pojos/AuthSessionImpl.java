@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class AuthSessionImpl implements AuthSession {
     
-    private String sessionId;
+    private String id;
     private String userId;
     private Date created;
     private Date expires;
@@ -15,13 +15,13 @@ public class AuthSessionImpl implements AuthSession {
     private boolean active;
 
     @Override
-    public String getSessionId() {
-        return sessionId;
+    public String getId() {
+        return id;
     }
 
     @Override
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setId(String sessionId) {
+        this.id = sessionId;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class AuthSessionImpl implements AuthSession {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSessionId());
+        return Objects.hash(getId());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class AuthSessionImpl implements AuthSession {
             return false;
         }
         AuthSession check = (AuthSession)obj;
-        return Objects.equals(getSessionId(), check.getSessionId());
+        return Objects.equals(getId(), check.getId());
     }
 
 }
