@@ -9,6 +9,12 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+
+    <!--<link rel="stylesheet" href="bower_components/highlightjs/styles/idea.css" />-->
+    <link rel="stylesheet" href="bower_components/prism/themes/prism.css" />
+    <link rel="stylesheet" href="bower_components/prism/plugins/line-numbers/prism-line-numbers.css" />
+    <link rel="stylesheet" href="bower_components/prism/plugins/show-invisibles/prism-show-invisibles.css" />
+
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -18,7 +24,7 @@
 
   <body data-ng-app="upitWebSpa">
 
-    <!--[if lt IE 7]>
+    <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
@@ -103,6 +109,59 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+
+    <!-- highlight.js -->
+    <!--<script src="bower_components/highlightjs/highlight.pack.js"></script>-->
+    <!--<script src="bower_components/angular-highlightjs/angular-highlightjs.js"></script>-->
+
+    <!-- Prism -->
+    <script src="bower_components/prism/prism.js"></script>
+    <script src="bower_components/prism/plugins/line-numbers/prism-line-numbers.js"></script>
+    <script src="bower_components/prism/plugins/show-invisibles/prism-show-invisibles.js"></script>
+
+
+    <!-- Prism langs -->
+    <!--<script src="bower_components/prism/components/prism-core.js"></script>-->
+    <script src="bower_components/prism/components/prism-aspnet.js"></script>
+    <script src="bower_components/prism/components/prism-autohotkey.js"></script>
+    <script src="bower_components/prism/components/prism-bash.js"></script>
+    <script src="bower_components/prism/components/prism-c.js"></script>
+    <script src="bower_components/prism/components/prism-clike.js"></script>
+    <script src="bower_components/prism/components/prism-coffeescript.js"></script>
+    <script src="bower_components/prism/components/prism-cpp.js"></script>
+    <script src="bower_components/prism/components/prism-csharp.js"></script>
+    <script src="bower_components/prism/components/prism-css.js"></script>
+    <script src="bower_components/prism/components/prism-css-extras.js"></script>
+    <script src="bower_components/prism/components/prism-gherkin.js"></script>
+    <script src="bower_components/prism/components/prism-git.js"></script>
+    <script src="bower_components/prism/components/prism-go.js"></script>
+    <script src="bower_components/prism/components/prism-groovy.js"></script>
+    <script src="bower_components/prism/components/prism-haskell.js"></script>
+    <script src="bower_components/prism/components/prism-http.js"></script>
+    <script src="bower_components/prism/components/prism-ini.js"></script>
+    <script src="bower_components/prism/components/prism-java.js"></script>
+    <script src="bower_components/prism/components/prism-javascript.js"></script>
+    <script src="bower_components/prism/components/prism-latex.js"></script>
+    <script src="bower_components/prism/components/prism-markup.js"></script>
+    <script src="bower_components/prism/components/prism-nsis.js"></script>
+    <script src="bower_components/prism/components/prism-objectivec.js"></script>
+    <script src="bower_components/prism/components/prism-php.js"></script>
+    <script src="bower_components/prism/components/prism-php-extras.js"></script>
+    <script src="bower_components/prism/components/prism-python.js"></script>
+    <script src="bower_components/prism/components/prism-rip.js"></script>
+    <script src="bower_components/prism/components/prism-ruby.js"></script>
+    <script src="bower_components/prism/components/prism-scala.js"></script>
+    <script src="bower_components/prism/components/prism-scss.js"></script>
+    <script src="bower_components/prism/components/prism-sql.js"></script>
+    <script src="bower_components/prism/components/prism-swift.js"></script>
+    <script src="bower_components/prism/components/prism-twig.js"></script>
+
+
+    <script src="bower_components/nucleus-angular-prism/module.js"></script>
+    <script src="bower_components/nucleus-angular-prism/prism-directive.js"></script>
+
+
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -120,8 +179,7 @@
     <script src="main/main-controller.js"></script>
 
     <script src="paste/paste.js"></script>
-    <script src="paste/createPaste-controller.js"></script>
-    <script src="paste/showPaste-controller.js"></script>
+    <script src="paste/paste-controller.js"></script>
 
     <script src="upload/upload.js"></script>
     <script src="upload/upload-controller.js"></script>

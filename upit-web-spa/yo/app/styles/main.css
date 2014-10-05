@@ -7,3 +7,7 @@ body {
 .footer {
     margin: 50px 0;
 }
+
+.monoSpacedFont {
+    font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+}

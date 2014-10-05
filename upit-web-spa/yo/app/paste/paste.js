@@ -8,20 +8,21 @@
 angular.module('upitWebSpa.paste', [
     'upitWebSpa.upitRestApi',
 
-    'ngRoute'
+    'ngRoute',
+    'nag.prism'
   ])
   .config(['$routeProvider', function ($routeProvider) {
 
-    $routeProvider.when('/paste', {
-      templateUrl: 'paste/createPaste.html',
-      controller: 'CreatePasteCtrl'
-    })
-    .when('/paste/:id', {
-      templateUrl: 'paste/showPaste.html',
-      controller: 'ShowPasteCtrl',
+    $routeProvider
+    .when('/paste/:id?', {
+      templateUrl: 'paste/paste.html',
+      controller: 'PasteCtrl',
       resolve: {
           paste: function(PasteResource, $route){
-            return PasteResource.getById($route.current.params.id);
+            if($route.current.params.id) {
+                return PasteResource.getById($route.current.params.id);
+            }
+            return null;
           }
       }
     });

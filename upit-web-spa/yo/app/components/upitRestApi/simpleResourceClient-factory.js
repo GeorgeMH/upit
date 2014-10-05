@@ -38,8 +38,6 @@ angular.module('upitWebSpa.upitRestApi')
                httpReq.url += requestContext.url;
             }
 
-            $log.debug('RequestContext: ' + requestContext);
-
             $http(httpReq).success(function(data, status, headers, config) {
                 result.resolve(data);
             }).error(function(data, status, headers, config) {
