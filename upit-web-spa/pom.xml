@@ -84,9 +84,12 @@
                         <fileset>
                             <directory>yo/.tmp</directory>
                         </fileset>
-                        <fileset>
-                            <directory>yo/app/components</directory>
-                        </fileset>
+
+                        <!-- TODO: Why was this here? There are important non generated files in that directory :| -->
+                        <!--<fileset>-->
+                            <!--<directory>yo/app/components</directory>-->
+                        <!--</fileset>-->
+                        
                         <fileset>
                             <directory>yo/node_modules</directory>
                         </fileset>

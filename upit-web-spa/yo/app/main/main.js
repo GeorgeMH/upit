@@ -9,11 +9,11 @@
 angular.module('upitWebSpa.main', [
     'ngRoute'
   ])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/', {
       templateUrl: 'main/main.html',
       controller: 'MainCtrl'
     });
 
-  });
+  }]);

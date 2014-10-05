@@ -8,11 +8,11 @@
 angular.module('upitWebSpa.upload', [
     'ngRoute'
   ])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/upload', {
         templateUrl: 'upload/upload.html',
         controller: 'UploadCtrl'
     });
 
-  });
+  }]);

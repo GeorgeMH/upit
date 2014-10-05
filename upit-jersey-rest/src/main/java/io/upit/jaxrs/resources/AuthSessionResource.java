@@ -7,7 +7,6 @@ import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.AuthSessionImpl;
 
-import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;

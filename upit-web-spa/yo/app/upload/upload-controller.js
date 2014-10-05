@@ -8,6 +8,6 @@
  * Controller of upit
  */
 angular.module('upitWebSpa.upload')
-    .controller('UploadCtrl', function ($scope) {
+    .controller('UploadCtrl', ['$scope', function ($scope) {
 
-    });
+    }]);

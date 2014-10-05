@@ -6,7 +6,7 @@
  * @description # Paste Module
  */
 angular.module('upitWebSpa.upitRestApi')
-  .factory('PasteResource', function($q, SimpleResourceClient) {
+  .factory('PasteResource', ['$q', 'SimpleResourceClient', function($q, SimpleResourceClient) {
     var self = this;
 
     var resourceContext = {
@@ -36,4 +36,4 @@ angular.module('upitWebSpa.upitRestApi')
       remove: remove
     };
 
-  });
+  }]);

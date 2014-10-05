@@ -8,8 +8,7 @@
 angular.module('upitWebSpa.paste', [
     'upitWebSpa.upitRestApi',
 
-    'ngRoute',
-    'nag.prism'
+    'ngRoute'
   ])
   .config(['$routeProvider', function ($routeProvider) {
 

@@ -6,7 +6,7 @@
  * @description # Paste Module
  */
 angular.module('upitWebSpa.upitRestApi')
-    .factory('SimpleResourceClient', function($log, $q, $http) {
+    .factory('SimpleResourceClient', ['$log', '$q', '$http', function($log, $q, $http) {
         var self = this;
 
         // TODO: Inject this
@@ -83,4 +83,4 @@ angular.module('upitWebSpa.upitRestApi')
             update: update,
             remove: remove
         };
-    });
+    }]);

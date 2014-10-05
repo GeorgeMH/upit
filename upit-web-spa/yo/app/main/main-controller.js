@@ -6,8 +6,8 @@
  * @description # MainCtrl Controller of the upit
  */
 angular.module('upitWebSpa.main')
-  .controller('MainCtrl', function($scope) {
+  .controller('MainCtrl', ['$scope', function($scope) {
 
 
 
-  });
+  }]);
