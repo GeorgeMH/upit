@@ -20,7 +20,7 @@
         <dependency>
             <groupId>io.upit</groupId>
             <version>0.0.1-SNAPSHOT</version>
-            <artifactId>upit-jdbi-dal</artifactId>
+            <artifactId>upit-jpa-dal</artifactId>
         </dependency>
 
         <!-- Third party deps -->

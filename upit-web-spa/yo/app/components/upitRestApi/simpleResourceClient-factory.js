@@ -30,7 +30,6 @@ angular.module('upitWebSpa.upitRestApi')
             };
 
             if(requestContext.data) {
-                //httpReq.data = JSON.stringify(requestContext.data);
                 httpReq.data = requestContext.data;
             }
 
@@ -60,14 +59,14 @@ angular.module('upitWebSpa.upitRestApi')
         var create = function(resourceContext, resource) {
             return makeRestRequest(resourceContext, {
                 method: 'POST',
-                data: JSON.stringify(resource)
+                data: resource
             });
         };
 
         var update = function(resourceContext, resource) {
             return makeRestRequest(resourceContext, {
                 method: 'PUT',
-                data: JSON.stringify(resource)
+                data: resource
             });
         };
 

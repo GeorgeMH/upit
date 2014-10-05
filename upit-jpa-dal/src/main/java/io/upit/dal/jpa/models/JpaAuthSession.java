@@ -1,17 +1,51 @@
-package io.upit.dal.models.pojos;
+package io.upit.dal.jpa.models;
 
 import io.upit.dal.models.AuthSession;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Version;
 import java.util.Date;
-import java.util.Objects;
 
-public class AuthSessionImpl extends AbstractResource<String> implements AuthSession {
+/**
+ * Created by george on 10/5/14.
+ */
+@Entity(name="AuthSession")
+public class JpaAuthSession implements AuthSession {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id;
+
+    @Version
+    private int version;
 
     private String userId;
     private Date created;
     private Date expires;
     private Date lastAccessed;
     private boolean active;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getVersion(){
+        return version;
+    }
+
+    public void setVersion(int version){
+        this.version = version;
+    }
 
     @Override
     public String getUserId() {
@@ -24,7 +58,7 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
     }
 
     @Override
-    public java.util.Date getCreated() {
+    public Date getCreated() {
         return created;
     }
 
@@ -61,20 +95,6 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
     @Override
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(!(obj instanceof AuthSession)){
-            return false;
-        }
-        AuthSession check = (AuthSession)obj;
-        return Objects.equals(getId(), check.getId());
     }
 
 }

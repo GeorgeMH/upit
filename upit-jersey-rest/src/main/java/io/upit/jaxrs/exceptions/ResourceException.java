@@ -2,7 +2,7 @@ package io.upit.jaxrs.exceptions;
 
 public class ResourceException extends Exception {
 
-    private Class<?> resourceClass;
+//    private Class<?> resourceClass;
 
     public ResourceException() {
         super();
@@ -15,4 +15,5 @@ public class ResourceException extends Exception {
     public ResourceException(String msg, Throwable inner) {
         super(msg, inner);
     }
+
 }

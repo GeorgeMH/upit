@@ -13,8 +13,4 @@
     <name>upit-core-dal</name>
     <description>Core API of Upit.IO</description>
 
-    <dependencies>
-
-    </dependencies>
-
 </project>

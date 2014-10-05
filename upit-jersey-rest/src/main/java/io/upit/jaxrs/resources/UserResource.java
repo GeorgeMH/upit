@@ -20,10 +20,10 @@ import com.google.inject.Inject;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource extends AbstractResource<User, String>{
 
-    private final Provider<UserDAO> userDao;
+    private final UserDAO userDao;
 
     @Inject
-    public UserResource(Provider<UserDAO> userDao) {
+    public UserResource(UserDAO userDao) {
         super(User.class, userDao);
         this.userDao = userDao;
     }

@@ -5,23 +5,12 @@ import io.upit.dal.models.User;
 import java.util.Date;
 import java.util.Objects;
 
-public class UserImpl implements io.upit.dal.models.User {
+public class UserImpl extends AbstractResource<String> implements io.upit.dal.models.User {
 
-    private String id;
     private String userName;
     private String email;
     private String password;
     private Date dateCreated;
-
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(String id) {
-        this.id = id;
-    }
 
     @Override
     public String getUserName() {
@@ -55,12 +44,12 @@ public class UserImpl implements io.upit.dal.models.User {
     }
 
     @Override
-    public Date getDateCreated() {
+    public Date getCreated() {
         return dateCreated;
     }
 
     @Override
-    public void setDateCreated(Date dateCreated) {
+    public void setCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 

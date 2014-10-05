@@ -15,7 +15,12 @@
         <module>upit-jersey-rest</module>
         <module>upit-web-spa</module>
         <module>upit-jdbi-dal</module>
+        <module>upit-jpa-dal</module>
     </modules>
+
+    <properties>
+        <upit.version>0.0.1-SNAPSHOT</upit.version>
+    </properties>
 
     <dependencies>
 

@@ -1,49 +1,53 @@
 package io.upit.jaxrs.resources;
 
 import com.google.inject.Provider;
-import io.upit.dal.AbstractDAO;
-import io.upit.dal.models.Paste;
+import com.google.inject.persist.Transactional;
+import io.upit.dal.DAO;
 import io.upit.dal.models.Resource;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.UUID;
 
 public abstract class AbstractResource<ResourceClass extends Resource<IDType>, IDType extends Serializable> {
 
     private final Class<ResourceClass> resourceClass;
-    private final Provider<? extends AbstractDAO<ResourceClass, IDType>> dao;
+    private final DAO<ResourceClass, IDType> dao;
 
-    public AbstractResource(Class<ResourceClass> resourceClass, Provider<? extends AbstractDAO<ResourceClass, IDType>> dao) {
+    public AbstractResource(Class<ResourceClass> resourceClass, DAO<ResourceClass, IDType> dao) {
         this.resourceClass = resourceClass;
         this.dao = dao;
     }
 
     @POST
+    @Transactional
     public ResourceClass create(ResourceClass resource) {
-        IDType id = dao.get().create(resource);
-        if(null != id) {
-            resource.setId(id);
-        }
-        return resource;
+        return dao.create(resource);
     }
 
     @PUT
-    public void update(ResourceClass resource) {
-        dao.get().update(resource);
+    @Transactional
+    public ResourceClass update(ResourceClass resource) {
+        return dao.update(resource);
     }
 
     @DELETE
-    public void delete(ResourceClass resource) {
-        dao.get().delete(resource);
+    @Transactional
+    public ResourceClass delete(ResourceClass resource) {
+        return dao.delete(resource);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Transactional
+    public ResourceClass deleteById(@PathParam("id") IDType id){
+        return dao.deleteById(id);
     }
 
     @GET
-    @Path("{id}/")
+    @Path("{id}")
+    @Transactional
     public ResourceClass getById(@PathParam("id") IDType id) {
-        return dao.get().getById(id);
+        return dao.getById(id);
     }
 
 }

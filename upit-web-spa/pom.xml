@@ -19,8 +19,14 @@
 
         <dependency>
             <groupId>io.upit</groupId>
-            <version>0.0.1-SNAPSHOT</version>
             <artifactId>upit-jersey-rest</artifactId>
+            <version>${upit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.upit</groupId>
+            <artifactId>upit-jpa-dal</artifactId>
+            <version>${upit.version}</version>
         </dependency>
 
         <!-- Third party deps -->

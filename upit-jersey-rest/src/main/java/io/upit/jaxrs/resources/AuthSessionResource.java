@@ -22,11 +22,11 @@ import com.google.inject.Inject;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthSessionResource extends AbstractResource<AuthSession, String> {
 
-    private final Provider<AuthSessionDAO> authSessionDao;
-    private final Provider<UserDAO> userDao;
+    private final AuthSessionDAO authSessionDao;
+    private final UserDAO userDao;
 
     @Inject
-    public AuthSessionResource(Provider<AuthSessionDAO> authSessionDAO, Provider<UserDAO> userDao) {
+    public AuthSessionResource(AuthSessionDAO authSessionDAO, UserDAO userDao) {
         super(AuthSession.class, authSessionDAO);
         this.authSessionDao = authSessionDAO;
         this.userDao = userDao;
@@ -35,7 +35,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("login/")
     public AuthSession login(@QueryParam("userName") String userName, @QueryParam("password") String password) {
-        User user = userDao.get().getByUserNameOrEmail(userName);
+        User user = userDao.getByUserNameOrEmail(userName);
         if (null == user) {
             return null;
         }
@@ -53,7 +53,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
         //TODO: Make Expire Configurable
         authSession.setExpires(currentCalendar.getTime());
 
-        authSessionDao.get().create(authSession);
+        authSessionDao.create(authSession);
 
         return authSession;
     }
@@ -61,13 +61,13 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("validate/${sessionId}")
     public AuthSession validate(@PathParam("sessionId") String sessionId) {
-        return authSessionDao.get().getById(sessionId);
+        return authSessionDao.getById(sessionId);
     }
 
     @DELETE
     @Path("end/")
     public void end(AuthSession session) {
-        authSessionDao.get().delete(session);
+        authSessionDao.delete(session);
     }
 
 }

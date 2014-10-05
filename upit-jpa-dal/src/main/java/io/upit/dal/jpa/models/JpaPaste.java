@@ -1,17 +1,52 @@
-package io.upit.dal.models.pojos;
+package io.upit.dal.jpa.models;
 
 import io.upit.dal.models.Paste;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
-public class PasteImpl extends AbstractResource<String> implements Paste {
+@Entity
+public class JpaPaste implements Paste {
 
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id;
+
+    @Version
+    private int version;
+
+    @Lob
     private String text;
+
     private String userId;
+
     private Date created;
+
     private String parentId;
+
     private String syntaxId;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getVersion(){
+        return version;
+    }
+
+    @Override
+    public void setVersion(int version){
+        this.version = version;
+    }
 
     @Override
     public String getText() {
@@ -39,8 +74,8 @@ public class PasteImpl extends AbstractResource<String> implements Paste {
     }
 
     @Override
-    public void setCreated(Date date) {
-        this.created = date;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     @Override
@@ -61,18 +96,5 @@ public class PasteImpl extends AbstractResource<String> implements Paste {
     @Override
     public void setSyntaxId(String syntaxId) {
         this.syntaxId = syntaxId;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Paste)) {
-            return false;
-        }
-        return Objects.equals(getId(), ((Paste) obj).getId());
     }
 }

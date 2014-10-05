@@ -17,20 +17,12 @@ import java.util.UUID;
 @Produces(MediaType.APPLICATION_JSON)
 public class PasteResource extends AbstractResource<Paste, String> {
 
-    private final Provider<PasteDAO> pasteDAO;
+    private final PasteDAO pasteDAO;
 
     @Inject
-    public PasteResource(Provider<PasteDAO> pasteDAO) {
+    public PasteResource(PasteDAO pasteDAO) {
         super(Paste.class, pasteDAO);
         this.pasteDAO = pasteDAO;
     }
-
-    @POST
-    @Override
-    public Paste create(Paste paste) {
-        paste.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        return super.create(paste);
-    }
-
 
 }

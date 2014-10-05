@@ -1,5 +1,6 @@
 package io.upit.jaxrs.guice;
 
+import com.google.inject.persist.PersistFilter;
 import io.upit.jaxrs.guice.providers.JacksonJsonProviderProvider;
 import io.upit.jaxrs.guice.providers.ObjectMapperProvider;
 
@@ -28,7 +29,7 @@ public class UpitJaxRSModule extends ServletModule {
         // See:http://www.mkyong.com/webservices/jax-rs/json-example-with-jersey-jackson/
         guiceInitParams.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
 
-        //filter("/api/*").through(PersistFilter.class);
+        filter("/api_v1/*").through(PersistFilter.class);
         serve("/api_v1/*").with(GuiceContainer.class, guiceInitParams);
     }
 

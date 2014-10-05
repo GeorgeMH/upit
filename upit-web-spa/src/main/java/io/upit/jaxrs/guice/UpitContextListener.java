@@ -1,10 +1,9 @@
 package io.upit.jaxrs.guice;
 
-import io.upit.dal.jdbi.guice.UpitMySQLModule;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
+import io.upit.dal.jpa.guice.UpitJpaModule;
 
 public class UpitContextListener extends GuiceServletContextListener {
 
@@ -13,7 +12,7 @@ public class UpitContextListener extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
         if (null == injector) {
-            injector = Guice.createInjector(new UpitMySQLModule(), new UpitJaxRSModule());
+            injector = Guice.createInjector(new UpitJpaModule(), new UpitJaxRSModule());
         }
         return injector;
     }

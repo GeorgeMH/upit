@@ -13,7 +13,7 @@ public interface User extends Resource<String>{
     public String getPassword();
     public void setPassword(String password);
 
-    public Date getDateCreated();
-    public void setDateCreated(Date dateCreated);
+    public Date getCreated();
+    public void setCreated(Date dateCreated);
 
 }
