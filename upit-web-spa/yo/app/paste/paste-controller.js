@@ -32,7 +32,8 @@ angular.module('upitWebSpa.paste').controller('PasteCtrl',
         $scope.model = model;
 
         var resetHighlighting = function() {
-            if (!model.paste.syntaxId) {
+
+            if (!model || !model.paste || !model.paste.syntaxId) {
                 return;
             }
             $timeout(function () {

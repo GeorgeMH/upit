@@ -10,6 +10,10 @@ angular.module('upitWebSpa.navigation')
 
     $scope.menuClass = function(page) {
         var currentPath = $location.path().substring(1);
+        var slashIdx = currentPath.indexOf('/');
+        if(slashIdx > 0){
+            currentPath = currentPath.substring(0, slashIdx);
+        }
         return page === currentPath ? "active" : "";
     };
 
