@@ -32,7 +32,10 @@ angular.module('upitWebSpa.paste').controller('PasteCtrl',
         $scope.model = model;
 
         var resetHighlighting = function() {
-            $timeout(function(){
+            if (!model.paste.syntaxId) {
+                return;
+            }
+            $timeout(function () {
                 var codeBlock = $('#codeBlock');
                 Prism.highlightElement(codeBlock.find('code')[0]);
             }, 200);

@@ -22,15 +22,15 @@
             <!--<property name="javax.persistence.jdbc.password" value="" /> -->
 
             <!-- Update the schema dynamically (saving data in most cases, do not use in production) -->
-            <!--  <property name="hibernate.hbm2ddl.auto" value="update"/>  -->
+              <property name="hibernate.hbm2ddl.auto" value="update"/>
 
             <!-- Re-create the DB from scratch every time . testing only -->
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 
             <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
 
         </properties>
     </persistence-unit>

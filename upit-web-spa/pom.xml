@@ -69,6 +69,11 @@
                         <resource>
                             <directory>yo/dist</directory>
                         </resource>
+
+                        <!-- Include the entire yo/app directory so HTML files and other non JS assets make it into the WAR -->
+                        <resource>
+                            <directory>yo/app</directory>
+                        </resource>
                     </webResources>
                 </configuration>
             </plugin>
@@ -89,7 +94,7 @@
                         <!--<fileset>-->
                             <!--<directory>yo/app/components</directory>-->
                         <!--</fileset>-->
-                        
+
                         <fileset>
                             <directory>yo/node_modules</directory>
                         </fileset>

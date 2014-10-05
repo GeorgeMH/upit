@@ -9,16 +9,16 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/prism/prism.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:css(.tmp) styles/main.css -->
-      <!-- TODO: The following prism/nuclear-angular-prism files should be auto included by bower, but their packages are broken. -->
-      <link rel="stylesheet" href="bower_components/prism/themes/prism.css" />
+    <!-- build:css(.) styles/prism-combined.css -->
+      <link rel="stylesheet" href="bower_components/prism/prism.css" />
       <link rel="stylesheet" href="bower_components/prism/plugins/line-numbers/prism-line-numbers.css" />
+    <!-- endbuild -->
 
-    <link rel="stylesheet" href="styles/main.css">
+    <!-- build:css(.tmp) styles/main.css -->
+      <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
 
@@ -109,16 +109,14 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/prism/prism.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <!-- TODO: HACK!!!! Since the prism/prism angular packages are broken, we can't let bower handle their files -->
-    <!-- Prism -->
-    <script src="bower_components/prism/prism.js"></script>
-    <script src="bower_components/prism/plugins/line-numbers/prism-line-numbers.js"></script>
-    <script src="bower_components/prism/plugins/show-invisibles/prism-show-invisibles.js"></script>
+    <!-- build:js(.) scripts/prism-plugins-languages.js -->
 
+    <!-- Prism Plugins -->
+    <script src="bower_components/prism/plugins/line-numbers/prism-line-numbers.js"></script>
 
     <!-- Prism langs -->
     <script src="bower_components/prism/components/prism-aspnet.js"></script>
@@ -154,13 +152,9 @@
     <script src="bower_components/prism/components/prism-sql.js"></script>
     <script src="bower_components/prism/components/prism-swift.js"></script>
     <script src="bower_components/prism/components/prism-twig.js"></script>
+    <!-- endbuild -->
 
-
-    <script src="bower_components/nucleus-angular-prism/module.js"></script>
-    <script src="bower_components/nucleus-angular-prism/prism-directive.js"></script>
-
-
-
+    <!-- build:js({.tmp,app}) scripts/upit.js -->
     <script src="app.js"></script>
 
     <script src="components/upitRestApi/upitRestApi.js"></script>

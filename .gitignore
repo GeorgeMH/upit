@@ -4,5 +4,3 @@ target/
 .classpath
 .idea/
 *.iml
-upit-web-spa/src/main/webapp/app/models/api/
-upit-web-spa/src/main/webapp/app/models/resources/

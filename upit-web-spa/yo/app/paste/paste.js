@@ -13,16 +13,17 @@ angular.module('upitWebSpa.paste', [
   .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
-    .when('/paste/:id?', {
+    .when('/paste/:pasteId?', {
       templateUrl: 'paste/paste.html',
       controller: 'PasteCtrl',
       resolve: {
-          paste: function(PasteResource, $route){
-            if($route.current.params.id) {
-                return PasteResource.getById($route.current.params.id);
+          paste: ['$route', 'PasteResource', function($route, PasteResource){
+            // Conditionally resolve the paste by the ID in the URL
+            if($route.current.params.pasteId) {
+                return PasteResource.getById($route.current.params.pasteId);
             }
             return null;
-          }
+          }]
       }
     });
 
