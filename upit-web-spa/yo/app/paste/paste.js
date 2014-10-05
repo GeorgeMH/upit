@@ -10,11 +10,20 @@ angular.module('upitWebSpa.paste', [
 
     'ngRoute'
   ])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/paste', {
-      templateUrl: 'paste/paste.html',
-      controller: 'PasteCtrl'
+      templateUrl: 'paste/createPaste.html',
+      controller: 'CreatePasteCtrl'
+    })
+    .when('/paste/:id', {
+      templateUrl: 'paste/showPaste.html',
+      controller: 'ShowPasteCtrl',
+      resolve: {
+          paste: function(PasteResource, $route){
+            return PasteResource.getById($route.current.params.id);
+          }
+      }
     });
 
-  });
+  }]);
