@@ -11,6 +11,7 @@
         <class>io.upit.dal.jpa.models.JpaUser</class>
         <class>io.upit.dal.jpa.models.JpaAuthSession</class>
         <class>io.upit.dal.jpa.models.JpaPaste</class>
+        <class>io.upit.dal.jpa.models.JpaUploadedFile</class>
 
         <properties>
 

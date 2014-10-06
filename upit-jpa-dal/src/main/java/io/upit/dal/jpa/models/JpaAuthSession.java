@@ -9,9 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 import java.util.Date;
 
-/**
- * Created by george on 10/5/14.
- */
 @Entity(name="AuthSession")
 public class JpaAuthSession implements AuthSession {
 

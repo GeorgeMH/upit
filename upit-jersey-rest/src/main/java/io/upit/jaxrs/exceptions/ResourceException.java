@@ -1,6 +1,6 @@
 package io.upit.jaxrs.exceptions;
 
-public class ResourceException extends Exception {
+public class ResourceException extends RuntimeException {
 
 //    private Class<?> resourceClass;
 

@@ -7,6 +7,7 @@ import io.upit.dal.models.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.Date;
 
 public class EntityManagerDAO<DataObject extends Resource<ID>, ID extends Serializable> implements DAO<DataObject, ID> {
 
@@ -26,7 +27,9 @@ public class EntityManagerDAO<DataObject extends Resource<ID>, ID extends Serial
 
     @Override
     public DataObject create(DataObject entity) {
+        entity.setCreated(new Date());
         entityManager.persist(entity);
+        entityManager.flush();
         return entity;
     }
 

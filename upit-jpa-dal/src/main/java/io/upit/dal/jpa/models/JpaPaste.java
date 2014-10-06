@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
+@Entity(name = "Paste")
 public class JpaPaste implements Paste {
 
     @Id

@@ -8,7 +8,6 @@ import java.util.Objects;
 public class AuthSessionImpl extends AbstractResource<String> implements AuthSession {
 
     private String userId;
-    private Date created;
     private Date expires;
     private Date lastAccessed;
     private boolean active;
@@ -21,16 +20,6 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
     @Override
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public java.util.Date getCreated() {
-        return created;
-    }
-
-    @Override
-    public void setCreated(Date created) {
-        this.created = created;
     }
 
     @Override

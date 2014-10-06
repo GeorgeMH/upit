@@ -10,7 +10,6 @@ public class UserImpl extends AbstractResource<String> implements io.upit.dal.mo
     private String userName;
     private String email;
     private String password;
-    private Date dateCreated;
 
     @Override
     public String getUserName() {
@@ -41,16 +40,6 @@ public class UserImpl extends AbstractResource<String> implements io.upit.dal.mo
     @Override
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public Date getCreated() {
-        return dateCreated;
-    }
-
-    @Override
-    public void setCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
     }
 
     @Override

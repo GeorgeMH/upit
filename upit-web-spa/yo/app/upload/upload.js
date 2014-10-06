@@ -6,7 +6,8 @@
  * @description # Paste Module
  */
 angular.module('upitWebSpa.upload', [
-    'ngRoute'
+    'ngRoute',
+    'angularFileUpload'
   ])
   .config(['$routeProvider', function ($routeProvider) {
 

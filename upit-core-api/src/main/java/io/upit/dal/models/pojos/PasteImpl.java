@@ -9,7 +9,6 @@ public class PasteImpl extends AbstractResource<String> implements Paste {
 
     private String text;
     private String userId;
-    private Date created;
     private String parentId;
     private String syntaxId;
 
@@ -31,16 +30,6 @@ public class PasteImpl extends AbstractResource<String> implements Paste {
     @Override
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public Date getCreated() {
-        return created;
-    }
-
-    @Override
-    public void setCreated(Date date) {
-        this.created = date;
     }
 
     @Override

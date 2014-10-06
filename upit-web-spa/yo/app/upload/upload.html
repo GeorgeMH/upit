@@ -7,7 +7,38 @@
 
 <div class="row">
 
-    <div class="col-lg-7 col-lg-push-5">
-        <p>Coming soon!</p>
+    <div class="col-lg-12">
+
+        <input type="file" data-nv-file-select data-uploader="fileUploader"/><br/>
+
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="fileItem in fileUploader.queue">
+                Name: <span ng-bind="fileItem.file.name"></span><br/>
+                <button ng-click="uploadFile(fileItem)">upload</button>
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+
+<div class="row">
+
+
+    <div class="col-lg-12">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="uploadedFile in model.uploadedFiles">
+                <div class="input-group">
+                    Name: <span ng-bind="uploadedFile.fileName"></span>
+                </div>
+                <div class="input-group">
+                    Hash: <span ng-bind="uploadedFile.hash"></span>
+                </div>
+                <div class="input-group">
+                    URL: <a href="{{getUploadedFileUrl(uploadedFile)}}" data-ng-bind="getUploadedFileUrl(uploadedFile)"></a>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
