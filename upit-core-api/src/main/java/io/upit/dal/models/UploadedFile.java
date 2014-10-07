@@ -3,8 +3,12 @@ package io.upit.dal.models;
 
 public interface UploadedFile extends Resource<Long> {
 
-    public String getHash();
-    public void setHash(String hash);
+
+    public String getIdHash();
+    public void setIdHash(String hash);
+
+    public String getFileHash();
+    public void setFileHash(String hash);
 
     public FileType getFileType();
     public void setFileType(FileType fileType);

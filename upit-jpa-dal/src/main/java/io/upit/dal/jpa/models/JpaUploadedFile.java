@@ -6,6 +6,9 @@ import io.upit.dal.models.UploadedFile;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ *
+ */
 @Entity(name = "UploadedFile")
 public class JpaUploadedFile implements UploadedFile {
 
@@ -20,7 +23,10 @@ public class JpaUploadedFile implements UploadedFile {
     private Date created;
 
     @Column(unique = true)
-    private String hash;
+    private String idHash;
+
+    @Column(unique = true)
+    private String fileHash;
 
     @Enumerated(EnumType.STRING)
     private FileType fileType;
@@ -64,14 +70,22 @@ public class JpaUploadedFile implements UploadedFile {
         this.created = dateCreated;
     }
 
-    @Override
-    public String getHash() {
-        return hash;
+    public String getIdHash(){
+        return idHash;
+    }
+
+    public void setIdHash(String idHash){
+        this.idHash = idHash;
     }
 
     @Override
-    public void setHash(String hash) {
-        this.hash = hash;
+    public String getFileHash() {
+        return fileHash;
+    }
+
+    @Override
+    public void setFileHash(String hash) {
+        this.fileHash = hash;
     }
 
     @Override

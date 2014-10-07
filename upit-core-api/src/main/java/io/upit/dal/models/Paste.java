@@ -2,7 +2,10 @@ package io.upit.dal.models;
 
 import java.util.Date;
 
-public interface Paste extends Resource<String> {
+public interface Paste extends Resource<Long> {
+
+    public String getIdHash();
+    public void setIdHash(String idHash);
 
     public String getText();
     public void setText(String text);

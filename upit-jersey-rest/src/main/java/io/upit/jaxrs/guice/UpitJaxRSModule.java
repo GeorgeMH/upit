@@ -24,27 +24,6 @@ public class UpitJaxRSModule extends ServletModule {
 
     @Override
     protected void configureServlets() {
-
-        File uploadedFileRepositoryPath = new File("upitUploadedFiles/");
-        if(uploadedFileRepositoryPath.exists()) {
-            if(!uploadedFileRepositoryPath.isDirectory()) {
-                addError("Upload File Repository exists and is not a directory: " + uploadedFileRepositoryPath.getAbsolutePath());
-                return;
-            } else if(!uploadedFileRepositoryPath.canWrite()) {
-                addError("Upload File Repository exists but is not writable: " + uploadedFileRepositoryPath.getAbsolutePath());
-                return;
-            }
-        } else {
-            if(!uploadedFileRepositoryPath.mkdirs()){
-                addError("Failed creating Upload File Repository: " + uploadedFileRepositoryPath.getAbsolutePath());
-                return;
-            }
-        }
-
-        logger.info("Uploaded File Repo: " + uploadedFileRepositoryPath.getAbsolutePath());
-        System.out.println("Uploaded File Repo: " + uploadedFileRepositoryPath.getAbsolutePath());
-        bind(File.class).annotatedWith(Names.named("uploadedFileRepositoryPath")).toInstance(uploadedFileRepositoryPath);
-
         // Setup our object mappings for Interface -> Concrete implementation mappings
         // It's too bad we can't let the guice module in upit-jpa-impl define these mappings alone,
         // but upit-jpa-impl has no context (and should not) for jersey.

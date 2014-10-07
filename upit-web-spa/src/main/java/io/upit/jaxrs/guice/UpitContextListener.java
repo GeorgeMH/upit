@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import io.upit.dal.jpa.guice.UpitJpaModule;
+import io.upit.guice.UpitCoreGuiceModule;
 
 public class UpitContextListener extends GuiceServletContextListener {
 
@@ -12,7 +13,7 @@ public class UpitContextListener extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
         if (null == injector) {
-            injector = Guice.createInjector(new UpitJpaModule(), new UpitJaxRSModule());
+            injector = Guice.createInjector(new UpitCoreGuiceModule(), new UpitJpaModule(), new UpitJaxRSModule());
         }
         return injector;
     }

@@ -17,6 +17,7 @@ angular.module('upitWebSpa.upitRestApi')
       return SimpleResourceClient.getById(resourceContext, id);
     };
 
+
     var create = function(paste) {
       return SimpleResourceClient.create(resourceContext, paste);
     };

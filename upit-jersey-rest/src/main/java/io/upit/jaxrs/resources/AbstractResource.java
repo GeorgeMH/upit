@@ -3,7 +3,9 @@ package io.upit.jaxrs.resources;
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import io.upit.dal.DAO;
+import io.upit.dal.UpitDAOException;
 import io.upit.dal.models.Resource;
+import io.upit.jaxrs.exceptions.ResourceException;
 
 import javax.ws.rs.*;
 import java.io.Serializable;

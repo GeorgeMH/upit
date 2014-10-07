@@ -3,6 +3,7 @@ package io.upit.dal.jpa.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import fm.jiecao.lib.Hashids;
 import io.upit.dal.AuthSessionDAO;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.UploadedFileDAO;
@@ -25,6 +26,14 @@ public class UpitJpaModule extends AbstractModule {
     @Override
     protected void configure() {
         install(new JpaPersistModule("upit-dal-hibernate"));
+
+
+        try {
+            bind(Hashids.class).toInstance(new Hashids("Upit.IO.Is.Your.Master.", 3));
+        } catch (Exception e) {
+            addError("Failed binding Hashids instance", e);
+            return;
+        }
 
         bind(User.class).to(JpaUser.class);
         bind(UserDAO.class).to(JpaUserDAO.class);

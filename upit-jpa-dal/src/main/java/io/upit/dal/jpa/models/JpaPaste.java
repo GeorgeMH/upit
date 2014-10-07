@@ -10,12 +10,14 @@ import java.util.Date;
 public class JpaPaste implements Paste {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
+    @GeneratedValue
+    private Long id;
 
     @Version
     private int version;
+
+    @Column
+    private String idHash;
 
     @Lob
     private String text;
@@ -29,12 +31,12 @@ public class JpaPaste implements Paste {
     private String syntaxId;
 
     @Override
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,6 +48,16 @@ public class JpaPaste implements Paste {
     @Override
     public void setVersion(int version){
         this.version = version;
+    }
+
+    @Override
+    public String getIdHash(){
+        return idHash;
+    }
+
+    @Override
+    public void setIdHash(String idHash){
+        this.idHash = idHash;
     }
 
     @Override

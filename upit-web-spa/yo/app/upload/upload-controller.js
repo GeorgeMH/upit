@@ -17,16 +17,14 @@ angular.module('upitWebSpa.upload')
         };
 
         $scope.model = model;
+
         $scope.fileUploader = new FileUploader({
-            url: '/api_v1/uploadedFile/uploadFiles',
+            url: '/api_v1/uploadedFile/upload',
             removeAfterUpload: true
         });
 
-        $scope.fileUploader.onErrorItem = function(item, response, status, headers){
-            console.log('Failed uploading file: ' + status);
-        };
-
         $scope.uploadFile = function(fileItem){
+
             fileItem.onComplete = function(response, status, headers){
                 //TODO: This is a complete hack. Fix it!
                 $.each(response, function(idx, item){
@@ -47,7 +45,7 @@ angular.module('upitWebSpa.upload')
 
         $scope.getUploadedFileUrl = function(uploadedFile){
            // /api_v1/uploadedFile/download/{{uploadedFile.id}}/{{uploadedFile.hash}}{{uploadedFile.extension}}
-            return '/api_v1/uploadedFile/download/' + uploadedFile.id + '/' + uploadedFile.hash + '' + uploadedFile.extension;
+            return '/api_v1/uploadedFile/download/' + uploadedFile.idHash + '' + uploadedFile.extension;
         };
 
     }]);

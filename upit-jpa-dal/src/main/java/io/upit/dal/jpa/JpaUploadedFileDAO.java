@@ -1,26 +1,32 @@
 package io.upit.dal.jpa;
 
-        import com.google.inject.Inject;
+import com.google.inject.Inject;
+import fm.jiecao.lib.Hashids;
+import io.upit.dal.UpitDAOException;
         import io.upit.dal.UploadedFileDAO;
         import io.upit.dal.jpa.models.JpaUploadedFile;
         import io.upit.dal.models.UploadedFile;
-        import org.hibernate.Criteria;
+        import io.upit.filestorage.FileStorageException;
+        import io.upit.filestorage.StreamingFileStorageStrategy;
 
-        import javax.persistence.*;
-        import javax.persistence.criteria.CriteriaQuery;
-        import javax.persistence.criteria.Root;
+import javax.persistence.*;
+import java.io.InputStream;
 
 public class JpaUploadedFileDAO  extends EntityManagerDAO<UploadedFile, Long> implements UploadedFileDAO {
 
+    private final StreamingFileStorageStrategy fileStorageStrategy;
+    private final Hashids hashids;
+
     @Inject
-    public JpaUploadedFileDAO(EntityManager entityManager) {
+    public JpaUploadedFileDAO(EntityManager entityManager, StreamingFileStorageStrategy fileStorageStrategy, Hashids hashids) {
         super(JpaUploadedFile.class, entityManager);
+        this.fileStorageStrategy = fileStorageStrategy;
+        this.hashids = hashids;
     }
 
-    public UploadedFile getByHash(String fileHash) {
-        JpaUploadedFile foo = null;
-        TypedQuery<JpaUploadedFile> query = entityManager.createQuery("SELECT uf FROM UploadedFile uf WHERE uf.hash = :hash", JpaUploadedFile.class);
-        query.setParameter("hash", fileHash);
+    public UploadedFile getByFileHash(String fileHash) {
+        TypedQuery<JpaUploadedFile> query = entityManager.createQuery("SELECT uf FROM UploadedFile uf WHERE uf.fileHash = :fileHash", JpaUploadedFile.class);
+        query.setParameter("fileHash", fileHash);
 
         try {
             return query.getSingleResult();
@@ -29,4 +35,38 @@ public class JpaUploadedFileDAO  extends EntityManagerDAO<UploadedFile, Long> im
         }
     }
 
+    @Override
+    public UploadedFile getByShortHash(String idHash) {
+        TypedQuery<JpaUploadedFile> query = entityManager.createQuery("SELECT uf FROM UploadedFile uf WHERE uf.idHash = :idHash", JpaUploadedFile.class);
+        query.setParameter("idHash", idHash);
+
+        try {
+            return query.getSingleResult();
+        }catch(NoResultException e){
+            return null;
+        }
+    }
+
+    @Override
+    public UploadedFile create(UploadedFile uploadedFile, InputStream inputStream) throws UpitDAOException {
+        try {
+            UploadedFile uploadedFileStore = fileStorageStrategy.storeFile(uploadedFile, inputStream);
+
+            UploadedFile existingEntity = getByFileHash(uploadedFileStore.getFileHash());
+            if(null == existingEntity) {
+                existingEntity = create(uploadedFileStore);
+                existingEntity.setIdHash(hashids.encode(existingEntity.getId()));
+                update(existingEntity);
+            }
+
+            return existingEntity;
+        } catch (FileStorageException e) {
+            throw new UpitDAOException("Failed processing file", e);
+        }
+    }
+
+    @Override
+    public InputStream getFileStream(UploadedFile uploadedFile) {
+        return fileStorageStrategy.retrieveFile(uploadedFile);
+    }
 }

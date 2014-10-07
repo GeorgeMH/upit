@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.inject.persist.Transactional;
 import com.sun.jersey.core.header.ContentDisposition;
+import io.upit.dal.UpitDAOException;
 import io.upit.dal.UploadedFileDAO;
 import io.upit.dal.jpa.models.JpaUploadedFile;
 import io.upit.dal.models.UploadedFile;
@@ -33,13 +34,11 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
     private final Logger logger = LoggerFactory.getLogger(UploadedFileResource.class);
 
     private final UploadedFileDAO uploadedFileDAO;
-    private final File uploadedFileRepository;
 
     @Inject
-    public UploadedFileResource(UploadedFileDAO dao, @Named("uploadedFileRepositoryPath") File uploadedFileRepository) {
+    public UploadedFileResource(UploadedFileDAO dao) {
         super(UploadedFile.class, dao);
         this.uploadedFileDAO = dao;
-        this.uploadedFileRepository = uploadedFileRepository;
     }
 
     @POST
@@ -50,21 +49,21 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
     }
 
     @GET
-    @Path("download/{id}/{hash}")
-    public Response downloadFile(@PathParam("id") final Long id, @PathParam("hash") String hash) {
-        UploadedFile uploadedFile = uploadedFileDAO.getById(id);
+    @Path("download/{shortHash}")
+    public Response download(@PathParam("shortHash") String shortHash) {
+        int dotIdx = shortHash.indexOf('.');
+        if(dotIdx > 0){
+            shortHash = shortHash.substring(0, dotIdx);
+        }
+
+
+        UploadedFile uploadedFile = uploadedFileDAO.getByShortHash(shortHash);
         if(null == uploadedFile) {
-            // TODO: Better response handling!
             return Response.status(404).build();
         }
 
-        File targetFile = new File(uploadedFileRepository, uploadedFile.getHash());
-
-        final InputStream fileInputStream;
-        try {
-            fileInputStream = new FileInputStream(targetFile);
-        } catch(FileNotFoundException e) {
-            logger.error("UploadedFile not present in file repository: " + targetFile, e);
+        final InputStream fileInputStream = uploadedFileDAO.getFileStream(uploadedFile);
+        if(null == fileInputStream){
             return Response.status(404).build();
         }
 
@@ -111,7 +110,7 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
     }
 
     @POST
-    @Path("/uploadFiles")
+    @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Transactional
     public Set<UploadedFile> uploadFiles(@Context HttpServletRequest request) {
@@ -134,57 +133,16 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
                     continue;
                 }
 
-                File targetFile = File.createTempFile("upit-", "uploadingFile", uploadedFileRepository);
-                try {
-                    Files.copy(item.openStream(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                }catch(IOException e) {
-                    targetFile.delete();
-                    logger.error("Failed writing file to temporary target: " + targetFile.getAbsolutePath(), e);
-                    throw new ResourceException("Failed writing file to temporary target: " + targetFile.getAbsolutePath(), e);
+                JpaUploadedFile uploadedFile = new JpaUploadedFile();
+                uploadedFile.setFileName(item.getName());
+                if(null != item.getContentType() && item.getContentType().length() > 0) {
+                    uploadedFile.setContentType(item.getContentType());
                 }
 
-                String fileHash = null;
-
-                try(InputStream hashStream = new FileInputStream(targetFile)) {
-                    fileHash = DigestUtils.sha256Hex(hashStream);
-                } catch(IOException e) {
-                    // TODO: better error/exception handling
-                    targetFile.delete();
-                    throw new ResourceException("Failed calculating uploaded file hash", e);
-                }
-                if(null == fileHash) {
-                    // TODO: better error/exception handling
-                    targetFile.delete();
-                    throw new ResourceException("Failed calculating uploaded file hash (unknown)");
-                }
-
-                UploadedFile uploadedFile = uploadedFileDAO.getByHash(fileHash);
-                if(null != uploadedFile) {
-                    // The same file has already been uploaded.
-                    // TODO: Should probably do some better error checking here
-                    if(!targetFile.delete()){
-                        logger.warn("Failed deleting temp upload file after finding duplicate hash.");
-                    }
-                } else {
-                    uploadedFile = new JpaUploadedFile();
-                    uploadedFile.setHash(fileHash);
-                    uploadedFile.setFileSize(targetFile.length());
-                    uploadedFile.setFileName(item.getName());
-
-                    // TODO: Really need to do better checking on the content type to determine if its an image/video etc.
-                    if(null != item.getContentType()) {
-                        uploadedFile.setContentType(item.getContentType());
-                    } else {
-                        uploadedFile.setContentType("application/octet-stream");
-                    }
-                    uploadedFile = uploadedFileDAO.create(uploadedFile);
-
-                    //TODO: this won't work across file system types, we are safe here since its all in the same directory for now.
-                    targetFile.renameTo(new File(uploadedFileRepository, fileHash));
-                }
+                UploadedFile parsedUploadedFile = uploadedFileDAO.create(uploadedFile, item.openStream());
                 resultSet.add(uploadedFile);
             }
-        } catch (FileUploadException|IOException e) {
+        } catch (FileUploadException|IOException|UpitDAOException e) {
             //TODO better error/exceptions
             throw new ResourceException("Failed processing file upload", e);
         }

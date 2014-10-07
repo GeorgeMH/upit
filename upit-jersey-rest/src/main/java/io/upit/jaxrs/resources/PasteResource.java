@@ -15,7 +15,7 @@ import java.util.UUID;
 @Path("paste")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class PasteResource extends AbstractResource<Paste, String> {
+public class PasteResource extends AbstractResource<Paste, Long> {
 
     private final PasteDAO pasteDAO;
 
@@ -23,6 +23,11 @@ public class PasteResource extends AbstractResource<Paste, String> {
     public PasteResource(PasteDAO pasteDAO) {
         super(Paste.class, pasteDAO);
         this.pasteDAO = pasteDAO;
+    }
+
+    @Path("/hash/{idHash}")
+    public Paste getByIdHash(@PathParam("idHash") String hash) {
+        return pasteDAO.getByIdHash(hash);
     }
 
 }

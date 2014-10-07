@@ -1,6 +1,7 @@
 package io.upit.jaxrs.resources;
 
 import com.google.inject.Provider;
+import com.google.inject.persist.Transactional;
 import io.upit.dal.AuthSessionDAO;
 import io.upit.dal.UserDAO;
 import io.upit.dal.models.AuthSession;
@@ -33,6 +34,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
 
     @POST
     @Path("login/")
+    @Transactional
     public AuthSession login(@QueryParam("userName") String userName, @QueryParam("password") String password) {
         User user = userDao.getByUserNameOrEmail(userName);
         if (null == user) {

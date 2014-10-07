@@ -51,7 +51,7 @@ angular.module('upitWebSpa.paste').controller('PasteCtrl',
             var paste = angular.copy(model.newPasteForm);
 
             PasteResource.create(paste).then(function(createdPaste) {
-                $location.path('/paste/' + createdPaste.id);
+                $location.path('/paste/' + createdPaste.idHash);
             }, function(failure) {
                 console.log('failure! ' + failure);
             });

@@ -5,12 +5,23 @@ import io.upit.dal.models.Paste;
 import java.util.Date;
 import java.util.Objects;
 
-public class PasteImpl extends AbstractResource<String> implements Paste {
+public class PasteImpl extends AbstractResource<Long> implements Paste {
 
+    private String idHash;
     private String text;
     private String userId;
     private String parentId;
     private String syntaxId;
+
+    @Override
+    public String getIdHash(){
+        return idHash;
+    }
+
+    @Override
+    public void setIdHash(String idHash){
+        this.idHash = idHash;
+    }
 
     @Override
     public String getText() {
