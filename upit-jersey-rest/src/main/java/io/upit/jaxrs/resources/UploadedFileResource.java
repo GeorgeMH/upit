@@ -152,6 +152,11 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
                     targetFile.delete();
                     throw new ResourceException("Failed calculating uploaded file hash", e);
                 }
+                if(null == fileHash) {
+                    // TODO: better error/exception handling
+                    targetFile.delete();
+                    throw new ResourceException("Failed calculating uploaded file hash (unknown)");
+                }
 
                 UploadedFile uploadedFile = uploadedFileDAO.getByHash(fileHash);
                 if(null != uploadedFile) {
@@ -174,7 +179,7 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
                     }
                     uploadedFile = uploadedFileDAO.create(uploadedFile);
 
-                    //TODO: this won't work across file system types, we are safe here since its all in the same directory.
+                    //TODO: this won't work across file system types, we are safe here since its all in the same directory for now.
                     targetFile.renameTo(new File(uploadedFileRepository, fileHash));
                 }
                 resultSet.add(uploadedFile);

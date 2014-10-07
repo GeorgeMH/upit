@@ -26,7 +26,6 @@ angular.module('upitWebSpa.upload')
             console.log('Failed uploading file: ' + status);
         };
 
-
         $scope.uploadFile = function(fileItem){
             fileItem.onComplete = function(response, status, headers){
                 //TODO: This is a complete hack. Fix it!

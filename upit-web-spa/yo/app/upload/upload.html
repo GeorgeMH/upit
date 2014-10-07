@@ -1,32 +1,39 @@
 <div class="row">
 
     <div class="col-lg-12">
-        <h1 class="page-header">upload</h1>
+        <h1 class="page-header">upload <small> any of your images, videos, or files</small></h1>
     </div>
 </div>
 
 <div class="row">
 
-    <div class="col-lg-12">
+    <div id="uploadBox" class="col-lg-4 col-lg-push-4 panel panel-default" data-ng-file-drop="" uploader="fileUploader">
+        <div class="panel-heading">Drag and drop your file here</div>
+        <div class="panel-body text-center">
+            <input type="file" multiple="" data-nv-file-select="" data-uploader="fileUploader"/>
+        </div>
 
-        <input type="file" data-nv-file-select data-uploader="fileUploader"/><br/>
+    </div>
 
+</div>
+
+<div class="row">
+
+    <div class="col-lg-6">
+        <h4>Upload Queue</h4>
+        <hr />
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="fileItem in fileUploader.queue">
                 Name: <span ng-bind="fileItem.file.name"></span><br/>
                 <button ng-click="uploadFile(fileItem)">upload</button>
             </li>
         </ul>
-
     </div>
 
-</div>
 
-
-<div class="row">
-
-
-    <div class="col-lg-12">
+    <div class="col-lg-6">
+        <h4>Completed Uploads</h4>
+        <hr />
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="uploadedFile in model.uploadedFiles">
                 <div class="input-group">
