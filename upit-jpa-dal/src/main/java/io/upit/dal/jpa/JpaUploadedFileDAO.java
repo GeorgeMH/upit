@@ -3,11 +3,11 @@ package io.upit.dal.jpa;
 import com.google.inject.Inject;
 import fm.jiecao.lib.Hashids;
 import io.upit.dal.UpitDAOException;
-        import io.upit.dal.UploadedFileDAO;
-        import io.upit.dal.jpa.models.JpaUploadedFile;
-        import io.upit.dal.models.UploadedFile;
-        import io.upit.filestorage.FileStorageException;
-        import io.upit.filestorage.StreamingFileStorageStrategy;
+import io.upit.dal.UploadedFileDAO;
+import io.upit.dal.jpa.models.JpaUploadedFile;
+import io.upit.dal.models.UploadedFile;
+import io.upit.filestorage.FileStorageException;
+import io.upit.filestorage.StreamingFileStorageStrategy;
 
 import javax.persistence.*;
 import java.io.InputStream;
@@ -36,7 +36,7 @@ public class JpaUploadedFileDAO  extends EntityManagerDAO<UploadedFile, Long> im
     }
 
     @Override
-    public UploadedFile getByShortHash(String idHash) {
+    public UploadedFile getByIdHash(String idHash) {
         TypedQuery<JpaUploadedFile> query = entityManager.createQuery("SELECT uf FROM UploadedFile uf WHERE uf.idHash = :idHash", JpaUploadedFile.class);
         query.setParameter("idHash", idHash);
 

@@ -12,7 +12,6 @@ import java.io.File;
 public class UpitCoreGuiceModule extends AbstractModule {
     private final Logger logger = LoggerFactory.getLogger(UpitCoreGuiceModule.class);
 
-
     @Override
     protected void configure() {
 

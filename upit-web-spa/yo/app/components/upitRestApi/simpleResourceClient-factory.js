@@ -10,10 +10,10 @@ angular.module('upitWebSpa.upitRestApi')
         var self = this;
 
         // TODO: Inject this
-        var urlBaseContext = "/api_v1/";
+        var urlBaseContext = "/api_v1";
 
         var getResourceURL = function(requestContext) {
-            return urlBaseContext + requestContext.resourceName + '/';
+            return urlBaseContext + '/' + requestContext.resourceName;
         };
 
         var makeRestRequest = function(resourceContext, requestContext) {
@@ -39,6 +39,7 @@ angular.module('upitWebSpa.upitRestApi')
             }
 
             $http(httpReq).success(function(data, status, headers, config) {
+                // TOOD: Data parsing / error checking here once we standardize a way to pass REST errors back over exceptions
                 result.resolve(data);
             }).error(function(data, status, headers, config) {
                 result.reject(data);

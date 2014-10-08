@@ -20,7 +20,7 @@ angular.module('upitWebSpa.paste', [
           paste: ['$route', 'PasteResource', function($route, PasteResource){
             // Conditionally resolve the paste by the ID in the URL
             if($route.current.params.pasteId) {
-                return PasteResource.getById($route.current.params.pasteId);
+                return PasteResource.getByIdHash($route.current.params.pasteId);
             }
             return null;
           }]

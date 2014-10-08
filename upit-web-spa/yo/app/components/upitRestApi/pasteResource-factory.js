@@ -17,7 +17,6 @@ angular.module('upitWebSpa.upitRestApi')
       return SimpleResourceClient.getById(resourceContext, id);
     };
 
-
     var create = function(paste) {
       return SimpleResourceClient.create(resourceContext, paste);
     };
@@ -30,8 +29,16 @@ angular.module('upitWebSpa.upitRestApi')
       return SimpleResourceClient.remove(resourceContext, paste);
     };
 
+    var getByIdHash = function (hash) {
+        return SimpleResourceClient.makeRestRequest(resourceContext, {
+            url: '/hash/' + hash,
+            method: 'GET'
+        });
+    };
+
     return {
       getById: getById,
+      getByIdHash: getByIdHash,
       create: create,
       update: update,
       remove: remove

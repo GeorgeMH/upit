@@ -27,9 +27,9 @@ public class UpitJpaModule extends AbstractModule {
     protected void configure() {
         install(new JpaPersistModule("upit-dal-hibernate"));
 
-
         try {
-            bind(Hashids.class).toInstance(new Hashids("Upit.IO.Is.Your.Master.", 3));
+            //TODO: randomly generate the hash salt on install.
+            bind(Hashids.class).toInstance(new Hashids("Upit.IO.Is.Your.Master.sdafsadfsadfsadf", 5));
         } catch (Exception e) {
             addError("Failed binding Hashids instance", e);
             return;

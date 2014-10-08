@@ -25,6 +25,7 @@ public class PasteResource extends AbstractResource<Paste, Long> {
         this.pasteDAO = pasteDAO;
     }
 
+    @GET
     @Path("/hash/{idHash}")
     public Paste getByIdHash(@PathParam("idHash") String hash) {
         return pasteDAO.getByIdHash(hash);

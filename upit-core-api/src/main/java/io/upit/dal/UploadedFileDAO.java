@@ -12,6 +12,6 @@ public interface UploadedFileDAO extends DAO<UploadedFile, Long> {
 
     public UploadedFile getByFileHash(String fileHash);
 
-    public UploadedFile getByShortHash(String shortHash);
+    public UploadedFile getByIdHash(String shortHash);
 
 }

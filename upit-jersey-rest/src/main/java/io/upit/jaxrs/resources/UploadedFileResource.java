@@ -1,7 +1,6 @@
 package io.upit.jaxrs.resources;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.google.inject.persist.Transactional;
 import com.sun.jersey.core.header.ContentDisposition;
 import io.upit.dal.UpitDAOException;
@@ -9,7 +8,6 @@ import io.upit.dal.UploadedFileDAO;
 import io.upit.dal.jpa.models.JpaUploadedFile;
 import io.upit.dal.models.UploadedFile;
 import io.upit.jaxrs.exceptions.ResourceException;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
@@ -22,8 +20,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,7 +53,7 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
         }
 
 
-        UploadedFile uploadedFile = uploadedFileDAO.getByShortHash(shortHash);
+        UploadedFile uploadedFile = uploadedFileDAO.getByIdHash(shortHash);
         if(null == uploadedFile) {
             return Response.status(404).build();
         }
@@ -140,7 +136,7 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
                 }
 
                 UploadedFile parsedUploadedFile = uploadedFileDAO.create(uploadedFile, item.openStream());
-                resultSet.add(uploadedFile);
+                resultSet.add(parsedUploadedFile);
             }
         } catch (FileUploadException|IOException|UpitDAOException e) {
             //TODO better error/exceptions
