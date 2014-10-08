@@ -20,16 +20,7 @@ angular.module('upitWebSpa.upload')
             removeAfterUpload: true
         });
 
-        $scope.model = model;
-        $scope.fileUploader = fileUploader;
-
-
-        $scope.removeFile = function(fileItem){
-            fileUploader.removeFromQueue(fileItem);
-        }
-
-        $scope.uploadFile = function(fileItem){
-
+        fileUploader.onBeforeUploadItem = function(fileItem){
             fileItem.onComplete = function(response, status, headers){
                 $.each(response, function(idx, item){
                     //TODO: This is a complete hack. Fix it!
@@ -43,9 +34,28 @@ angular.module('upitWebSpa.upload')
                     model.uploadedFiles.push(item);
                 });
             };
+        };
 
+        $scope.model = model;
+        $scope.fileUploader = fileUploader;
+
+
+        $scope.removeFile = function(fileItem){
+            fileUploader.removeFromQueue(fileItem);
+        }
+
+        $scope.uploadFile = function(fileItem){
             fileItem.upload();
         };
+
+        $scope.removeAll = function(){
+            fileUploader.cancelAll();
+            fileUploader.clearQueue();
+        };
+
+        $scope.uploadAll = function(){
+            fileUploader.uploadAll();
+        }
 
 
         $scope.getUploadedFileUrl = function(uploadedFile) {

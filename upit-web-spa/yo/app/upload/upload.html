@@ -48,17 +48,35 @@
                     <ul class="list-group">
                         <li class="list-group-item" ng-repeat="fileItem in fileUploader.queue">
 
-                            <div class="btn-group btn-group-xs pull-right">
-                                <a title="Cancel Upload" class="btn btn-cs btn-default" data-ng-click="removeFile(fileItem)"><i class="fa fa-fw fa-remove"></i></a>
-                                <a title="Upload File" class="btn btn-cs btn-default" data-ng-click="uploadFile(fileItem)"><i class="fa fa-fw fa-cloud-upload"></i></a>
-                            </div>
-
                             <div class="input-group">
                                 <span ng-bind="fileItem.file.name"></span>
                             </div>
 
+                            <div class="btn-group btn-group-xs">
+                                <a title="Cancel Upload" class="btn btn-cs btn-default" data-ng-click="removeFile(fileItem)">
+                                    <!--<i class="fa fa-fw fa-remove"></i>-->
+                                    Cancel
+                                </a>
+
+                                <a title="Upload File" class="btn btn-cs btn-primary" data-ng-click="uploadFile(fileItem)">
+                                    <!-- <i class="fa fa-fw fa-cloud-upload"></i> -->
+                                    Upload
+                                </a>
+                            </div>
                         </li>
                     </ul>
+
+                    <div class="btn-group btn-group-xs">
+                        <a title="Cancel Upload" class="btn btn-cs btn-default" data-ng-click="removeAll()">
+                            <!--<i class="fa fa-fw fa-remove"></i>-->
+                            Remove All
+                        </a>
+
+                        <a title="Upload File" class="btn btn-cs btn-primary" data-ng-click="uploadAll()">
+                            <!-- <i class="fa fa-fw fa-cloud-upload"></i> -->
+                            Upload All
+                        </a>
+                    </div>
                 </div>
 
             </div>
