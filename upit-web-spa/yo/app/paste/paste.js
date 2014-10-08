@@ -13,7 +13,7 @@ angular.module('upitWebSpa.paste', [
   .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
-    .when('/paste/:pasteId?', {
+    .when('/paste/:pasteIdHash?', {
       templateUrl: 'paste/paste.html',
       controller: 'PasteCtrl',
       resolve: {
