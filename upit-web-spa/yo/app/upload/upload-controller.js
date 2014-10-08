@@ -8,12 +8,11 @@
  * Controller of upit
  */
 angular.module('upitWebSpa.upload')
-    .controller('UploadCtrl', ['$scope', 'FileUploader', function ($scope, FileUploader) {
+    .controller('UploadCtrl', ['$scope', '$window', 'FileUploader', function ($scope, $window, FileUploader) {
 
         var model = {
-            uploadedFiles: [
-
-            ]
+            urlsToDownload: [ ],
+            uploadedFiles: [ ]
         };
 
         $scope.model = model;
@@ -23,12 +22,17 @@ angular.module('upitWebSpa.upload')
             removeAfterUpload: true
         });
 
+
+        $scope.removeFile = function(fileItem){
+
+        }
+
         $scope.uploadFile = function(fileItem){
 
             fileItem.onComplete = function(response, status, headers){
-                //TODO: This is a complete hack. Fix it!
                 $.each(response, function(idx, item){
-                    var extensionIdx = item.fileName.indexOf('.');
+                    //TODO: This is a complete hack. Fix it!
+                    var extensionIdx = item.fileName.lastIndexOf('.');
 
                     if(extensionIdx > 0){
                         item.extension = item.fileName.substring(extensionIdx, item.fileName.length);
@@ -43,9 +47,9 @@ angular.module('upitWebSpa.upload')
         };
 
 
-        $scope.getUploadedFileUrl = function(uploadedFile){
-           // /api_v1/uploadedFile/download/{{uploadedFile.id}}/{{uploadedFile.hash}}{{uploadedFile.extension}}
-            return '/api_v1/uploadedFile/download/' + uploadedFile.idHash + '' + uploadedFile.extension;
+        $scope.getUploadedFileUrl = function(uploadedFile) {
+            var location = $window.location;
+            return location.protocol + '//' + location.hostname + (location.port ? ':'+location.port: '') + '/api_v1/uploadedFile/download/' + uploadedFile.idHash + '' + uploadedFile.extension;
         };
 
     }]);
