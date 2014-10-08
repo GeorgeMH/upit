@@ -15,16 +15,17 @@ angular.module('upitWebSpa.upload')
             uploadedFiles: [ ]
         };
 
-        $scope.model = model;
-
-        $scope.fileUploader = new FileUploader({
+        var fileUploader = new FileUploader({
             url: '/api_v1/uploadedFile/upload',
             removeAfterUpload: true
         });
 
+        $scope.model = model;
+        $scope.fileUploader = fileUploader;
+
 
         $scope.removeFile = function(fileItem){
-
+            fileUploader.removeFromQueue(fileItem);
         }
 
         $scope.uploadFile = function(fileItem){
