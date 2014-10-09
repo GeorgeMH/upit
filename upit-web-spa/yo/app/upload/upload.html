@@ -8,10 +8,11 @@
 
 <div class="row">
 
-    <!--<div class="col-lg-4 col-lg-push-4" data-ng-file-over="" data-over-class="fileHover" data-uploader="fileUploader">-->
-    <div class="col-lg-4 col-lg-push-4">
+    <div class="col-lg-4 col-lg-push-4" data-ng-file-over="" data-over-class="fileHover" data-uploader="fileUploader">
+    <!--<div class="col-lg-4 col-lg-push-4">-->
 
-        <div id="uploadAreaBox" class="panel panel-default" data-ng-file-over="" data-over-class="fileHover" data-uploader="fileUploader">
+        <!--<div id="uploadAreaBox" class="panel panel-default" data-ng-file-over="" data-over-class="fileHover" data-uploader="fileUploader">-->
+        <div id="uploadAreaBox" class="panel panel-default">
             <div class="panel-heading">Drag and drop your file here</div>
 
             <div class="panel-body text-center">
@@ -27,16 +28,16 @@
 
 <div class="row">
 
-    <div class="col-lg-5">
+    <div class="col-lg-12">
 
-        <div id="uploadQueueBox" class="panel panel-default">
+        <div data-ng-if="model.uploads.length > 0" id="uploadQueueBox" class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Upload Queue</h3>
+                <h3 class="panel-title">Uploads</h3>
             </div>
 
             <div class="panel-body">
 
-                <div data-ng-if="fileUploader.queue.length < 1">
+                <div data-ng-if="model.uploads.length < 1">
                     <ul class="list-group">
                         <li data-ng-if="fileUploader.queue.length < 1" class="list-group-item text-center">
                             None
@@ -44,36 +45,55 @@
                     </ul>
                 </div>
 
-                <div data-ng-if="fileUploader.queue.length > 0">
+                <div data-ng-if="model.uploads.length > 0">
                     <ul class="list-group">
-                        <li class="list-group-item" ng-repeat="fileItem in fileUploader.queue">
 
-                            <div class="input-group">
-                                <span ng-bind="fileItem.file.name"></span>
+                        <li class="list-group-item" ng-repeat="upload in model.uploads">
+                            <div data-ng-if="!upload.uploadedFile">
+                                <div class="btn-group btn-group-xs pull-right">
+                                    <a title="Cancel Upload" class="btn btn-cs btn-default" data-ng-click="removeFile(upload.fileItem)">
+                                        <i class="fa fa-fw fa-remove"></i>
+                                        <!--Cancel-->
+                                    </a>
+
+                                    <a title="Upload File" class="btn btn-cs btn-primary" data-ng-click="uploadFile(upload.fileItem)">
+                                         <i class="fa fa-fw fa-cloud-upload"></i>
+                                        <!--Upload-->
+                                    </a>
+                                </div>
+
+                                <div class="input-group">
+                                    File Name: <span ng-bind="upload.fileItem.file.name"></span>
+                                </div>
+
+                                <div data-ng-if="upload.fileItem.progress && upload.fileItem.progress > 0">
+                                    <div class="clearfix"></div>
+                                    <br/>
+                                    <progressbar value="upload.fileItem.progress" type="success"></progressbar>
+                                </div>
                             </div>
 
-                            <div class="btn-group btn-group-xs">
-                                <a title="Cancel Upload" class="btn btn-cs btn-default" data-ng-click="removeFile(fileItem)">
-                                    <!--<i class="fa fa-fw fa-remove"></i>-->
-                                    Cancel
-                                </a>
+                            <div data-ng-if="upload.uploadedFile">
+                                <div class="input-group">
+                                    File Name: <span ng-bind="upload.fileItem.file.name"></span>
+                                </div>
 
-                                <a title="Upload File" class="btn btn-cs btn-primary" data-ng-click="uploadFile(fileItem)">
-                                    <!-- <i class="fa fa-fw fa-cloud-upload"></i> -->
-                                    Upload
-                                </a>
+                                <div class="input-group">
+                                    Direct Link: <a href="{{getUploadedFileUrl(upload)}}" data-ng-bind="getUploadedFileUrl(upload)"></a>
+                                </div>
                             </div>
                         </li>
+
                     </ul>
 
-                    <div class="btn-group btn-group-xs">
+                    <div class="btn-group btn-group-xs clearer pull-right">
                         <a title="Cancel Upload" class="btn btn-cs btn-default" data-ng-click="removeAll()">
                             <!--<i class="fa fa-fw fa-remove"></i>-->
                             Remove All
                         </a>
 
                         <a title="Upload File" class="btn btn-cs btn-primary" data-ng-click="uploadAll()">
-                            <!-- <i class="fa fa-fw fa-cloud-upload"></i> -->
+                             <!--<i class="fa fa-fw fa-cloud-upload"></i>-->
                             Upload All
                         </a>
                     </div>
@@ -85,31 +105,4 @@
     </div>
 
 
-    <div class="col-lg-7">
-
-        <div id="completedUploadBox" class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Completed Uploads</h3>
-            </div>
-
-            <div class="panel-body">
-
-                <ul data-ng-if="model.uploadedFiles.length < 1" class="list-group">
-                    <li class="list-group-item text-center">None</li>
-                </ul>
-
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="uploadedFile in model.uploadedFiles">
-                        <div class="input-group">
-                            Direct URL: <a href="{{getUploadedFileUrl(uploadedFile)}}" data-ng-bind="getUploadedFileUrl(uploadedFile)"></a>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-
-        </div>
-
-
-    </div>
 </div>

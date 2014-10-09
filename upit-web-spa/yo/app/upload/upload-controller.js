@@ -10,9 +10,19 @@
 angular.module('upitWebSpa.upload')
     .controller('UploadCtrl', ['$scope', '$window', 'FileUploader', function ($scope, $window, FileUploader) {
 
+        var lastUploadTrackerId = 0;
+
         var model = {
             urlsToDownload: [ ],
-            uploadedFiles: [ ]
+
+            uploads: [ ]
+        };
+
+        var TrackedUpload = function(id, theFileItem) {
+            this.id = id,
+            this.fileItem = theFileItem,
+            this.uploadedFile  = null,
+            this.meta = { }
         };
 
         var fileUploader = new FileUploader({
@@ -20,47 +30,65 @@ angular.module('upitWebSpa.upload')
             removeAfterUpload: true
         });
 
-        fileUploader.onBeforeUploadItem = function(fileItem){
-            fileItem.onComplete = function(response, status, headers){
-                $.each(response, function(idx, item){
-                    //TODO: This is a complete hack. Fix it!
-                    var extensionIdx = item.fileName.lastIndexOf('.');
+        fileUploader.onAfterAddingFile = function(fileItem) {
+            var trackedUpload = new TrackedUpload(lastUploadTrackerId++, fileItem);
+            model.uploads.push(trackedUpload);
 
-                    if(extensionIdx > 0){
-                        item.extension = item.fileName.substring(extensionIdx, item.fileName.length);
-                    } else {
-                        item.extension = '';
-                    }
-                    model.uploadedFiles.push(item);
-                });
+            trackedUpload.fileItem.onSuccess = function(response, status, headers) {
+//                console.log('success: ' + response)
+                trackedUpload.uploadedFile = response[0];
             };
+
+//            trackedUpload.fileItem.onProgress = function(progress){
+//                console.log(fileItem.file.name + 'Progress: ' + progress);
+//            };
+//
+//            trackedUpload.fileItem.onError = function(response, status, headers) {
+//                console.log('error: ' + error);
+//            };
+//
+//            trackedUpload.fileItem.onCancel = function(response, status, headers) {
+//                console.log('cancel: ' + response);
+//            };
+//
+//            trackedUpload.fileItem.onComplete = function(response, status, headers) {
+//                //console.log('complete: ' + response);
+//            };
         };
 
         $scope.model = model;
         $scope.fileUploader = fileUploader;
 
+        $scope.removeFile = function(upload) {
+            fileUploader.removeFromQueue(upload.fileItem);
 
-        $scope.removeFile = function(fileItem){
-            fileUploader.removeFromQueue(fileItem);
         }
 
-        $scope.uploadFile = function(fileItem){
+        $scope.uploadFile = function(fileItem) {
             fileItem.upload();
         };
 
-        $scope.removeAll = function(){
+        $scope.removeAll = function() {
             fileUploader.cancelAll();
             fileUploader.clearQueue();
+            model.uploads.length = 0;
         };
 
-        $scope.uploadAll = function(){
+        $scope.uploadAll = function() {
             fileUploader.uploadAll();
         }
 
-
-        $scope.getUploadedFileUrl = function(uploadedFile) {
+        $scope.getUploadedFileUrl = function(trackedUpload) {
             var location = $window.location;
-            return location.protocol + '//' + location.hostname + (location.port ? ':'+location.port: '') + '/api_v1/uploadedFile/download/' + uploadedFile.idHash + '' + uploadedFile.extension;
+
+            // TODO: Calculate a more accurate file extension from the backend using content analysis on the backend: http://tika.apache.org/
+            var extension = '';
+            var extIdx = trackedUpload.uploadedFile.fileName.lastIndexOf('.');
+            if(extIdx > 0) {
+                extension = trackedUpload.uploadedFile.fileName.substring(extIdx, trackedUpload.uploadedFile.fileName.length);
+            }
+
+            return location.protocol + '//' + location.hostname + (location.port ? ':'+ location.port: '') + '/api_v1/uploadedFile/download/' + trackedUpload.uploadedFile.idHash + '' + extension;
         };
 
     }]);
