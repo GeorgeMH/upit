@@ -61,7 +61,6 @@ angular.module('upitWebSpa.upload')
 
         $scope.removeFile = function(upload) {
             fileUploader.removeFromQueue(upload.fileItem);
-
         }
 
         $scope.uploadFile = function(fileItem) {

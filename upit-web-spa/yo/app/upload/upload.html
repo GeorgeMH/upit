@@ -37,14 +37,6 @@
 
             <div class="panel-body">
 
-                <div data-ng-if="model.uploads.length < 1">
-                    <ul class="list-group">
-                        <li data-ng-if="fileUploader.queue.length < 1" class="list-group-item text-center">
-                            None
-                        </li>
-                    </ul>
-                </div>
-
                 <div data-ng-if="model.uploads.length > 0">
                     <ul class="list-group">
 
@@ -66,8 +58,7 @@
                                     File Name: <span ng-bind="upload.fileItem.file.name"></span>
                                 </div>
 
-                                <div data-ng-if="upload.fileItem.progress && upload.fileItem.progress > 0">
-                                    <div class="clearfix"></div>
+                                <div class="clearfix" data-ng-if="upload.fileItem.progress && upload.fileItem.progress > 0">
                                     <br/>
                                     <progressbar value="upload.fileItem.progress" type="success"></progressbar>
                                 </div>
