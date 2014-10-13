@@ -1,11 +1,3 @@
-
-
-(BE) Shorten Direct Download URL for files
-    The direct download link for files uses the full REST api which is pretty long, and will change as the REST API
-    changes. The application should instead route a shorter, more standard URL for direct downloads via routing or some
-    a dedicated servlet.
-
-
 (BE) Content analysis for accurate file type detection
     Use apache tika or the built in ImageIO libs to accurately determine file type detection. Use this to validate the
     content-type coming from the client, and also to more accurately determine the correct file extension to use.
@@ -15,8 +7,14 @@
     Possibly make this a form that can upload files or paste from the same page? I.e, the google approach.
 
 
-(FE) Image/Video landing page
+(FE & BE) Image/Video landing page
     Nice landing page to display images/videos when not accessed via the direct file download link.
+    Display the following URL's:
+
+    * Short URL Direct Download Link '/d/3423.png'
+    * Long URL Direct Download Link  '/d/3423/foo-image-name.png'
+    * SPA URL                        '/#/file/3423'
+    * SPA URL                        '/#/file/3423/foo-image-name.png'
 
 
 (FE) Line highlighting for pasted files
