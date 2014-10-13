@@ -82,12 +82,12 @@ angular.module('upitWebSpa.upload')
 
             // TODO: Calculate a more accurate file extension from the backend using content analysis on the backend: http://tika.apache.org/
             var extension = '';
-            var extIdx = trackedUpload.uploadedFile.fileName.lastIndexOf('.');
+            var extIdx = trackedUpload.uploadedFile.fileName.indexOf('.');
             if(extIdx > 0) {
                 extension = trackedUpload.uploadedFile.fileName.substring(extIdx, trackedUpload.uploadedFile.fileName.length);
             }
 
-            return location.protocol + '//' + location.hostname + (location.port ? ':'+ location.port: '') + '/api_v1/uploadedFile/download/' + trackedUpload.uploadedFile.idHash + '' + extension;
+            return location.protocol + '//' + location.hostname + (location.port ? ':'+ location.port: '') + '/d/' + trackedUpload.uploadedFile.idHash + '' + extension;
         };
 
     }]);

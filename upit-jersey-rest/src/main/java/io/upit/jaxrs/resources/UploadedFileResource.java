@@ -52,7 +52,6 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
             shortHash = shortHash.substring(0, dotIdx);
         }
 
-
         UploadedFile uploadedFile = uploadedFileDAO.getByIdHash(shortHash);
         if(null == uploadedFile) {
             return Response.status(404).build();
