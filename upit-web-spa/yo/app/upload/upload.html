@@ -9,9 +9,7 @@
 <div class="row">
 
     <div class="col-lg-4 col-lg-push-4" data-ng-file-over="" data-over-class="fileHover" data-uploader="fileUploader">
-    <!--<div class="col-lg-4 col-lg-push-4">-->
 
-        <!--<div id="uploadAreaBox" class="panel panel-default" data-ng-file-over="" data-over-class="fileHover" data-uploader="fileUploader">-->
         <div id="uploadAreaBox" class="panel panel-default">
             <div class="panel-heading">Drag and drop your file here</div>
 
@@ -66,11 +64,24 @@
 
                             <div data-ng-if="upload.uploadedFile">
                                 <div class="input-group">
-                                    File Name: <span ng-bind="upload.fileItem.file.name"></span>
+                                    <span>File Name:</span>
+                                    <span type="text" ng-bind="upload.fileItem.file.name"></span>
                                 </div>
 
                                 <div class="input-group">
-                                    Direct Link: <a href="{{getUploadedFileUrl(upload)}}" data-ng-bind="getUploadedFileUrl(upload)"></a>
+                                    Link: <a href="{{upload.urls.spaShort}}" data-ng-bind="upload.urls.spaShort"></a>
+                                </div>
+
+                                <div class="input-group">
+                                    Direct Link: <a href="{{upload.urls.directDownload}}" data-ng-bind="upload.urls.directDownload"></a>
+                                </div>
+
+                                <div class="input-group">
+                                    Link with name: <a href="{{upload.urls.spaShortWithName}}" data-ng-bind="upload.urls.spaShortWithName"></a>
+                                </div>
+
+                                <div class="input-group">
+                                    Direct Link with name: <a href="{{upload.urls.directDownloadWithName}}" data-ng-bind="upload.urls.directDownloadWithName"></a>
                                 </div>
                             </div>
                         </li>

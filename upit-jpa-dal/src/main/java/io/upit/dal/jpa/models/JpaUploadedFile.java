@@ -28,6 +28,9 @@ public class JpaUploadedFile implements UploadedFile {
     @Column(unique = true)
     private String fileHash;
 
+    @Column
+    private String extension;
+
     @Enumerated(EnumType.STRING)
     private FileType fileType;
 
@@ -86,6 +89,16 @@ public class JpaUploadedFile implements UploadedFile {
     @Override
     public void setFileHash(String hash) {
         this.fileHash = hash;
+    }
+
+    @Override
+    public String getExtension() {
+        return extension;
+    }
+
+    @Override
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
     @Override

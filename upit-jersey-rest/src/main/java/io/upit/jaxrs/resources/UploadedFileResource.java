@@ -130,6 +130,8 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
 
                 JpaUploadedFile uploadedFile = new JpaUploadedFile();
                 uploadedFile.setFileName(item.getName());
+
+
                 if(null != item.getContentType() && item.getContentType().length() > 0) {
                     uploadedFile.setContentType(item.getContentType());
                 }

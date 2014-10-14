@@ -1,7 +1,4 @@
-(BE) Content analysis for accurate file type detection
-    Use apache tika or the built in ImageIO libs to accurately determine file type detection. Use this to validate the
-    content-type coming from the client, and also to more accurately determine the correct file extension to use.
-
+(BE) Generate file extension in backend using tika when we calculate the mime type.
 
 (FE) Upit Splash Page
     Possibly make this a form that can upload files or paste from the same page? I.e, the google approach.

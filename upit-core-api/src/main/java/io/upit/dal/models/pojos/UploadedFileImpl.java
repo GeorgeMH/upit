@@ -6,7 +6,8 @@ import io.upit.dal.models.UploadedFile;
 public class UploadedFileImpl extends AbstractResource<Long> implements UploadedFile{
 
     private String idHash;
-    private String hash;
+    private String fileHash;
+    private String extension;
     private FileType fileType;
     private String contentType;
     private Long fileSize;
@@ -24,12 +25,22 @@ public class UploadedFileImpl extends AbstractResource<Long> implements Uploaded
 
     @Override
     public String getFileHash() {
-        return hash;
+        return fileHash;
     }
 
     @Override
     public void setFileHash(String hash) {
-        this.hash = hash;
+        this.fileHash = hash;
+    }
+
+    @Override
+    public String getExtension(){
+        return extension;
+    }
+
+    @Override
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
     @Override

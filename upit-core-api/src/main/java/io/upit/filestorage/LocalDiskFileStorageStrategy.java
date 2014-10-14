@@ -2,11 +2,16 @@ package io.upit.filestorage;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import io.upit.dal.models.FileType;
 import io.upit.dal.models.UploadedFile;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.mime.MediaType;
+import org.apache.tika.mime.MimeTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.print.DocFlavor;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.*;
 import java.nio.file.FileStore;
@@ -31,35 +36,62 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
         MessageDigest messageDigest = createNewMessageDigest();
         DigestInputStream digestInputStream = new DigestInputStream(inputStream, messageDigest);
 
-        File targetFile = null;
+        File targetTempFile = null;
         try {
-            targetFile = File.createTempFile("upit-", "uploadingFile", uploadedFileRepository);
-            Files.copy(digestInputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            targetTempFile = File.createTempFile("upit-", "uploadingFile", uploadedFileRepository);
+            Files.copy(digestInputStream, targetTempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch(IOException e) {
-            if(null != targetFile) {
-                targetFile.delete();
+            if(null != targetTempFile) {
+                targetTempFile.delete();
             }
-            throw new FileStorageException("Failed writing file to temporary target: " + targetFile.getAbsolutePath(), e);
+            throw new FileStorageException("Failed writing file to temporary target: " + targetTempFile.getAbsolutePath(), e);
+        } finally {
+            if(null != inputStream){
+                try {
+                    inputStream.close();
+                } catch (IOException e) { }
+            }
         }
 
         String fileHash = (new HexBinaryAdapter().marshal(messageDigest.digest()));
 
         if(null == fileHash || "".equals(fileHash.trim())) {
-            targetFile.delete();
+            targetTempFile.delete();
             throw new FileStorageException("Failed calculating uploaded file hash (unknown)");
         }
 
         uploadedFile.setFileHash(fileHash);
-        uploadedFile.setFileSize(targetFile.length());
+        uploadedFile.setFileSize(targetTempFile.length());
+
+        // Best effort file type detection
+        try(InputStream detectorInputStream = new BufferedInputStream(new FileInputStream(targetTempFile))) {
+            Metadata metaData = new Metadata();
+            if(null != uploadedFile.getFileName()) {
+                metaData.set(Metadata.RESOURCE_NAME_KEY, uploadedFile.getFileName());
+            }
+            if(null != uploadedFile.getContentType()) {
+                metaData.set(Metadata.CONTENT_TYPE, uploadedFile.getContentType());
+            }
+            MediaType mediaType = new MimeTypes().detect(detectorInputStream, metaData);
+            if(null != mediaType) {
+                // Override the client supplied mime type
+                uploadedFile.setContentType(mediaType.toString());
+                uploadedFile.setFileType(FileType.getFileType(mediaType.toString()));
+            } else {
+                uploadedFile.setFileType(FileType.UNKNOWN);
+            }
+        } catch (IOException e) {
+            targetTempFile.delete();
+            throw new FileStorageException("Failed analyzing saved file", e);
+        }
 
         File finalFileName = new File(uploadedFileRepository, fileHash);
 
         if(!finalFileName.exists()) {
-            //TODO: this won't work across file systems, we are safe here since its all in the same directory for now.
-            targetFile.renameTo(finalFileName);
+            targetTempFile.renameTo(finalFileName);
         } else {
             // duplicate file
-            targetFile.delete();
+            targetTempFile.delete();
         }
 
         return uploadedFile;

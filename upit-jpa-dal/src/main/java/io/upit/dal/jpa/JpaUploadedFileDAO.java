@@ -50,11 +50,11 @@ public class JpaUploadedFileDAO  extends EntityManagerDAO<UploadedFile, Long> im
     @Override
     public UploadedFile create(UploadedFile uploadedFile, InputStream inputStream) throws UpitDAOException {
         try {
-            UploadedFile uploadedFileStore = fileStorageStrategy.storeFile(uploadedFile, inputStream);
+            UploadedFile uploadedFileFromStore = fileStorageStrategy.storeFile(uploadedFile, inputStream);
 
-            UploadedFile existingEntity = getByFileHash(uploadedFileStore.getFileHash());
+            UploadedFile existingEntity = getByFileHash(uploadedFileFromStore.getFileHash());
             if(null == existingEntity) {
-                existingEntity = create(uploadedFileStore);
+                existingEntity = create(uploadedFileFromStore);
                 existingEntity.setIdHash(hashids.encode(existingEntity.getId()));
                 update(existingEntity);
             }

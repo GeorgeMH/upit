@@ -8,13 +8,12 @@
  * Controller of upit
  */
 angular.module('upitWebSpa.upload')
-    .controller('UploadCtrl', ['$scope', '$window', 'FileUploader', function ($scope, $window, FileUploader) {
+    .controller('UploadCtrl', ['$scope', '$window', 'FileUploader', 'FileUrlGenerator', function ($scope, $window, FileUploader, FileUrlGenerator) {
 
         var lastUploadTrackerId = 0;
 
         var model = {
             urlsToDownload: [ ],
-
             uploads: [ ]
         };
 
@@ -22,7 +21,9 @@ angular.module('upitWebSpa.upload')
             this.id = id,
             this.fileItem = theFileItem,
             this.uploadedFile  = null,
-            this.meta = { }
+            this.urls = {
+
+            }
         };
 
         var fileUploader = new FileUploader({
@@ -35,25 +36,11 @@ angular.module('upitWebSpa.upload')
             model.uploads.push(trackedUpload);
 
             trackedUpload.fileItem.onSuccess = function(response, status, headers) {
-//                console.log('success: ' + response)
+                // TODO: Validation?
                 trackedUpload.uploadedFile = response[0];
+                angular.copy(FileUrlGenerator.getURLs(trackedUpload.uploadedFile), trackedUpload.urls);
             };
 
-//            trackedUpload.fileItem.onProgress = function(progress){
-//                console.log(fileItem.file.name + 'Progress: ' + progress);
-//            };
-//
-//            trackedUpload.fileItem.onError = function(response, status, headers) {
-//                console.log('error: ' + error);
-//            };
-//
-//            trackedUpload.fileItem.onCancel = function(response, status, headers) {
-//                console.log('cancel: ' + response);
-//            };
-//
-//            trackedUpload.fileItem.onComplete = function(response, status, headers) {
-//                //console.log('complete: ' + response);
-//            };
         };
 
         $scope.model = model;
@@ -75,19 +62,6 @@ angular.module('upitWebSpa.upload')
 
         $scope.uploadAll = function() {
             fileUploader.uploadAll();
-        }
-
-        $scope.getUploadedFileUrl = function(trackedUpload) {
-            var location = $window.location;
-
-            // TODO: Calculate a more accurate file extension from the backend using content analysis on the backend: http://tika.apache.org/
-            var extension = '';
-            var extIdx = trackedUpload.uploadedFile.fileName.indexOf('.');
-            if(extIdx > 0) {
-                extension = trackedUpload.uploadedFile.fileName.substring(extIdx, trackedUpload.uploadedFile.fileName.length);
-            }
-
-            return location.protocol + '//' + location.hostname + (location.port ? ':'+ location.port: '') + '/d/' + trackedUpload.uploadedFile.idHash + '' + extension;
         };
 
     }]);
