@@ -16,14 +16,15 @@ angular.module('upitWebSpa.upload', [
         controller: 'UploadCtrl'
     })
     .when('/file/:fileIdHash/:fileName?', {
-            templateUrl: 'files/files.html',
-            controller: 'FilesCtrl',
+            templateUrl: 'upload/file.html',
+            controller: 'FileCtrl',
             resolve: {
-                paste: ['$route', 'UploadedFileResource', function($route, UploadedFileResource) {
-                    // Conditionally resolve the paste by the ID in the URL
-                    if($route.current.params.pasteIdHash) {
+                resolvedUploadedFile: ['$route', 'UploadedFileResource', function($route, UploadedFileResource) {
+                    // Conditionally resolve the uploaded file by the ID in the URL
+                    if($route.current.params.fileIdHash) {
                         return UploadedFileResource.getByIdHash($route.current.params.fileIdHash);
                     }
+                    // TODO: If the resolve fails we need to alert the user?
                     return null;
                 }]
             }

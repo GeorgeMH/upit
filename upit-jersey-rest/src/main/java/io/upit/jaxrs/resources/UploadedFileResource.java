@@ -45,6 +45,12 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
     }
 
     @GET
+    @Path("hash/{shortHash}")
+    public UploadedFile getByIdHash(String shortHash){
+        return uploadedFileDAO.getByIdHash(shortHash);
+    }
+
+    @GET
     @Path("download/{shortHash}")
     public Response download(@PathParam("shortHash") String shortHash) {
         int dotIdx = shortHash.indexOf('.');
