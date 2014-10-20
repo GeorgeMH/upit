@@ -8,9 +8,9 @@ angular.module('upitWebSpa.upload')
             return $location.protocol() + '://' + $location.host() + ($location.port() ? ':'+ $location.port(): '');
         };
 
-        var directDownload = function(uploadedFile) {
+        var directDownload = function(uploadedFile, showExtension) {
             var url = getBaseURL() +  '/d/' + encodeURIComponent(uploadedFile.idHash);
-            if(uploadedFile.extension) {
+            if(showExtension && uploadedFile.extension) {
                 url += uploadedFile.extension;
             }
             return url;
@@ -20,7 +20,7 @@ angular.module('upitWebSpa.upload')
             if(!uploadedFile.fileName) {
                 return null;
             }
-            return directDownload(uploadedFile) + '/' + uploadedFile.fileName;
+            return directDownload(uploadedFile, false) + '/' + uploadedFile.fileName;
         };
 
         var spaShort = function(uploadedFile) {
@@ -36,7 +36,7 @@ angular.module('upitWebSpa.upload')
 
         var getURLs = function(uploadedFile) {
             return {
-                directDownload: directDownload(uploadedFile),
+                directDownload: directDownload(uploadedFile, true),
                 directDownloadWithName: directDownloadWithName(uploadedFile),
                 spaShort: spaShort(uploadedFile),
                 spaShortWithName: spaShortWithName(uploadedFile)

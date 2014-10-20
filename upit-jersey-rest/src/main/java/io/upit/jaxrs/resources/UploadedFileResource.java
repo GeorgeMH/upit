@@ -46,7 +46,7 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
 
     @GET
     @Path("hash/{shortHash}")
-    public UploadedFile getByIdHash(String shortHash){
+    public UploadedFile getByIdHash(@PathParam("shortHash") String shortHash){
         return uploadedFileDAO.getByIdHash(shortHash);
     }
 

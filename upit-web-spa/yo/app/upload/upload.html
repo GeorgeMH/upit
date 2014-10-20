@@ -63,26 +63,17 @@
                             </div>
 
                             <div data-ng-if="upload.uploadedFile">
-                                <div class="input-group">
-                                    <span>File Name:</span>
-                                    <span type="text" ng-bind="upload.fileItem.file.name"></span>
-                                </div>
 
-                                <div class="input-group">
-                                    Link: <a href="{{upload.urls.spaShort}}" data-ng-bind="upload.urls.spaShort"></a>
-                                </div>
+                                    <table class="table table-striped">
+                                        <tbody class="table-hover">
+                                            <tr>
+                                                <td>File name</td>
+                                                <td data-ng-bind="upload.uploadedFile.fileName"></td>
+                                                <td><a href="{{upload.urls.spaShortWithName}}" data-ng-bind="upload.urls.spaShortWithName"></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-                                <div class="input-group">
-                                    Direct Link: <a href="{{upload.urls.directDownload}}" data-ng-bind="upload.urls.directDownload"></a>
-                                </div>
-
-                                <div class="input-group">
-                                    Link with name: <a href="{{upload.urls.spaShortWithName}}" data-ng-bind="upload.urls.spaShortWithName"></a>
-                                </div>
-
-                                <div class="input-group">
-                                    Direct Link with name: <a href="{{upload.urls.directDownloadWithName}}" data-ng-bind="upload.urls.directDownloadWithName"></a>
-                                </div>
                             </div>
                         </li>
 

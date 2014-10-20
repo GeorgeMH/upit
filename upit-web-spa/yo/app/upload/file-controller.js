@@ -8,10 +8,11 @@
  * Controller of upit
  */
 angular.module('upitWebSpa.upload')
-  .controller('FileCtrl', ['$scope', '$window', 'resolvedUploadedFile', function ($scope, $window, resolvedUploadedFile) {
+  .controller('FileCtrl', ['$scope', '$window', 'FileUrlGenerator', 'resolvedUploadedFile', function ($scope, $window, FileUrlGenerator, resolvedUploadedFile) {
 
         var model = {
-            uploadedFile: resolvedUploadedFile
+            uploadedFile: resolvedUploadedFile,
+            urls: FileUrlGenerator.getURLs(resolvedUploadedFile)
         };
 
         $scope.model = model;
