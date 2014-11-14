@@ -39,7 +39,6 @@ angular.module('upitWebSpa.upitRestApi')
             }
 
             $http(httpReq).success(function(data, status, headers, config) {
-                // TODO: Data parsing / error checking here once we standardize a way to pass REST errors back over exceptions
                 if(200 == status) {
                     result.resolve(data);
                 } else {

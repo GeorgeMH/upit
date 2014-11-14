@@ -101,7 +101,6 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
         Response.ResponseBuilder response = Response.ok(streamingOutput, uploadedFile.getContentType());
         response.header("content-length", uploadedFile.getFileSize() + "");
 
-        // TODO: Really need to do better checking on the content type to determine if its an image/video etc.
         if(null == uploadedFile.getContentType() || !uploadedFile.getContentType().startsWith("image")) {
             response.header("content-disposition", ContentDisposition.type("attachment")
                                                                      .fileName(uploadedFile.getFileName())
