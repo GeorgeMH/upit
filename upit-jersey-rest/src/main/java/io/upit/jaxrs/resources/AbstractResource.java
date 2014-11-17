@@ -41,7 +41,7 @@ public abstract class AbstractResource<ResourceClass extends Resource<IDType>, I
     @DELETE
     @Path("{id}")
     @Transactional
-    public ResourceClass deleteById(@PathParam("id") IDType id){
+    public ResourceClass deleteById(@PathParam("id") IDType id) {
         return dao.deleteById(id);
     }
 

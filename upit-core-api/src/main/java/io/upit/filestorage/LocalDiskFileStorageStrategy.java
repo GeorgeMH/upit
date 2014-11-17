@@ -33,10 +33,9 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
     @Override
     public UploadedFile storeFile(UploadedFile uploadedFile, InputStream inputStream) throws FileStorageException {
         MessageDigest messageDigest = createNewMessageDigest();
-        DigestInputStream digestInputStream = new DigestInputStream(inputStream, messageDigest);
 
         File targetTempFile = null;
-        try {
+        try(DigestInputStream digestInputStream = new DigestInputStream(inputStream, messageDigest);) {
             targetTempFile = File.createTempFile("upit-", "uploadingFile", uploadedFileRepository);
             Files.copy(digestInputStream, targetTempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch(IOException e) {
@@ -89,7 +88,7 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
         try {
             return MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("", e);
+            throw new RuntimeException("NoSuchAlgorithmException", e);
         }
     }
 
@@ -117,7 +116,7 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
                         uploadedFile.setExtension(mimeType.getExtension());
                     }
                 } catch (MimeTypeException e) {
-                    e.printStackTrace();
+                    logger.debug("Failed detecting file type", e);
                 }
             } else {
                 uploadedFile.setFileType(FileType.UNKNOWN);
