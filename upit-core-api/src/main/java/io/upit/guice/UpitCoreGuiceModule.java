@@ -4,13 +4,17 @@ import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 import io.upit.filestorage.LocalDiskFileStorageStrategy;
 import io.upit.filestorage.StreamingFileStorageStrategy;
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.DefaultConfigurationBuilder;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
 public class UpitCoreGuiceModule extends AbstractModule {
-    private final Logger logger = LoggerFactory.getLogger(UpitCoreGuiceModule.class);
+    private final static Logger logger = LoggerFactory.getLogger(UpitCoreGuiceModule.class);
 
     @Override
     protected void configure() {
@@ -43,6 +47,16 @@ public class UpitCoreGuiceModule extends AbstractModule {
         bind(File.class).annotatedWith(Names.named("upitLocalDiskFileRepository")).toInstance(uploadedFileRepositoryPath);
 
         bind(StreamingFileStorageStrategy.class).to(LocalDiskFileStorageStrategy.class);
+
+        try {
+            PropertiesConfiguration configuration = new PropertiesConfiguration(new File(instanceHomeDirectory, "upit.properties"));
+            configuration.setAutoSave(true);
+            bind(Configuration.class).annotatedWith(Names.named("UpitConfiguration")).toInstance(configuration);
+        } catch (ConfigurationException e) {
+            addError("Failed building Configuration", e);
+            return;
+        }
+
     }
 
 
