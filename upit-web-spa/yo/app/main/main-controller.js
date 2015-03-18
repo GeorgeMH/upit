@@ -6,8 +6,8 @@
  * @description # MainCtrl Controller of the upit
  */
 angular.module('upitWebSpa.main')
-  .controller('MainCtrl', ['$scope', function($scope) {
+  .controller('MainCtrl', ['$scope', '$location', function($scope, $location) {
 
-
+    $location.path('/upload');
 
   }]);
