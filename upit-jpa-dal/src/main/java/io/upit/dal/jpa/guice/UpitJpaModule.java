@@ -1,10 +1,7 @@
 package io.upit.dal.jpa.guice;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Injector;
-import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.google.inject.name.Names;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import fm.jiecao.lib.Hashids;
 import io.upit.dal.AuthSessionDAO;

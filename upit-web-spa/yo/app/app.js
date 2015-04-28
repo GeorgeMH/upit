@@ -12,6 +12,8 @@ angular
   .module('upitWebSpa', [
 
     'upitWebSpa.navigation',
+    'upitWebSpa.auth',
+    'upitWebSpa.user',
     'upitWebSpa.main',
     'upitWebSpa.paste',
     'upitWebSpa.upload',

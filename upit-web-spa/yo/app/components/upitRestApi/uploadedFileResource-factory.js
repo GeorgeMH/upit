@@ -13,23 +13,23 @@ angular.module('upitWebSpa.upitRestApi')
             resourceName: 'uploadedFile'
         };
 
-        var getById = function(id) {
+        self.getById = function(id) {
             return SimpleResourceClient.getById(resourceContext, id);
         };
 
-        var create = function(paste) {
+        self.create = function(paste) {
             return SimpleResourceClient.create(resourceContext, paste);
         };
 
-        var update = function(paste) {
+        self.update = function(paste) {
             return SimpleResourceClient.update(resourceContext, paste);
         };
 
-        var remove = function(paste) {
+        self.remove = function(paste) {
             return SimpleResourceClient.remove(resourceContext, paste);
         };
 
-        var getByIdHash = function (hash) {
+        self.getByIdHash = function (hash) {
             return SimpleResourceClient.makeRestRequest(resourceContext, {
                 url: '/hash/' + hash,
                 method: 'GET'
@@ -37,11 +37,11 @@ angular.module('upitWebSpa.upitRestApi')
         };
 
         return {
-            getById: getById,
-            getByIdHash: getByIdHash,
-            create: create,
-            update: update,
-            remove: remove
+            getById: self.getById,
+            getByIdHash: self.getByIdHash,
+            create: self.create,
+            update: self.update,
+            remove: self.remove
         };
 
     }]);

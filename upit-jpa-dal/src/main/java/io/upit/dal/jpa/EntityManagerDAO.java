@@ -5,7 +5,6 @@ import io.upit.dal.DAO;
 import io.upit.dal.models.Resource;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.Date;
 

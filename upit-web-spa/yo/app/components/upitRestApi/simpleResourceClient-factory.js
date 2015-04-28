@@ -1,10 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name upit.controller:MainCtrl
- * @description # Paste Module
- */
 angular.module('upitWebSpa.upitRestApi')
     .factory('SimpleResourceClient', ['$log', '$q', '$http', function($log, $q, $http) {
         var self = this;

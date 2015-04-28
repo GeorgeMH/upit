@@ -4,13 +4,13 @@ import java.util.Date;
 
 public interface Resource<IDType> {
 
-    public IDType getId();
-    public void setId(IDType id);
+    IDType getId();
+    void setId(IDType id);
 
-    public int getVersion();
-    public void setVersion(int version);
+    int getVersion();
+    void setVersion(int version);
 
-    public Date getCreated();
-    public void setCreated(Date dateCreated);
+    Date getCreated();
+    void setCreated(Date dateCreated);
 
 }

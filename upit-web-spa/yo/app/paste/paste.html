@@ -19,11 +19,15 @@
     </div>
 
     <div class="col-xs-12" data-ng-if="model.paste.syntaxId">
-        <pre id="codeBlock" data-ng-class="{'line-numbers':model.showLineNumbers}" data-prism=""><code data-ng-class="getPasteLanguageClass()"  data-ng-bind="model.paste.text"></code></pre>
+        <pre id="codeBlock" data-ng-class="{'line-numbers':model.showLineNumbers}" data-prism="">
+            <code data-ng-class="getPasteLanguageClass()"  data-ng-bind="model.paste.text"></code>
+        </pre>
     </div>
 
     <div class="col-xs-12" data-ng-if="!model.paste.syntaxId">
-        <pre id="codeBlock"><code data-ng-bind="model.paste.text"></code></pre>
+        <pre id="codeBlock">
+            <code data-ng-bind="model.paste.text"></code>
+        </pre>
     </div>
 
 </div>

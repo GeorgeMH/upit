@@ -7,8 +7,8 @@
  * # PasteCtrl
  * PasteCtrl of upit
  */
-angular.module('upitWebSpa.paste').controller('PasteCtrl',
-    ['$scope', '$location', '$filter', '$timeout', 'PasteResource', 'paste', function ($scope, $location, $filter, $timeout, PasteResource, resolvedPaste) {
+angular.module('upitWebSpa.paste').controller('PasteController',
+    ['$scope', '$location', '$filter', '$timeout', 'PasteResource', 'resolvedPaste', function ($scope, $location, $filter, $timeout, PasteResource, resolvedPaste) {
 
         var model = {
             paste: resolvedPaste,

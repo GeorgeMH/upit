@@ -6,7 +6,7 @@
  * @description # Navigation Controller
  */
 angular.module('upitWebSpa.navigation')
-  .controller('NavigationCtrl', ['$scope', '$location', function($scope, $location) {
+  .controller('NavigationControl', ['$scope', '$location', function($scope, $location) {
 
     $scope.menuClass = function(page) {
         var currentPath = $location.path().substring(1);

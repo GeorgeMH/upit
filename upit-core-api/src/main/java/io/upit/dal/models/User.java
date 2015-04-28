@@ -4,16 +4,16 @@ import java.util.Date;
 
 public interface User extends Resource<String>{
 
-    public String getUserName();
+    String getUserName();
     void setUserName(String userName);
 
-    public String getEmail();
-    public void setEmail(String email);
+    String getEmail();
+    void setEmail(String email);
 
-    public String getPassword();
-    public void setPassword(String password);
+    String getPassword();
+    void setPassword(String password);
 
-    public Date getCreated();
-    public void setCreated(Date dateCreated);
+    Date getCreated();
+    void setCreated(Date dateCreated);
 
 }

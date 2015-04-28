@@ -13,7 +13,7 @@ angular.module('upitWebSpa.main', [
 
     $routeProvider.when('/', {
       templateUrl: 'main/main.html',
-      controller: 'MainCtrl'
+      controller: 'MainController'
     });
 
   }]);

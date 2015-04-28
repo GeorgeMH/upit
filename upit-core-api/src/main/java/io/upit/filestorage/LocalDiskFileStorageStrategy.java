@@ -35,7 +35,7 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
         MessageDigest messageDigest = createNewMessageDigest();
 
         File targetTempFile = null;
-        try(DigestInputStream digestInputStream = new DigestInputStream(inputStream, messageDigest);) {
+        try(DigestInputStream digestInputStream = new DigestInputStream(inputStream, messageDigest)) {
             targetTempFile = File.createTempFile("upit-", "uploadingFile", uploadedFileRepository);
             Files.copy(digestInputStream, targetTempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch(IOException e) {
