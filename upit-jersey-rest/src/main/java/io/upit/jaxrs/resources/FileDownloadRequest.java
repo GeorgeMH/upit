@@ -1,7 +1,6 @@
 package io.upit.jaxrs.resources;
 
 import com.google.inject.Inject;
-import io.upit.jaxrs.resources.UploadedFileResource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

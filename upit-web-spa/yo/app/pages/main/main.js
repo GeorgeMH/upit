@@ -6,13 +6,13 @@
  * @description # Main module definition
  */
 
-angular.module('upitWebSpa.main', [
+angular.module('upit-web.page.main', [
     'ngRoute'
   ])
   .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/', {
-      templateUrl: 'main/main.html',
+      templateUrl: 'pages/main/main.html',
       controller: 'MainController'
     });
 

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('upitWebSpa.upload')
-    .factory('FileUrlGenerator', ['$location', function ($location) {
+angular.module('upit-web.page.upload')
+    .service('FileUrlGenerator', ['$location', function ($location) {
         var self = this;
 
         self.getBaseURL = function() {

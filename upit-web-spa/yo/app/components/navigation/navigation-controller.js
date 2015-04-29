@@ -5,7 +5,7 @@
  * @name upitWebSpa.Navigation
  * @description # Navigation Controller
  */
-angular.module('upitWebSpa.navigation')
+angular.module('upit-web.components.navigation')
   .controller('NavigationControl', ['$scope', '$location', function($scope, $location) {
 
     $scope.menuClass = function(page) {

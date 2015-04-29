@@ -5,7 +5,7 @@
  * @name upit.controller:MainCtrl
  * @description # Paste Module
  */
-angular.module('upitWebSpa.upitRestApi')
+angular.module('upit-web.upitRestApi')
   .factory('PasteResource', ['$q', 'SimpleResourceClient', function($q, SimpleResourceClient) {
     var self = this;
 

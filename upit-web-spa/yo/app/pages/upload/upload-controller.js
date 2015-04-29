@@ -7,8 +7,8 @@
  * # AboutCtrl
  * Controller of upit
  */
-angular.module('upitWebSpa.upload')
-    .controller('UploadCtrl', ['$scope', '$window', 'FileUploader', 'FileUrlGenerator', function ($scope, $window, FileUploader, FileUrlGenerator) {
+angular.module('upit-web.page.upload')
+    .controller('UploadController', ['$scope', '$window', 'FileUploader', 'FileUrlGenerator', function ($scope, $window, FileUploader, FileUrlGenerator) {
 
         var lastUploadTrackerId = 0;
 

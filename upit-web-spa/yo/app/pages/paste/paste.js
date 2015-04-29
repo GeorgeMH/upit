@@ -5,14 +5,14 @@
  * @name upit.controller:MainCtrl
  * @description # Paste Module
  */
-angular.module('upitWebSpa.paste', [
-    'upitWebSpa.upitRestApi',
+angular.module('upit-web.page.paste', [
+    'upit-web.upitRestApi',
     'ngRoute'
   ])
   .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/paste/:pasteIdHash?', {
-      templateUrl: 'paste/paste.html',
+      templateUrl: 'pages/paste/paste.html',
       controller: 'PasteController',
       resolve: {
           resolvedPaste: ['$route', 'PasteResource', function($route, PasteResource) {

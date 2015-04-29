@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('upitWebSpa.user', [
-    'upitWebSpa.upitRestApi',
+angular.module('upit-web.page.user', [
+    'upit-web.upitRestApi',
     'ngRoute'
 ]).config(['$routeProvider', function ($routeProvider) {
 

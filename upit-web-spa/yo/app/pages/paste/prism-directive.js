@@ -1,4 +1,4 @@
-angular.module('upitWebSpa.paste').directive('nagPrism', [
+angular.module('upit-web.page.paste').directive('nagPrism', [
     '$timeout',
     function($timeout) {
         return {

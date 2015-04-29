@@ -12,7 +12,6 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/prism/prism.css" />
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <!-- endbower -->
@@ -28,7 +27,7 @@
     <!-- endbuild -->
   </head>
 
-  <body data-ng-app="upitWebSpa">
+  <body data-ng-app="upit-web">
 
     <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -61,11 +60,17 @@
                     </li>
 
                     <li data-ng-class="menuClass('login')">
-                        <a href="#/auth/login/">Login</a>
+                        <a href="#/auth/login/">login</a>
+                    </li>
+                    <li data-ng-class="menuClass('register')">
+                        <a href="#/auth/register/">register</a>
                     </li>
 
                 </ul>
+
             </div>
+
+
             <!-- /.navbar-collapse -->
 
         </div>
@@ -109,9 +114,9 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -172,31 +177,30 @@
     <script src="components/upitRestApi/simpleResourceClient-factory.js"></script>
     <script src="components/upitRestApi/pasteResource-factory.js"></script>
     <script src="components/upitRestApi/uploadedFileResource-factory.js"></script>
+    <script src="components/upitRestApi/userResource-factory.js"></script>
 
     <script src="components/navigation/navigation.js"></script>
     <script src="components/navigation/navigation-controller.js"></script>
 
-    <script src="main/main.js"></script>
-    <script src="main/main-controller.js"></script>
+    <script src="pages/main/main.js"></script>
+    <script src="pages/main/main-controller.js"></script>
 
-    <script src="paste/paste.js"></script>
-    <script src="paste/paste-controller.js"></script>
+    <script src="pages/paste/paste.js"></script>
+    <script src="pages/paste/paste-controller.js"></script>
 
-    <script src="upload/upload.js"></script>
-    <script src="upload/fileUrlGenerator-factory.js"></script>
-    <script src="upload/humanFileSize-filter.js"></script>
-    <script src="upload/upload-controller.js"></script>
-    <script src="upload/file-controller.js"></script>
+    <script src="pages/upload/upload.js"></script>
+    <script src="pages/upload/fileUrlGenerator-service.js"></script>
+    <script src="pages/upload/humanFileSize-filter.js"></script>
+    <script src="pages/upload/upload-controller.js"></script>
+    <script src="pages/upload/file-controller.js"></script>
 
-    <script src="user/user.js"></script>
-    <script src="user/user-profile-controller.js"></script>
+    <script src="pages/user/user.js"></script>
+    <script src="pages/user/user-profile-controller.js"></script>
 
-    <script src="auth/auth.js"></script>
-    <script src="auth/auth-login-controller.js"></script>
-    <script src="auth/auth-logout-controller.js"></script>
-
-
-
+    <script src="pages/auth/auth.js"></script>
+    <script src="pages/auth/auth-login-controller.js"></script>
+    <script src="pages/auth/auth-logout-controller.js"></script>
+    <script src="pages/auth/auth-register-controller.js"></script>
 
     <!-- endbuild -->
 

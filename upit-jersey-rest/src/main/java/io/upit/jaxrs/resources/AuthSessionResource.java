@@ -1,6 +1,5 @@
 package io.upit.jaxrs.resources;
 
-import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import io.upit.dal.AuthSessionDAO;
 import io.upit.dal.UserDAO;
@@ -9,7 +8,6 @@ import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.AuthSessionImpl;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
 
 import javax.ws.rs.*;

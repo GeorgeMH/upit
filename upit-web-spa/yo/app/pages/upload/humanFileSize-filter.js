@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of upit
  */
-angular.module('upitWebSpa.upload')
+angular.module('upit-web.page.upload')
     .filter('humanFileSize', function () {
 
         return function(input) {

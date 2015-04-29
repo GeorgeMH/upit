@@ -7,8 +7,8 @@
  * # AboutCtrl
  * Controller of upit
  */
-angular.module('upitWebSpa.upload')
-  .controller('FileCtrl', ['$scope', 'FileUrlGenerator', 'resolvedUploadedFile', function ($scope, FileUrlGenerator, resolvedUploadedFile) {
+angular.module('upit-web.page.upload')
+    .controller('FileController', ['$scope', 'FileUrlGenerator', 'resolvedUploadedFile', function ($scope, FileUrlGenerator, resolvedUploadedFile) {
 
         var model = {
             uploadedFile: resolvedUploadedFile,
@@ -17,4 +17,4 @@ angular.module('upitWebSpa.upload')
 
         $scope.model = model;
 
-  }]);
+    }]);

@@ -9,14 +9,14 @@
  * Main module of the application.
  */
 angular
-  .module('upitWebSpa', [
+  .module('upit-web', [
 
-    'upitWebSpa.navigation',
-    'upitWebSpa.auth',
-    'upitWebSpa.user',
-    'upitWebSpa.main',
-    'upitWebSpa.paste',
-    'upitWebSpa.upload',
+    'upit-web.components.navigation',
+    'upit-web.page.auth',
+    'upit-web.page.user',
+    'upit-web.page.main',
+    'upit-web.page.paste',
+    'upit-web.page.upload',
 
 
     'ngAnimate',

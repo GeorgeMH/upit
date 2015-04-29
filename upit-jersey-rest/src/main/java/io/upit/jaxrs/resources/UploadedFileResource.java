@@ -71,7 +71,7 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
         StreamingOutput streamingOutput = new StreamingOutput() {
             @Override
             public void write(OutputStream output) throws IOException, WebApplicationException {
-                pipe(fileInputStream, output);
+                pipe(new BufferedInputStream(fileInputStream), new BufferedOutputStream(output));
             }
 
             public void pipe(InputStream is, OutputStream os) throws IOException {
@@ -84,15 +84,11 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
                 } finally {
                     try {
                         os.close();
-                    } catch (IOException e) {
-
-                    }
+                    } catch (IOException e) { }
 
                     try {
                         is.close();
-                    } catch (IOException e) {
-
-                    }
+                    } catch (IOException e) { }
                 }
             }
 
