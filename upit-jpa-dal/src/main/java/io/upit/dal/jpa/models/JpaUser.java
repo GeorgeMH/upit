@@ -2,16 +2,15 @@ package io.upit.dal.jpa.models;
 
 import io.upit.dal.models.User;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name = "User")
 public class JpaUser implements User {
 
     @Id
-    private String id;
+    @GeneratedValue
+    private Long id;
 
     @Version
     private int version;
@@ -25,12 +24,12 @@ public class JpaUser implements User {
     private Date created;
 
     @Override
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

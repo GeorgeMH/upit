@@ -1,7 +1,6 @@
 package io.upit.dal.jpa.models;
 
 import io.upit.dal.models.Paste;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;

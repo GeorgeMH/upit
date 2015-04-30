@@ -20,7 +20,7 @@ public class JpaAuthSession implements AuthSession {
     @Version
     private int version;
 
-    private String userId;
+    private Long userId;
     private Date created;
     private Date expires;
     private Date lastAccessed;
@@ -45,12 +45,12 @@ public class JpaAuthSession implements AuthSession {
     }
 
     @Override
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
     @Override
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

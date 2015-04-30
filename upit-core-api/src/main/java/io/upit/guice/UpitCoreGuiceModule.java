@@ -6,7 +6,6 @@ import io.upit.filestorage.LocalDiskFileStorageStrategy;
 import io.upit.filestorage.StreamingFileStorageStrategy;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.DefaultConfigurationBuilder;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

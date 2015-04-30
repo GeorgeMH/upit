@@ -7,18 +7,18 @@ import java.util.Objects;
 
 public class AuthSessionImpl extends AbstractResource<String> implements AuthSession {
 
-    private String userId;
+    private Long userId;
     private Date expires;
     private Date lastAccessed;
     private boolean active;
 
     @Override
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
     @Override
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

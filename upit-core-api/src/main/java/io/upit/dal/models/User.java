@@ -2,7 +2,7 @@ package io.upit.dal.models;
 
 import java.util.Date;
 
-public interface User extends Resource<String>{
+public interface User extends Resource<Long> {
 
     String getUserName();
     void setUserName(String userName);

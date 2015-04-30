@@ -1,7 +1,7 @@
 <div class="row">
 
     <div class="col-xs-12">
-        <h1 class="page-header">register</h1>
+        <h1 class="page-header">register <small> an account for more advanced features.</small></h1>
     </div>
 
 </div>
@@ -12,21 +12,14 @@
     <form class="form-horizontal">
 
         <div class="form-group">
-            <label for="usernameOrEmail" class="col-sm-2 control-label">Username</label>
+            <label for="username" class="col-sm-2 control-label">Username</label>
             <div class="col-sm-4">
-                <input data-ng-model="model.newUser.username" type="text" class="form-control" id="username" placeholder="Username"  />
+                <input data-ng-model="model.newUser.userName" type="text" class="form-control" id="username" placeholder="Username"  />
             </div>
         </div>
 
         <div class="form-group">
-            <label for="usernameOrEmail" class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-4">
-                <input data-ng-model="model.newUser.email" type="email" class="form-control" id="usernameOrEmail" placeholder="Email" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="passwordOne" class="col-sm-2 control-label">Password</label>
+            <label for="password" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-4">
                 <input data-ng-model="model.newUser.password" type="password" class="form-control" id="password" placeholder="Password" />
             </div>
@@ -34,10 +27,17 @@
 
         <div class="form-group">
             <div class="form-group">
-                <label for="passwordTwo" class="col-sm-2 control-label">Re-enter password</label>
+                <label for="passwordVerification" class="col-sm-2 control-label">Re-enter password</label>
                 <div class="col-sm-4">
-                    <input data-ng-model="model.passwordTwo" type="password" class="form-control" id="passwordTwo" placeholder="Re-enter password" />
+                    <input data-ng-model="model.passwordVerification" type="password" class="form-control" id="passwordVerification" placeholder="Re-enter password" />
                 </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-4">
+                <input data-ng-model="model.newUser.email" type="email" class="form-control" id="email" placeholder="Email" />
             </div>
         </div>
 

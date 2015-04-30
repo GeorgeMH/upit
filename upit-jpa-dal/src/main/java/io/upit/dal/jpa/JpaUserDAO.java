@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 
-public class JpaUserDAO extends EntityManagerDAO<User, String> implements UserDAO  {
+public class JpaUserDAO extends EntityManagerDAO<User, Long> implements UserDAO  {
 
     @Inject
     public JpaUserDAO(EntityManager entityManager) {
@@ -23,4 +23,10 @@ public class JpaUserDAO extends EntityManagerDAO<User, String> implements UserDA
         // TODO
         throw new NotImplementedException("Not implemented.");
     }
+
+    public User getByIdHash(String shortHash) {
+        // TODO
+        throw new NotImplementedException("Not implemented.");
+    }
+
 }

@@ -11,7 +11,7 @@ import com.google.inject.Inject;
 @Path("/user")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UserResource extends AbstractResource<User, String>{
+public class UserResource extends AbstractResource<User, Long>{
 
     private final UserDAO userDao;
 

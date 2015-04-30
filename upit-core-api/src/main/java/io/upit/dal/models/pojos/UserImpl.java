@@ -2,10 +2,9 @@ package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.User;
 
-import java.util.Date;
 import java.util.Objects;
 
-public class UserImpl extends AbstractResource<String> implements io.upit.dal.models.User {
+public class UserImpl extends AbstractResource<Long> implements io.upit.dal.models.User {
 
     private String userName;
     private String email;
@@ -19,7 +18,6 @@ public class UserImpl extends AbstractResource<String> implements io.upit.dal.mo
     @Override
     public void setUserName(String userName) {
         this.userName = userName;
-
     }
 
     @Override

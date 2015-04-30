@@ -4,12 +4,12 @@ import com.google.inject.Inject;
 import fm.jiecao.lib.Hashids;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.jpa.models.JpaPaste;
-import io.upit.dal.jpa.models.JpaUploadedFile;
 import io.upit.dal.models.Paste;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 public class JpaPasteDAO extends EntityManagerDAO<Paste, Long> implements PasteDAO {
 
@@ -21,6 +21,7 @@ public class JpaPasteDAO extends EntityManagerDAO<Paste, Long> implements PasteD
         this.hashids = hashids;
     }
 
+    @Transactional
     public Paste create(Paste paste){
         Paste ret = super.create(paste);
         ret.setIdHash(hashids.encode(paste.getId()));
