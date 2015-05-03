@@ -14,6 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Inject;
+import io.upit.jaxrs.exceptions.ResourceException;
 
 @Path("/authSession")
 @Produces(MediaType.APPLICATION_JSON)
@@ -36,7 +37,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     public AuthSession login(@QueryParam("userName") String userName, @QueryParam("password") String password) {
         User user = userDao.getByUserNameOrEmail(userName);
         if (null == user) {
-            return null;
+            throw new ResourceException("Invalid username or password");
         }
 
         Calendar currentCalendar = Calendar.getInstance();
@@ -60,13 +61,17 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("validate/${sessionId}")
     public AuthSession validate(@PathParam("sessionId") String sessionId) {
-        return authSessionDao.getById(sessionId);
+        AuthSession ret = authSessionDao.getById(sessionId);
+        return null != ret && ret.isActive() ? ret : null;
     }
 
     @DELETE
-    @Path("end/")
-    public void end(AuthSession session) {
-        authSessionDao.delete(session);
+    @Path("end/${sessionId}")
+    public AuthSession end(AuthSession session) {
+        AuthSession deletedSession = authSessionDao.delete(session);
+        deletedSession.setActive(false);
+        update(deletedSession);
+        return deletedSession;
     }
 
 }

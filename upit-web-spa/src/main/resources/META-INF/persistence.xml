@@ -12,7 +12,7 @@
         <class>io.upit.dal.jpa.models.JpaAuthSession</class>
         <class>io.upit.dal.jpa.models.JpaPaste</class>
         <class>io.upit.dal.jpa.models.JpaUploadedFile</class>
-
+        <class>io.upit.dal.jpa.models.JpaProperty</class>
         <properties>
 
             <!-- TODO: make this run-time configurable. -->

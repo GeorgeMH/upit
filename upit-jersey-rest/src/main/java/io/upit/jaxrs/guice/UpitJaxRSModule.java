@@ -1,12 +1,9 @@
 package io.upit.jaxrs.guice;
 
-import com.google.inject.name.Named;
-import com.google.inject.name.Names;
 import com.google.inject.persist.PersistFilter;
 import io.upit.jaxrs.guice.providers.JacksonJsonProviderProvider;
 import io.upit.jaxrs.guice.providers.ObjectMapperProvider;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 

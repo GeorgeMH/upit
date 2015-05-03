@@ -1,13 +1,17 @@
 'use strict';
 
 angular.module('upit-web.page.auth')
-    .controller('AuthLoginController', ['$scope', '$location', function($scope, $location) {
+    .controller('AuthLoginController', ['$scope', '$location', 'AuthSession', function($scope, $location, AuthSession) {
 
     $scope.model = {
 
-        registrationForm: {
+        loginForm: {
 
         }
+    };
+
+    $scope.signin = function() {
+
     };
 
 }]);

@@ -7,9 +7,7 @@ import java.util.Date;
 public class AbstractResource<IDType> implements Resource<IDType> {
 
     private IDType id;
-
     private int version;
-
     private Date created;
 
 

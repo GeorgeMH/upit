@@ -1,14 +1,19 @@
 package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.User;
+import io.upit.dal.models.security.AuthenticationMetaData;
 
+import java.util.List;
 import java.util.Objects;
 
 public class UserImpl extends AbstractResource<Long> implements io.upit.dal.models.User {
 
     private String userName;
+    private String idHash;
     private String email;
     private String password;
+
+    private List<? extends AuthenticationMetaData> authenticationMetaData;
 
     @Override
     public String getUserName() {
@@ -21,6 +26,16 @@ public class UserImpl extends AbstractResource<Long> implements io.upit.dal.mode
     }
 
     @Override
+    public String getIdHash() {
+        return this.idHash;
+    }
+
+    @Override
+    public void setIdHash(String idHash){
+        this.idHash = idHash;
+    }
+
+    @Override
     public String getEmail() {
         return email;
     }
@@ -28,16 +43,6 @@ public class UserImpl extends AbstractResource<Long> implements io.upit.dal.mode
     @Override
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override

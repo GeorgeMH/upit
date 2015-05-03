@@ -6,17 +6,17 @@ angular.module('upit-web.page.auth')
         $scope.model = {
             newUser: {
                 userName: "",
-                email: "",
-                password: ""
+                email: ""
             }
         };
 
         $scope.registerUser = function() {
 
-            UserResource.create($scope.model.newUser).then(function(data){
-                console.log('Got Data: ');
-                console.log(data);
+            UserResource.create($scope.model.newUser).then(function(data) {
+              console.log('Registered User:', data);
+              $location.path('/auth/login');
             }, function(err) {
+                //TODO:
                 console.log(err);
             });
 

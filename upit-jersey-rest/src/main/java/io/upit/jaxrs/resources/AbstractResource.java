@@ -1,9 +1,7 @@
 package io.upit.jaxrs.resources;
 
-import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import io.upit.dal.DAO;
-import io.upit.dal.UpitDAOException;
 import io.upit.dal.models.Resource;
 import io.upit.jaxrs.exceptions.ResourceException;
 
@@ -23,6 +21,9 @@ public abstract class AbstractResource<ResourceClass extends Resource<IDType>, I
     @POST
     @Transactional
     public ResourceClass create(ResourceClass resource) {
+        if(null != resource.getId()) {
+            throw new ResourceException("Unable to create resource that already has an ID");
+        }
         return dao.create(resource);
     }
 
