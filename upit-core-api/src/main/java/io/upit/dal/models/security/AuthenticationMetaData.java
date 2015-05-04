@@ -1,15 +1,19 @@
 package io.upit.dal.models.security;
 
-import io.upit.dal.models.User;
+import io.upit.dal.models.Resource;
 
-public interface AuthenticationMetaData {
+public interface AuthenticationMetaData extends Resource<Long> {
 
-    User getUser();
-    void setUser(User user);
+    Long getId();
+    void setId(Long id);
+
+    Long getUserId();
+    void setUserId(Long userId);
 
     String getPassword();
     void setPassword(String password);
 
-    String getAuthenticationMethod();
-    void setAuthenticationMethod(String authenticationMethod);
+    String getAuthenticationProviderURI();
+    void setAuthenticationProviderURI(String authenticationProviderURI);
+
 }

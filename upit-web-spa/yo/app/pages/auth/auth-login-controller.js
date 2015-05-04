@@ -6,11 +6,13 @@ angular.module('upit-web.page.auth')
     $scope.model = {
 
         loginForm: {
-
+          userName: "",
+          password: ""
         }
+
     };
 
-    $scope.signin = function() {
+    $scope.login = function() {
 
     };
 

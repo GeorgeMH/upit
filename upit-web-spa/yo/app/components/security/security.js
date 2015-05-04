@@ -9,6 +9,5 @@
 angular.module('upit-web.security', [ 'ngRoute' ])
     .config(['$routeProvider', function ($routeProvider) {
 
-        alert('security');
 
     }]);

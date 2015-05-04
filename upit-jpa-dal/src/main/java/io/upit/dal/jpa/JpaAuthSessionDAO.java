@@ -13,9 +13,4 @@ public class JpaAuthSessionDAO extends EntityManagerDAO<AuthSession, String> imp
     public JpaAuthSessionDAO(EntityManager entityManager) {
         super(JpaAuthSession.class, entityManager);
     }
-
-    @Override
-    public AuthSession getByUserNameOrEmail(String input) {
-        return null;
-    }
 }

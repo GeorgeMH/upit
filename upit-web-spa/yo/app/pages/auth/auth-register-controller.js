@@ -7,17 +7,24 @@ angular.module('upit-web.page.auth')
             newUser: {
                 userName: "",
                 email: ""
+            },
+            authenticationMetaData: {
+              password: "",
+              authenticationProviderURI: "",
+              userId: -1
             }
         };
 
         $scope.registerUser = function() {
 
-            UserResource.create($scope.model.newUser).then(function(data) {
-              console.log('Registered User:', data);
+            UserResource.register({
+              requestedUser: $scope.model.newUser,
+              authenticationMetaData: $scope.model.authenticationMetaData})
+              .then(function(data) {
               $location.path('/auth/login');
             }, function(err) {
-                //TODO:
-                console.log(err);
+              //TODO: Common form error handling?
+              alert('failed: ', err);
             });
 
         };

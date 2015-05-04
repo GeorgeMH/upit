@@ -36,9 +36,18 @@ angular.module('upit-web.upitRestApi')
             });
         };
 
+        var register = function(registrationRequest) {
+          return SimpleResourceClient.makeRestRequest(resourceContext, {
+            url: '/register/',
+            method: 'POST',
+            data: registrationRequest
+          });
+        };
+
         return {
             getById: getById,
             getByIdHash: getByIdHash,
+            register: register,
             create: create,
             update: update,
             remove: remove

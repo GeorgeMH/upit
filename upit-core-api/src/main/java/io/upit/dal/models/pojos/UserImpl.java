@@ -1,9 +1,7 @@
 package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.User;
-import io.upit.dal.models.security.AuthenticationMetaData;
 
-import java.util.List;
 import java.util.Objects;
 
 public class UserImpl extends AbstractResource<Long> implements io.upit.dal.models.User {
@@ -11,9 +9,6 @@ public class UserImpl extends AbstractResource<Long> implements io.upit.dal.mode
     private String userName;
     private String idHash;
     private String email;
-    private String password;
-
-    private List<? extends AuthenticationMetaData> authenticationMetaData;
 
     @Override
     public String getUserName() {

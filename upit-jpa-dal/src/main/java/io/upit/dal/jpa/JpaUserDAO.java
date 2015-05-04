@@ -4,12 +4,10 @@ import com.google.inject.Inject;
 import io.upit.dal.UserDAO;
 import io.upit.dal.jpa.models.JpaUser;
 import io.upit.dal.models.User;
-import org.apache.commons.lang3.NotImplementedException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-
 
 public class JpaUserDAO extends EntityManagerDAO<User, Long> implements UserDAO  {
 

@@ -2,9 +2,11 @@ package io.upit.dal.jpa.models;
 
 import io.upit.dal.models.FileType;
 import io.upit.dal.models.UploadedFile;
+import io.upit.dal.models.security.AuthenticationMetaData;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  *

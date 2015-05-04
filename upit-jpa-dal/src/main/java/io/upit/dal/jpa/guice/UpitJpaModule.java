@@ -7,7 +7,9 @@ import fm.jiecao.lib.Hashids;
 import io.upit.dal.*;
 import io.upit.dal.jpa.*;
 import io.upit.dal.jpa.models.*;
+import io.upit.dal.jpa.models.security.JpaAuthenticationMetaData;
 import io.upit.dal.models.*;
+import io.upit.dal.models.security.AuthenticationMetaData;
 
 public class UpitJpaModule extends AbstractModule {
 
@@ -31,6 +33,9 @@ public class UpitJpaModule extends AbstractModule {
 
         bind(Property.class).to(JpaProperty.class);
         bind(PropertyDAO.class).to(JpaPropertyDAO.class);
+
+        bind(AuthenticationMetaData.class).to(JpaAuthenticationMetaData.class);
+        bind(AuthenticationMetaDataDAO.class).to(JpaAuthenticationMetaDataDAO.class);
     }
 
 }

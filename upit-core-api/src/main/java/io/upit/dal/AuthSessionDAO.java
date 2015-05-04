@@ -7,6 +7,4 @@ import io.upit.dal.models.AuthSession;
  */
 public interface AuthSessionDAO extends DAO<AuthSession, String> {
 
-    public AuthSession getByUserNameOrEmail(String input);
-
 }

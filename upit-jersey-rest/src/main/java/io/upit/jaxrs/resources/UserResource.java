@@ -2,6 +2,7 @@ package io.upit.jaxrs.resources;
 
 import com.google.inject.persist.Transactional;
 import fm.jiecao.lib.Hashids;
+import io.upit.dal.AuthenticationMetaDataDAO;
 import io.upit.dal.UserDAO;
 import io.upit.dal.models.User;
 
@@ -9,6 +10,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Inject;
+import io.upit.dal.models.security.AuthenticationMetaData;
+import io.upit.jaxrs.dto.RegistrationRequest;
+import io.upit.jaxrs.exceptions.ResourceException;
 
 @Path("/user")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -17,20 +21,42 @@ public class UserResource extends AbstractResource<User, Long> {
 
     private final UserDAO userDao;
     private final Hashids hashids;
+    private final AuthenticationMetaDataDAO authenticationMetaDataDAO;
 
     @Inject
-    public UserResource(UserDAO userDao, Hashids hashids) {
+    public UserResource(UserDAO userDao, Hashids hashids, AuthenticationMetaDataDAO authenticationMetaDataDAO) {
         super(User.class, userDao);
         this.userDao = userDao;
         this.hashids = hashids;
+        this.authenticationMetaDataDAO = authenticationMetaDataDAO;
     }
 
     @POST
     @Transactional
-    public User create(User user) {
-        User createdUser = super.create(user);
-        createdUser.setIdHash(hashids.encode(user.getId()));
-        return update(createdUser);
+    public User create(User resource) {
+        if(null != resource.getId()) {
+            throw new ResourceException("Unable to create resource that already has an ID");
+        }
+        userDao.create(resource);
+        resource.setIdHash(hashids.encode(resource.getId()));
+        return userDao.update(resource);
+    }
+
+    @POST
+    @Transactional
+    @Path("register/")
+    public User register(RegistrationRequest registrationRequest) {
+        //TODO: AUTHENTICATE The provided AuthenticationMetaData UNLESS the provider it specifies is not our own local database.
+        AuthenticationMetaData authenticationMetaData = registrationRequest.getAuthenticationMetaData();
+
+        User createdUser = create(registrationRequest.getRequestedUser());
+
+        authenticationMetaData.setUserId(createdUser.getId());
+        authenticationMetaDataDAO.create(authenticationMetaData);
+
+        // TODO: ACL Generation for these objects
+
+        return createdUser;
     }
 
     @GET

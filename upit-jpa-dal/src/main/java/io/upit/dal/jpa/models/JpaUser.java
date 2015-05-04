@@ -4,6 +4,7 @@ import io.upit.dal.models.User;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity(name = "User")
 public class JpaUser implements User {
@@ -88,7 +89,9 @@ public class JpaUser implements User {
     }
 
     public static JpaUser wrapUser(User user) {
-        if(user instanceof JpaUser){
+        if(null == user) {
+            return null;
+        } else if(user instanceof JpaUser){
             return (JpaUser)user;
         }
 
@@ -99,8 +102,20 @@ public class JpaUser implements User {
         ret.setEmail((user.getEmail()));
         ret.setIdHash(user.getIdHash());
         ret.setCreated(user.getCreated());
-
         return ret;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof User)) {
+            return false;
+        }
+        //  Identity equals
+        return Objects.equals(getId(), ((User) obj).getId());
+    }
 }

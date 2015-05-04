@@ -3,6 +3,7 @@ package io.upit.jaxrs.resources;
 import com.google.inject.persist.Transactional;
 import io.upit.dal.AuthSessionDAO;
 import io.upit.dal.UserDAO;
+import io.upit.dal.jpa.models.JpaAuthSession;
 import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.AuthSessionImpl;
@@ -42,7 +43,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
 
         Calendar currentCalendar = Calendar.getInstance();
 
-        AuthSession authSession = new AuthSessionImpl();
+        AuthSession authSession = new JpaAuthSession();
         authSession.setId(UUID.randomUUID().toString());
         authSession.setUserId(user.getId());
         authSession.setCreated(currentCalendar.getTime());
