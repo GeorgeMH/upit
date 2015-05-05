@@ -13,6 +13,9 @@ import com.google.inject.Inject;
 import io.upit.dal.models.security.AuthenticationMetaData;
 import io.upit.jaxrs.dto.RegistrationRequest;
 import io.upit.jaxrs.exceptions.ResourceException;
+import org.apache.commons.codec.digest.DigestUtils;
+
+import java.util.UUID;
 
 @Path("/user")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -48,6 +51,12 @@ public class UserResource extends AbstractResource<User, Long> {
     public User register(RegistrationRequest registrationRequest) {
         //TODO: AUTHENTICATE The provided AuthenticationMetaData UNLESS the provider it specifies is not our own local database.
         AuthenticationMetaData authenticationMetaData = registrationRequest.getAuthenticationMetaData();
+        if("sha512".equals(authenticationMetaData.getAuthenticationProviderURI())) {
+            authenticationMetaData.setSalt(UUID.randomUUID().toString());
+            DigestUtils.sha512Hex(authenticationMetaData + authenticationMetaData.getPassword());
+        } else {
+            throw new ResourceException("Attempted to authenticate with unknown Authentication URI");
+        }
 
         User createdUser = create(registrationRequest.getRequestedUser());
 

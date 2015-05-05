@@ -29,11 +29,20 @@ angular.module('upit-web.upitRestApi')
       return SimpleResourceClient.remove(resourceContext, user);
     };
 
+    var login = function(authenticationReuqest) {
+      return SimpleResourceClient.makeRestRequest(resourceContext, {
+        url: '/login/',
+        method: 'POST',
+        data: authenticationReuqest
+      });
+    };
+
     return {
       getById: getById,
       create: create,
       update: update,
-      remove: remove
+      remove: remove,
+      login: login
     };
 
   }]);

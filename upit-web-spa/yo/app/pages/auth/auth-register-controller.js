@@ -10,7 +10,7 @@ angular.module('upit-web.page.auth')
             },
             authenticationMetaData: {
               password: "",
-              authenticationProviderURI: "",
+              authenticationProviderURI: "sha512",
               userId: -1
             }
         };

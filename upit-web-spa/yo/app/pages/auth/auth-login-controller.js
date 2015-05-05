@@ -13,7 +13,11 @@ angular.module('upit-web.page.auth')
     };
 
     $scope.login = function() {
-
+      AuthSession.login($scope.model.loginForm).then(function(results) {
+        console.log(results);
+      }).fail(function(err) {
+        console.log(err);
+      });
     };
 
 }]);

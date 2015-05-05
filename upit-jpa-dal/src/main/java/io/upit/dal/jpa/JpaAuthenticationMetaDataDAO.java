@@ -16,10 +16,16 @@ public class JpaAuthenticationMetaDataDAO extends EntityManagerDAO<Authenticatio
         super(JpaAuthenticationMetaData.class, entityManager);
     }
 
-    public List<JpaAuthenticationMetaData> getAuthenticationMetaDataByUserId(Long id) {
+    @Override
+    public List<AuthenticationMetaData> getByUserId(Long id) {
         TypedQuery<JpaAuthenticationMetaData> query = entityManager.createQuery("SELECT * FROM AuthenticationMetaData WHERE userId = :userId", JpaAuthenticationMetaData.class);
         query.setParameter("userId", id);
-        return query.getResultList();
+        //TOdo: Note, the following does not compile in our current class hiearchy, so we usenon generic lists for now :(
+        //List<JpaAuthenticationMetaData> ret = query.getResultList();
+        //return (List<AuthenticationMetaData>)ret;
+
+        List ret = query.getResultList();
+        return ret;
     }
 
 }

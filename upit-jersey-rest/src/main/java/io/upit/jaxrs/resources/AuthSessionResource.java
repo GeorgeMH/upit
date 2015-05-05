@@ -2,6 +2,7 @@ package io.upit.jaxrs.resources;
 
 import com.google.inject.persist.Transactional;
 import io.upit.dal.AuthSessionDAO;
+import io.upit.dal.AuthenticationMetaDataDAO;
 import io.upit.dal.UserDAO;
 import io.upit.dal.jpa.models.JpaAuthSession;
 import io.upit.dal.models.AuthSession;
@@ -9,12 +10,14 @@ import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.AuthSessionImpl;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Inject;
+import io.upit.dal.models.security.AuthenticationMetaData;
 import io.upit.jaxrs.exceptions.ResourceException;
 
 @Path("/authSession")
@@ -24,12 +27,14 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
 
     private final AuthSessionDAO authSessionDao;
     private final UserDAO userDao;
+    private final AuthenticationMetaDataDAO authenticationMetaDataDAO;
 
     @Inject
-    public AuthSessionResource(AuthSessionDAO authSessionDAO, UserDAO userDao) {
+    public AuthSessionResource(AuthSessionDAO authSessionDAO, UserDAO userDao, AuthenticationMetaDataDAO authenticationMetaDataDAO) {
         super(AuthSession.class, authSessionDAO);
         this.authSessionDao = authSessionDAO;
         this.userDao = userDao;
+        this.authenticationMetaDataDAO = authenticationMetaDataDAO;
     }
 
     @POST
@@ -39,6 +44,12 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
         User user = userDao.getByUserNameOrEmail(userName);
         if (null == user) {
             throw new ResourceException("Invalid username or password");
+        }
+
+        // TODO: authenticate? The authentication meta data to use should probalby be specified in the AuthenticationRequest object passed to this method
+        List<AuthenticationMetaData> authenticationMetaDatas = authenticationMetaDataDAO.getByUserId(user.getId());
+        for(AuthenticationMetaData authenticationMetaData : authenticationMetaDatas){
+
         }
 
         Calendar currentCalendar = Calendar.getInstance();

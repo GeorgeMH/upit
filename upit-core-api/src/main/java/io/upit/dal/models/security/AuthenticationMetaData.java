@@ -13,6 +13,9 @@ public interface AuthenticationMetaData extends Resource<Long> {
     String getPassword();
     void setPassword(String password);
 
+    String getSalt();
+    void setSalt(String salt);
+
     String getAuthenticationProviderURI();
     void setAuthenticationProviderURI(String authenticationProviderURI);
 
