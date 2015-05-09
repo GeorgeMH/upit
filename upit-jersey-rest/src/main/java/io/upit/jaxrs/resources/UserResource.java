@@ -49,16 +49,19 @@ public class UserResource extends AbstractResource<User, Long> {
     @Transactional
     @Path("register/")
     public User register(RegistrationRequest registrationRequest) {
+        User userToCreate = registrationRequest.getRequestedUser();
+
         //TODO: AUTHENTICATE The provided AuthenticationMetaData UNLESS the provider it specifies is not our own local database.
         AuthenticationMetaData authenticationMetaData = registrationRequest.getAuthenticationMetaData();
         if("sha512".equals(authenticationMetaData.getAuthenticationProviderURI())) {
-            authenticationMetaData.setSalt(UUID.randomUUID().toString());
-            DigestUtils.sha512Hex(authenticationMetaData + authenticationMetaData.getPassword());
+            String passwordSalt = UUID.randomUUID().toString();
+            authenticationMetaData.setSalt(passwordSalt);
+            authenticationMetaData.setPassword(DigestUtils.sha512Hex(authenticationMetaData.getSalt() + authenticationMetaData.getPassword()));
         } else {
             throw new ResourceException("Attempted to authenticate with unknown Authentication URI");
         }
 
-        User createdUser = create(registrationRequest.getRequestedUser());
+        User createdUser = create(userToCreate);
 
         authenticationMetaData.setUserId(createdUser.getId());
         authenticationMetaDataDAO.create(authenticationMetaData);

@@ -19,7 +19,7 @@ public class HashidsProvider implements Provider<Hashids> {
     @Inject
     public HashidsProvider(@Named("UpitConfiguration")Configuration configuration) {
         Hashids tmpInstance = null;
-        try {
+            try {
             String salt = configuration.getString(SALT_KEY, null);
             if(null == salt) {
                 salt = RandomStringUtils.random(31, true, true);

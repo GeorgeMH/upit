@@ -7,7 +7,6 @@ import io.upit.dal.UserDAO;
 import io.upit.dal.jpa.models.JpaAuthSession;
 import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.User;
-import io.upit.dal.models.pojos.AuthSessionImpl;
 
 import java.util.Calendar;
 import java.util.List;
@@ -49,7 +48,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
         // TODO: authenticate? The authentication meta data to use should probalby be specified in the AuthenticationRequest object passed to this method
         List<AuthenticationMetaData> authenticationMetaDatas = authenticationMetaDataDAO.getByUserId(user.getId());
         for(AuthenticationMetaData authenticationMetaData : authenticationMetaDatas){
-
+            // TODO?
         }
 
         Calendar currentCalendar = Calendar.getInstance();
@@ -60,9 +59,8 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
         authSession.setCreated(currentCalendar.getTime());
         authSession.setActive(true);
 
-        currentCalendar.add(Calendar.YEAR, 1);
-
         //TODO: Make Expire Configurable
+        currentCalendar.add(Calendar.YEAR, 1);
         authSession.setExpires(currentCalendar.getTime());
 
         authSessionDao.create(authSession);

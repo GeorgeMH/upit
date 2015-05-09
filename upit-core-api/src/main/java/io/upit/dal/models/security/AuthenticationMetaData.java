@@ -4,9 +4,6 @@ import io.upit.dal.models.Resource;
 
 public interface AuthenticationMetaData extends Resource<Long> {
 
-    Long getId();
-    void setId(Long id);
-
     Long getUserId();
     void setUserId(Long userId);
 

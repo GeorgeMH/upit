@@ -15,7 +15,6 @@
         <module>upit-jersey-rest</module>
         <module>upit-web-spa</module>
         <module>upit-jpa-dal</module>
-        <module>upit-core-security</module>
     </modules>
 
     <properties>

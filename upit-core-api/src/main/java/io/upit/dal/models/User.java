@@ -1,7 +1,7 @@
 package io.upit.dal.models;
 
 
-import java.util.Date;
+import io.upit.dal.models.security.AuthenticationMetaData;
 
 public interface User extends Resource<Long> {
 
@@ -13,8 +13,5 @@ public interface User extends Resource<Long> {
 
     String getEmail();
     void setEmail(String email);
-
-    Date getCreated();
-    void setCreated(Date dateCreated);
 
 }
