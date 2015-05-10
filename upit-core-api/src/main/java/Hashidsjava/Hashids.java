@@ -25,7 +25,7 @@
  OTHER DEALINGS IN THE SOFTWARE.
 
  */
-package fm.jiecao.lib;
+package Hashidsjava;
 
 import java.util.ArrayList;
 import java.util.List;

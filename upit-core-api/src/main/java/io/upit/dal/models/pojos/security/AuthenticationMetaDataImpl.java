@@ -1,7 +1,6 @@
 package io.upit.dal.models.pojos.security;
 
 
-import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.AbstractResource;
 import io.upit.dal.models.security.AuthenticationMetaData;
 
@@ -10,6 +9,7 @@ import java.util.Objects;
 public class AuthenticationMetaDataImpl extends AbstractResource<Long> implements AuthenticationMetaData {
 
     private Long userId;
+    private String userName;
     private String password;
     private String salt;
     private String authenticationProviderURI;
@@ -22,6 +22,16 @@ public class AuthenticationMetaDataImpl extends AbstractResource<Long> implement
     @Override
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String getUserName(){
+        return this.userName;
+    }
+
+    @Override
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override

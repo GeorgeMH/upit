@@ -1,8 +1,7 @@
 package io.upit.filestorage;
 
-        import io.upit.dal.models.UploadedFile;
-
-        import java.io.InputStream;
+import io.upit.dal.models.UploadedFile;
+import java.io.InputStream;
 
 public interface StreamingFileStorageStrategy {
 

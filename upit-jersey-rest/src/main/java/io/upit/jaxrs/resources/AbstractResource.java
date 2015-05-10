@@ -1,9 +1,10 @@
 package io.upit.jaxrs.resources;
 
 import com.google.inject.persist.Transactional;
-import io.upit.dal.DAO;
+import io.upit.UpitServiceException;
 import io.upit.dal.models.Resource;
 import io.upit.jaxrs.exceptions.ResourceException;
+import io.upit.services.AbstractResourceService;
 
 import javax.ws.rs.*;
 import java.io.Serializable;
@@ -11,46 +12,47 @@ import java.io.Serializable;
 public abstract class AbstractResource<ResourceClass extends Resource<IDType>, IDType extends Serializable> {
 
     private final Class<ResourceClass> resourceClass;
-    private final DAO<ResourceClass, IDType> dao;
+    private final AbstractResourceService<ResourceClass, IDType> resourceService;
 
-    public AbstractResource(Class<ResourceClass> resourceClass, DAO<ResourceClass, IDType> dao) {
+    public AbstractResource(Class<ResourceClass> resourceClass, AbstractResourceService<ResourceClass, IDType> resourceService) {
         this.resourceClass = resourceClass;
-        this.dao = dao;
+        this.resourceService = resourceService;
     }
 
     @POST
     @Transactional
     public ResourceClass create(ResourceClass resource) {
-        if(null != resource.getId()) {
-            throw new ResourceException("Unable to create resource that already has an ID");
+        try {
+            return resourceService.create(resource);
+        } catch (UpitServiceException e) {
+            throw new ResourceException("Failed creating resource " + resourceClass.getName(), e);
         }
-        return dao.create(resource);
     }
 
     @PUT
     @Transactional
     public ResourceClass update(ResourceClass resource) {
-        return dao.update(resource);
+        return resourceService.update(resource);
     }
 
     @DELETE
     @Transactional
     public ResourceClass delete(ResourceClass resource) {
-        return dao.delete(resource);
+        return resourceService.delete(resource);
     }
 
     @DELETE
     @Path("{id}")
     @Transactional
     public ResourceClass deleteById(@PathParam("id") IDType id) {
-        return dao.deleteById(id);
+        return resourceService.deleteById(id);
     }
 
     @GET
     @Path("{id}")
     @Transactional
     public ResourceClass getById(@PathParam("id") IDType id) {
-        return dao.getById(id);
+        return resourceService.getById(id);
     }
 
 }

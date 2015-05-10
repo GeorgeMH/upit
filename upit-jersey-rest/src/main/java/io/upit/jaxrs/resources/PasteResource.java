@@ -3,6 +3,7 @@ package io.upit.jaxrs.resources;
 import com.google.inject.Inject;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.models.Paste;
+import io.upit.services.PasteService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -12,12 +13,12 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class PasteResource extends AbstractResource<Paste, Long> {
 
-    private final PasteDAO pasteDAO;
+    private final PasteService pasteService;
 
     @Inject
-    public PasteResource(PasteDAO pasteDAO) {
-        super(Paste.class, pasteDAO);
-        this.pasteDAO = pasteDAO;
+    public PasteResource(pasteService pasteServiceDao) {
+        super(Paste.class, pasteService);
+        this.pasteService = pasteService;
     }
 
     @GET

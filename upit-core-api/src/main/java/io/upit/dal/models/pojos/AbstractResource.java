@@ -10,7 +10,6 @@ public class AbstractResource<IDType> implements Resource<IDType> {
     private int version;
     private Date created;
 
-
     @Override
     public IDType getId() {
         return id;

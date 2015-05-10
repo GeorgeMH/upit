@@ -1,7 +1,7 @@
 package io.upit.dal.jpa;
 
 import com.google.inject.Inject;
-import fm.jiecao.lib.Hashids;
+import Hashidsjava.Hashids;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.jpa.models.JpaPaste;
 import io.upit.dal.models.Paste;

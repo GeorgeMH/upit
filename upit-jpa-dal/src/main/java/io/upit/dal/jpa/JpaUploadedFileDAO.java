@@ -1,7 +1,7 @@
 package io.upit.dal.jpa;
 
 import com.google.inject.Inject;
-import fm.jiecao.lib.Hashids;
+import Hashidsjava.Hashids;
 import io.upit.dal.UpitDAOException;
 import io.upit.dal.UploadedFileDAO;
 import io.upit.dal.jpa.models.JpaUploadedFile;

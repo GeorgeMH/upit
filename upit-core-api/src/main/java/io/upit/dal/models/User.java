@@ -1,8 +1,6 @@
 package io.upit.dal.models;
 
 
-import io.upit.dal.models.security.AuthenticationMetaData;
-
 public interface User extends Resource<Long> {
 
     String getIdHash();

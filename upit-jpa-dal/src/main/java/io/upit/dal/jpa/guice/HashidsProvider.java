@@ -3,7 +3,7 @@ package io.upit.dal.jpa.guice;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
-import fm.jiecao.lib.Hashids;
+import Hashidsjava.Hashids;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
