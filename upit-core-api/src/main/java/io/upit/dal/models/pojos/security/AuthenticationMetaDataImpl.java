@@ -9,10 +9,10 @@ import java.util.Objects;
 public class AuthenticationMetaDataImpl extends AbstractResource<Long> implements AuthenticationMetaData {
 
     private Long userId;
-    private String userName;
-    private String password;
+    private String userNameOrEmail;
+    private String saltedPassword;
     private String salt;
-    private String authenticationProviderURI;
+    private String authenticationType;
 
     @Override
     public Long getUserId() {
@@ -25,23 +25,23 @@ public class AuthenticationMetaDataImpl extends AbstractResource<Long> implement
     }
 
     @Override
-    public String getUserName(){
-        return this.userName;
+    public String getUserNameOrEmail(){
+        return this.userNameOrEmail;
     }
 
     @Override
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserNameOrEmail(String userName) {
+        this.userNameOrEmail = userName;
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public String getSaltedPassword() {
+        return saltedPassword;
     }
 
     @Override
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSaltedPassword(String saltedPassword) {
+        this.saltedPassword = saltedPassword;
     }
 
     @Override
@@ -55,13 +55,13 @@ public class AuthenticationMetaDataImpl extends AbstractResource<Long> implement
     }
 
     @Override
-    public String getAuthenticationProviderURI() {
-        return authenticationProviderURI;
+    public String getAuthenticationType() {
+        return authenticationType;
     }
 
     @Override
-    public void setAuthenticationProviderURI(String authenticationMethod) {
-        this.authenticationProviderURI = authenticationMethod;
+    public void setAuthenticationType(String authenticationType) {
+        this.authenticationType = authenticationType;
     }
 
     @Override

@@ -4,21 +4,21 @@ import com.google.inject.persist.Transactional;
 import io.upit.UpitServiceException;
 import io.upit.dal.AuthenticationMetaDataDAO;
 import io.upit.dal.models.AuthSession;
-import io.upit.dal.models.User;
 
-import java.util.UUID;
+import java.io.IOException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
 
 import com.google.inject.Inject;
-import io.upit.dal.models.security.AuthenticationMetaData;
 import io.upit.dal.models.pojos.security.RegistrationRequestImpl;
 import io.upit.dal.models.security.LoginRequest;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.services.AuthSessionService;
 import io.upit.services.UserService;
-import org.apache.commons.codec.digest.DigestUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 @Path("/authSession")
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,22 +28,27 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     private final AuthSessionService authSessionService;
     private final UserService userService;
     private final AuthenticationMetaDataDAO authenticationMetaDataDAO;
+    private final ObjectMapper objectMapper;
 
     @Inject
-    public AuthSessionResource(AuthSessionService authSessionService, UserService userDao, AuthenticationMetaDataDAO authenticationMetaDataDAO) {
+    public AuthSessionResource(AuthSessionService authSessionService, UserService userDao, AuthenticationMetaDataDAO authenticationMetaDataDAO, ObjectMapper objectMapper) {
         super(AuthSession.class, authSessionService);
         this.authSessionService = authSessionService;
         this.userService = userDao;
         this.authenticationMetaDataDAO = authenticationMetaDataDAO;
+        this.objectMapper = objectMapper;
     }
 
     @POST
     @Transactional
     @Path("register/")
-    public AuthSession register(RegistrationRequestImpl registrationRequest) {
+    public Response register(RegistrationRequestImpl registrationRequest) {
         try {
-            return authSessionService.register(registrationRequest);
-        } catch (UpitServiceException e) {
+            AuthSession ret = authSessionService.register(registrationRequest);
+            String jsonAuthSession = objectMapper.writeValueAsString(ret);
+            //TODO: Cookie expiration etc
+            return Response.ok().cookie(new NewCookie("UPIT_LOGIN_TOKEN", jsonAuthSession)).build();
+        } catch (UpitServiceException|IOException e) {
             throw new ResourceException("Failed Registration Request", e);
         }
     }

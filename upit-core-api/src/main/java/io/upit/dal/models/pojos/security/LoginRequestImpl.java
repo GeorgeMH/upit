@@ -39,4 +39,5 @@ public class LoginRequestImpl implements LoginRequest {
     public void setRequestType(String requestType) {
         this.requestType = requestType;
     }
+
 }

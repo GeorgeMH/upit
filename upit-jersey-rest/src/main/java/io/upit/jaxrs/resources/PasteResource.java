@@ -1,7 +1,6 @@
 package io.upit.jaxrs.resources;
 
 import com.google.inject.Inject;
-import io.upit.dal.PasteDAO;
 import io.upit.dal.models.Paste;
 import io.upit.services.PasteService;
 
@@ -16,7 +15,7 @@ public class PasteResource extends AbstractResource<Paste, Long> {
     private final PasteService pasteService;
 
     @Inject
-    public PasteResource(pasteService pasteServiceDao) {
+    public PasteResource(PasteService pasteService) {
         super(Paste.class, pasteService);
         this.pasteService = pasteService;
     }
@@ -24,7 +23,7 @@ public class PasteResource extends AbstractResource<Paste, Long> {
     @GET
     @Path("/hash/{idHash}")
     public Paste getByIdHash(@PathParam("idHash") String hash) {
-        return pasteDAO.getByIdHash(hash);
+        return pasteService.getByIdHash(hash);
     }
 
 }

@@ -17,16 +17,18 @@
 
     <dependencies>
 
-        <!--<dependency>-->
-            <!--<groupId>io.upit</groupId>-->
-            <!--<version>0.0.1-SNAPSHOT</version>-->
-            <!--<artifactId>upit-jpa-dal</artifactId>-->
-        <!--</dependency>-->
-
+        <!-- Explicit dependency on jpa-dal so that the REST api layer automatically de-serializes interface
+             definitions into the "Jpa" version of the class. -->
         <dependency>
             <groupId>io.upit</groupId>
             <version>0.0.1-SNAPSHOT</version>
             <artifactId>upit-jpa-dal</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.upit</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>upit-core-api</artifactId>
         </dependency>
 
         <!-- Third party deps -->

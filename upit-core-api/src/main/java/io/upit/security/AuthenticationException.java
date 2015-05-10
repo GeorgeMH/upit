@@ -1,4 +1,4 @@
-package io.upit.dal;
+package io.upit.security;
 
 public class AuthenticationException extends Exception {
 

@@ -17,14 +17,17 @@ public class JpaAuthenticationMetaData extends AbstractResource<Long> implements
     @Column
     private Long userId;
 
+    @Column(nullable = true)
+    private String userNameOrEmail;
+
     @Column
-    private String password;
+    private String saltedPassword;
 
     @Column
     private String salt;
 
     @Column
-    private String authenticationProviderURI;
+    private String authenticationType;
 
     @Override
     public Long getId() {
@@ -46,13 +49,23 @@ public class JpaAuthenticationMetaData extends AbstractResource<Long> implements
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public String getUserNameOrEmail() {
+        return userNameOrEmail;
     }
 
     @Override
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserNameOrEmail(String userName) {
+        this.userNameOrEmail = userName;
+    }
+
+    @Override
+    public String getSaltedPassword() {
+        return saltedPassword;
+    }
+
+    @Override
+    public void setSaltedPassword(String password) {
+        this.saltedPassword = password;
     }
 
     @Override
@@ -66,32 +79,14 @@ public class JpaAuthenticationMetaData extends AbstractResource<Long> implements
     }
 
     @Override
-    public String getAuthenticationProviderURI() {
-        return authenticationProviderURI;
+    public String getAuthenticationType() {
+        return authenticationType;
     }
 
     @Override
-    public void setAuthenticationProviderURI(String authenticationMethodURI) {
-        this.authenticationProviderURI = authenticationMethodURI;
+    public void setAuthenticationType(String authenticationType) {
+        this.authenticationType = authenticationType;
     }
-
-    public static JpaAuthenticationMetaData wrapToJpa(AuthenticationMetaData metaData) {
-        if(null == metaData) {
-            return null;
-        } else if(metaData instanceof JpaAuthenticationMetaData){
-            return (JpaAuthenticationMetaData)metaData;
-        }
-
-        //This should rarely happen due to DI, should we log/assert it and blow up instead?
-        JpaAuthenticationMetaData ret = new JpaAuthenticationMetaData();
-        ret.setId(metaData.getId());
-        ret.setUserId(metaData.getUserId());
-        ret.setPassword(metaData.getPassword());
-        ret.setAuthenticationProviderURI(metaData.getAuthenticationProviderURI());
-
-        return ret;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(getId());
@@ -105,4 +100,23 @@ public class JpaAuthenticationMetaData extends AbstractResource<Long> implements
         //  Identity equals
         return Objects.equals(getId(), ((User) obj).getId());
     }
+
+    public static JpaAuthenticationMetaData wrapToJpa(AuthenticationMetaData metaData) {
+        if(null == metaData) {
+            return null;
+        } else if(metaData instanceof JpaAuthenticationMetaData){
+            return (JpaAuthenticationMetaData)metaData;
+        }
+
+        //This should rarely happen due to DI, should we log/assert it and blow up instead?
+        JpaAuthenticationMetaData ret = new JpaAuthenticationMetaData();
+        ret.setId(metaData.getId());
+        ret.setUserId(metaData.getUserId());
+        ret.setSaltedPassword(metaData.getSaltedPassword());
+        ret.setSalt(metaData.getSalt());
+        ret.setAuthenticationType(metaData.getAuthenticationType());
+
+        return ret;
+    }
+
 }

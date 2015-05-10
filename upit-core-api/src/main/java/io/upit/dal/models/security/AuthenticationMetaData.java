@@ -7,17 +7,17 @@ public interface AuthenticationMetaData extends Resource<Long> {
     Long getUserId();
     void setUserId(Long userId);
 
-    String getUserName();
-    void setUserName(String username);
+    String getUserNameOrEmail();
+    void setUserNameOrEmail(String userNameOrEmail);
 
-    String getPassword();
-    void setPassword(String password);
+    String getSaltedPassword();
+    void setSaltedPassword(String password);
 
     String getSalt();
     void setSalt(String salt);
 
     // Todo, somehow return an Authentication
-    String getAuthenticationProviderURI();
-    void setAuthenticationProviderURI(String authenticationProviderURI);
+    String getAuthenticationType();
+    void setAuthenticationType(String authenticationType);
 
 }
