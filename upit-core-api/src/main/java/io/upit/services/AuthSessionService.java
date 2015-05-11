@@ -93,7 +93,6 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         Calendar currentCalendar = Calendar.getInstance();
 
         AuthSession authSession = new AuthSessionImpl();
-        authSession.setId(UUID.randomUUID().toString());
         authSession.setUserId(user.getId());
         authSession.setCreated(currentCalendar.getTime());
         authSession.setActive(true);
@@ -102,7 +101,7 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         currentCalendar.add(Calendar.YEAR, 1);
         authSession.setExpires(currentCalendar.getTime());
 
-        authSessionDao.create(authSession);
+        authSession = authSessionDao.create(authSession);
 
         return authSession;
     }

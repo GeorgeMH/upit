@@ -1,6 +1,6 @@
 
 angular.module('upit-web.security')
-  .service('SecurityService', ['$q', 'AuthSession', function($q, AuthSession) {
+  .service('SecurityService', ['$q', 'AuthSessionResource', function($q, AuthSessionResource) {
 
     this.currentAuthSession = null;
     this.isLoggedIn = false;

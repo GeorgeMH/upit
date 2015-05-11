@@ -16,7 +16,7 @@ angular.module('upit-web.page.auth')
     $scope.login = function() {
       AuthSessionResource.login($scope.model.loginForm).then(function(results) {
         console.log(results);
-      }).fail(function(err) {
+      }, function(err) {
         console.log(err);
       });
     };
