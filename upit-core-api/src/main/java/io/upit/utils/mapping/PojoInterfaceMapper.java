@@ -1,6 +1,5 @@
 package io.upit.utils.mapping;
 
-import io.upit.UpitServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

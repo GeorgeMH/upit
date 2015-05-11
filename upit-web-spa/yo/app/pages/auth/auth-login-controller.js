@@ -1,19 +1,20 @@
 'use strict';
 
 angular.module('upit-web.page.auth')
-    .controller('AuthLoginController', ['$scope', '$location', 'AuthSession', function($scope, $location, AuthSession) {
+    .controller('AuthLoginController', ['$scope', '$location', 'AuthSessionResource', function($scope, $location, AuthSessionResource) {
 
     $scope.model = {
 
         loginForm: {
-          userName: "",
-          password: ""
+          userNameOrEmail: "",
+          password: "",
+          requestType: "sha512"
         }
 
     };
 
     $scope.login = function() {
-      AuthSession.login($scope.model.loginForm).then(function(results) {
+      AuthSessionResource.login($scope.model.loginForm).then(function(results) {
         console.log(results);
       }).fail(function(err) {
         console.log(err);

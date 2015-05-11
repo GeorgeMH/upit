@@ -56,7 +56,6 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         Calendar currentCalendar = Calendar.getInstance();
 
         AuthSession authSession = new AuthSessionImpl();
-        authSession.setId(UUID.randomUUID().toString());
         authSession.setUserId(user.getId());
         authSession.setCreated(currentCalendar.getTime());
         authSession.setActive(true);

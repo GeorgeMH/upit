@@ -10,8 +10,10 @@ import io.upit.dal.models.Paste;
 import io.upit.dal.models.Property;
 import io.upit.dal.models.User;
 
+import io.upit.dal.models.pojos.security.LoginRequestImpl;
 import io.upit.dal.models.pojos.security.RegistrationRequestImpl;
 import io.upit.dal.models.security.AuthenticationMetaData;
+import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -36,6 +38,7 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
         abstractTypeModule.addAbstractTypeMapping(Property.class, JpaProperty.class);
         abstractTypeModule.addAbstractTypeMapping(AuthenticationMetaData.class, JpaAuthenticationMetaData.class);
         abstractTypeModule.addAbstractTypeMapping(RegistrationRequest.class, RegistrationRequestImpl.class);
+        abstractTypeModule.addAbstractTypeMapping(LoginRequest.class, LoginRequestImpl.class);
 
 
         objectMapper.registerModule(abstractTypeModule);
