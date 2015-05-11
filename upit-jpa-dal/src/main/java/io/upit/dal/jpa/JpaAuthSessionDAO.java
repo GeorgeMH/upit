@@ -11,6 +11,6 @@ public class JpaAuthSessionDAO extends EntityManagerDAO<AuthSession, String> imp
 
     @Inject
     public JpaAuthSessionDAO(EntityManager entityManager) {
-        super(JpaAuthSession.class, entityManager);
+        super(AuthSession.class, JpaAuthSession.class, entityManager);
     }
 }

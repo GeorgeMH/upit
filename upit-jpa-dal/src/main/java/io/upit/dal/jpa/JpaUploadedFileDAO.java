@@ -19,7 +19,7 @@ public class JpaUploadedFileDAO  extends EntityManagerDAO<UploadedFile, Long> im
 
     @Inject
     public JpaUploadedFileDAO(EntityManager entityManager, StreamingFileStorageStrategy fileStorageStrategy, Hashids hashids) {
-        super(JpaUploadedFile.class, entityManager);
+        super(UploadedFile.class, JpaUploadedFile.class, entityManager);
         this.fileStorageStrategy = fileStorageStrategy;
         this.hashids = hashids;
     }

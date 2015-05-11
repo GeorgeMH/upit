@@ -31,19 +31,6 @@ public class UserResource extends AbstractResource<User, Long> {
         this.authenticationMetaDataDAO = authenticationMetaDataDAO;
     }
 
-    @POST
-    @Transactional
-    public User create(User resource) {
-        if (null != resource.getId()) {
-            throw new ResourceException("Unable to create resource that already has an ID");
-        }
-        try {
-            return userService.create(resource);
-        } catch (UpitServiceException e) {
-            throw new ResourceException("Failed creating user", e);
-        }
-    }
-
     @GET
     @Path("/hash/{idHash}")
     public User getByIdHash(@PathParam("idHash") String hash) {

@@ -13,7 +13,7 @@ public class JpaUserDAO extends EntityManagerDAO<User, Long> implements UserDAO 
 
     @Inject
     public JpaUserDAO(EntityManager entityManager) {
-        super(JpaUser.class, entityManager);
+        super(User.class, JpaUser.class, entityManager);
     }
 
     @Override

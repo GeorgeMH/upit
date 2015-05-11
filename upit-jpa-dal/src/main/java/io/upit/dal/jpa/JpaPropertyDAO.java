@@ -11,6 +11,6 @@ public class JpaPropertyDAO extends EntityManagerDAO<Property, String> implement
 
     @Inject
     public JpaPropertyDAO(EntityManager entityManager) {
-        super(JpaProperty.class, entityManager);
+        super(Property.class, JpaProperty.class, entityManager);
     }
 }

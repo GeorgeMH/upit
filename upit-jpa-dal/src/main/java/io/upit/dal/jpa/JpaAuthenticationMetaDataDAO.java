@@ -13,7 +13,7 @@ public class JpaAuthenticationMetaDataDAO extends EntityManagerDAO<Authenticatio
 
     @Inject
     public JpaAuthenticationMetaDataDAO (EntityManager entityManager) {
-        super(JpaAuthenticationMetaData.class, entityManager);
+        super(AuthenticationMetaData.class, JpaAuthenticationMetaData.class, entityManager);
     }
 
     @Override

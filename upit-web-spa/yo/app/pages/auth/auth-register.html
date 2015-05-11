@@ -14,14 +14,21 @@
         <div class="form-group">
             <label for="username" class="col-sm-2 control-label">Username</label>
             <div class="col-sm-4">
-                <input data-ng-model="model.newUser.userName" type="text" class="form-control" id="username" placeholder="Username"  />
+                <input data-ng-model="model.registrationRequest.requestedUser.userName" type="text" class="form-control" id="username" placeholder="Username"  />
             </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-4">
+            <input data-ng-model="model.registrationRequest.requestedUser.email" type="email" class="form-control" id="email" placeholder="Email" />
+          </div>
         </div>
 
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-4">
-                <input data-ng-model="model.authenticationMetaData.password" type="password" class="form-control" id="password" placeholder="Password" />
+                <input data-ng-model="model.registrationRequest.password" type="password" class="form-control" id="password" placeholder="Password" />
             </div>
         </div>
 
@@ -29,15 +36,8 @@
             <div class="form-group">
                 <label for="passwordVerification" class="col-sm-2 control-label">Re-enter password</label>
                 <div class="col-sm-4">
-                    <input data-ng-model="model.passwordVerification" type="password" class="form-control" id="passwordVerification" placeholder="Re-enter password" />
+                    <input data-ng-model="model.passwordVerificationTwo" type="password" class="form-control" id="passwordVerification" placeholder="Re-enter password" />
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="email" class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-4">
-                <input data-ng-model="model.newUser.email" type="email" class="form-control" id="email" placeholder="Email" />
             </div>
         </div>
 

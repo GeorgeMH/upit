@@ -2,9 +2,13 @@ package io.upit.dal.jpa;
 
 import com.google.inject.Inject;
 import Hashidsjava.Hashids;
+import io.upit.UpitServiceException;
 import io.upit.dal.PasteDAO;
+import io.upit.dal.UpitDAOException;
 import io.upit.dal.jpa.models.JpaPaste;
 import io.upit.dal.models.Paste;
+import io.upit.utils.mapping.MappingException;
+import io.upit.utils.mapping.PojoInterfaceMapper;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,12 +21,14 @@ public class JpaPasteDAO extends EntityManagerDAO<Paste, Long> implements PasteD
 
     @Inject
     public JpaPasteDAO(EntityManager entityManager, Hashids hashids) {
-        super(JpaPaste.class, entityManager);
+        super(Paste.class, JpaPaste.class, entityManager);
         this.hashids = hashids;
     }
 
     @Transactional
-    public Paste create(Paste paste){
+    public Paste create(Paste paste) {
+        paste = autoBoxForJpa(paste);
+
         Paste ret = super.create(paste);
         ret.setIdHash(hashids.encode(paste.getId()));
         return update(ret);

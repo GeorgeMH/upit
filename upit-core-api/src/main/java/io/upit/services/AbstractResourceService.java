@@ -17,9 +17,6 @@ public class AbstractResourceService<ResourceClass extends Resource<IDType>, IDT
     }
 
     public ResourceClass create(ResourceClass resource) throws UpitServiceException {
-        if(null != resource.getId()) {
-            throw new UpitServiceException("Unable to create resource that already has an ID");
-        }
         return resourceClassDAO.create(resource);
     }
 

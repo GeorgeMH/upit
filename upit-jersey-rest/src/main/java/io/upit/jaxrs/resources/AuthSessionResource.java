@@ -13,8 +13,8 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 import com.google.inject.Inject;
-import io.upit.dal.models.pojos.security.RegistrationRequestImpl;
 import io.upit.dal.models.security.LoginRequest;
+import io.upit.dal.models.security.RegistrationRequest;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.services.AuthSessionService;
 import io.upit.services.UserService;
@@ -42,7 +42,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Transactional
     @Path("register/")
-    public Response register(RegistrationRequestImpl registrationRequest) {
+    public Response register(RegistrationRequest registrationRequest) {
         try {
             AuthSession ret = authSessionService.register(registrationRequest);
             String jsonAuthSession = objectMapper.writeValueAsString(ret);
