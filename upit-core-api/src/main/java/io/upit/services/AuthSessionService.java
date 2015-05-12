@@ -11,6 +11,7 @@ import io.upit.dal.models.pojos.security.AuthenticationMetaDataImpl;
 import io.upit.dal.models.security.AuthenticationMetaData;
 import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
+import io.upit.security.AuthenticationException;
 import io.upit.security.AuthenticationProvider;
 import io.upit.security.providers.Sha512AuthenticationProvider;
 
@@ -36,8 +37,6 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
 
     public AuthSession register(RegistrationRequest registrationRequest) throws UpitServiceException {
         User userToCreate = registrationRequest.getRequestedUser();
-
-        AuthenticationProvider authenticationProvider = new Sha512AuthenticationProvider();
 
         AuthenticationMetaData authenticationMetaData = new AuthenticationMetaDataImpl();
         authenticationMetaData.setSalt(UUID.randomUUID().toString());
@@ -70,7 +69,7 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
     public AuthSession login(LoginRequest loginRequest) throws UpitServiceException {
         User user = userService.getByUserNameOrEmail(loginRequest.getUserNameOrEmail());
         if (null == user) {
-            throw new UpitServiceException("Invalid username or password");
+            throw new AuthenticationException("Invalid username or password");
         }
 
         // TODO: authenticate? The authentication meta data to use should probalby be specified in the AuthenticationRequest object passed to this method
@@ -81,13 +80,13 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
                 .findFirst().get();
 
         if(null == authenticationMetaData) {
-            throw new UpitServiceException("Invalid username or password");
+            throw new AuthenticationException("Invalid username or password");
         }
 
         // Hard coded Sha512 authentication provider for now
         AuthenticationProvider authenticationProvider = new Sha512AuthenticationProvider();
         if(!authenticationProvider.authenticate(loginRequest, authenticationMetaData)) {
-            throw new UpitServiceException("Invalid username or password");
+            throw new AuthenticationException("Invalid username or password");
         }
 
         Calendar currentCalendar = Calendar.getInstance();

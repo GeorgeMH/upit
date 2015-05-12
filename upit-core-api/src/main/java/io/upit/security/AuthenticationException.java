@@ -1,6 +1,6 @@
 package io.upit.security;
 
-public class AuthenticationException extends Exception {
+public class AuthenticationException extends UpitSecurityException {
 
     public AuthenticationException() {
         super();
