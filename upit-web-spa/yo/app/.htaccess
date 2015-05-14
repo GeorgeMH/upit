@@ -273,7 +273,7 @@ AddDefaultCharset utf-8
 # work as-is for your site!
 
 # To get all the details you'll need to craft a reasonable policy for your site,
-# read: http://html5rocks.com/en/tutorials/security/content-security-policy (or
+# read: http://html5rocks.com/en/tutorials/io.upit.security/content-io.upit.security-policy (or
 # see the specification: http://w3.org/TR/CSP).
 
 # <IfModule mod_headers.c>
@@ -310,7 +310,7 @@ AddDefaultCharset utf-8
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Block access to backup and source files.
-# These files may be left by some text editors and can pose a great security
+# These files may be left by some text editors and can pose a great io.upit.security
 # danger when anyone has access to them.
 
 <FilesMatch "(^#.*#|\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|sw[op])|~)$">
@@ -341,7 +341,7 @@ AddDefaultCharset utf-8
 # (the initial HTTP connection) for an attacker to downgrade or redirect the
 # request. The following header ensures that browser will ONLY connect to your
 # server via HTTPS, regardless of what the users type in the address bar.
-# http://www.html5rocks.com/en/tutorials/security/transport-layer-security/
+# http://www.html5rocks.com/en/tutorials/io.upit.security/transport-layer-io.upit.security/
 
 # <IfModule mod_headers.c>
 #    Header set Strict-Transport-Security max-age=16070400;
