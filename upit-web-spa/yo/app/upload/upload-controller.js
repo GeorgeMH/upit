@@ -22,7 +22,6 @@ angular.module('upitWebSpa.upload')
             url: '/api_v1/uploadedFile/upload',
             file: file
           }).progress(function (evt) {
-            console.log(evt);
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             var fileInProgress = $scope.files[evt.config.file.index];
             if (fileInProgress) {fileInProgress.progress = progressPercentage};
