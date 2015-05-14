@@ -12,17 +12,17 @@ angular.module('upitWebSpa.upload')
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
     });
-    $scope.log = '';
 
     $scope.upload = function (files) {
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
           file.index = i;
-          Upload.upload({
+          file.upload = Upload.upload({
             url: '/api_v1/uploadedFile/upload',
             file: file
           }).progress(function (evt) {
+            console.log(evt);
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             var fileInProgress = $scope.files[evt.config.file.index];
             if (fileInProgress) {fileInProgress.progress = progressPercentage};
@@ -35,4 +35,10 @@ angular.module('upitWebSpa.upload')
         }
       }
     };
+
+    $scope.abort = function (file) {
+      file.upload.abort();
+      var index = $scope.files.indexOf(file);
+      $scope.files.splice(index, 1);
+    }
   }]);

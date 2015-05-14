@@ -26,6 +26,11 @@
             <ul class="list-group">
               <li class="list-group-item" ng-repeat="upload in files">
                 <div data-ng-if="!upload.uploadedFile">
+                  <div class="pull-right">
+                    <a title="Cancel Upload" class="btn btn-cs btn-default" data-ng-click="abort(upload)">
+                      Cancel
+                    </a>
+                  </div>
                   <div class="input-group">
                     File Name: <span ng-bind="upload.name"></span>
                   </div>
