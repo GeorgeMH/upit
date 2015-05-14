@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.upit</groupId>
         <artifactId>upit</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>upit-jersey-rest</artifactId>
@@ -21,8 +21,8 @@
              definitions into the "Jpa" version of the class. -->
         <dependency>
             <groupId>io.upit</groupId>
-            <version>0.0.1-SNAPSHOT</version>
             <artifactId>upit-jpa-dal</artifactId>
+            <version>${upit.version}</version>
         </dependency>
 
         <dependency>

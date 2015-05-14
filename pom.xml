@@ -5,7 +5,7 @@
 
     <groupId>io.upit</groupId>
     <artifactId>upit</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <name>Upit.IO</name>
     <description>Upit.IO Parent Project</description>
@@ -18,7 +18,7 @@
     </modules>
 
     <properties>
-        <upit.version>0.0.1-SNAPSHOT</upit.version>
+        <upit.version>0.0.2-SNAPSHOT</upit.version>
     </properties>
 
     <dependencies>
