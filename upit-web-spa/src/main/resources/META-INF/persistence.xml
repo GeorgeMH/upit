@@ -12,8 +12,10 @@
         <class>io.upit.dal.jpa.models.JpaAuthSession</class>
         <class>io.upit.dal.jpa.models.JpaPaste</class>
         <class>io.upit.dal.jpa.models.JpaUploadedFile</class>
-        <class>io.upit.dal.jpa.models.JpaProperty</class>
-        <class>io.upit.dal.jpa.models.io.upit.security.JpaAuthenticationMetaData</class>
+        <class>io.upit.dal.jpa.models.JpaPropertyValue</class>
+        <class>io.upit.dal.jpa.models.security.JpaAuthenticationMetaData</class>
+        <class>io.upit.dal.jpa.models.security.JpaAclEntry</class>
+
         <properties>
 
             <!-- TODO: make this run-time configurable. -->

@@ -1,6 +1,6 @@
 package io.upit.dal.models;
 
-public interface Property extends Resource<String> {
+public interface PropertyValue extends Resource<String> {
 
     String getType();
     void setType(String type);

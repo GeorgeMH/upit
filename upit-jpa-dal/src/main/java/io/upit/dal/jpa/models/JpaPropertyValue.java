@@ -1,12 +1,12 @@
 package io.upit.dal.jpa.models;
 
-import io.upit.dal.models.Property;
+import io.upit.dal.models.PropertyValue;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
 
-public class JpaProperty implements Property {
+public class JpaPropertyValue implements PropertyValue {
 
     @Id
     private String id;

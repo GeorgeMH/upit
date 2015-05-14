@@ -21,7 +21,6 @@ public class UploadedFileService extends AbstractResourceService<UploadedFile, L
         return uploadedFileDAO.getFileStream(uploadedFile);
     }
 
-
     public UploadedFile uploadFile(UploadedFile fileToUpload, InputStream uploadFileStream) throws UpitServiceException {
         // TODO: Can we move content type-detection out of the DAO layer and into the Service layer where it belongs?
         // We should also have the ability to associate an UploadedFile with a specific/arbitrary StreamingFileStorageStrategy

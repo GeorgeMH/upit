@@ -1,8 +1,8 @@
 package io.upit.dal.models.pojos;
 
-import io.upit.dal.models.Property;
+import io.upit.dal.models.PropertyValue;
 
-public class PropertyImpl extends AbstractResource<String> implements Property {
+public class PropertyValueImpl extends AbstractResource<String> implements PropertyValue {
 
     private String value;
     private String type;

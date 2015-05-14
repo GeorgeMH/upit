@@ -21,7 +21,6 @@ public class UserService extends AbstractResourceService<User, Long> {
         return getById(hashIds.decode(shortHash)[0]);
     }
 
-
     public User getByUserNameOrEmail(String input) {
         return userDAO.getByUserNameOrEmail(input);
     }

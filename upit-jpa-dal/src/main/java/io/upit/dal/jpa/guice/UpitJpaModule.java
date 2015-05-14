@@ -31,7 +31,7 @@ public class UpitJpaModule extends AbstractModule {
         bind(UploadedFile.class).to(JpaUploadedFile.class);
         bind(UploadedFileDAO.class).to(JpaUploadedFileDAO.class);
 
-        bind(Property.class).to(JpaProperty.class);
+        bind(PropertyValue.class).to(JpaPropertyValue.class);
         bind(PropertyDAO.class).to(JpaPropertyDAO.class);
 
         bind(AuthenticationMetaData.class).to(JpaAuthenticationMetaData.class);

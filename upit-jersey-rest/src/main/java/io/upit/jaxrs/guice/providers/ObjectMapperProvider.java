@@ -2,12 +2,13 @@ package io.upit.jaxrs.guice.providers;
 
 import io.upit.dal.jpa.models.JpaAuthSession;
 import io.upit.dal.jpa.models.JpaPaste;
-import io.upit.dal.jpa.models.JpaProperty;
+import io.upit.dal.jpa.models.JpaPropertyValue;
 import io.upit.dal.jpa.models.JpaUser;
+import io.upit.dal.jpa.models.security.JpaAclEntry;
 import io.upit.dal.jpa.models.security.JpaAuthenticationMetaData;
 import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.Paste;
-import io.upit.dal.models.Property;
+import io.upit.dal.models.PropertyValue;
 import io.upit.dal.models.User;
 
 import io.upit.dal.models.pojos.security.LoginRequestImpl;
@@ -15,6 +16,7 @@ import io.upit.dal.models.pojos.security.RegistrationRequestImpl;
 import io.upit.dal.models.security.AuthenticationMetaData;
 import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
+import io.upit.dal.models.security.acls.AclEntry;
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -35,8 +37,9 @@ public class ObjectMapperProvider implements Provider<ObjectMapper> {
         abstractTypeModule.addAbstractTypeMapping(AuthSession.class, JpaAuthSession.class);
         abstractTypeModule.addAbstractTypeMapping(User.class, JpaUser.class);
         abstractTypeModule.addAbstractTypeMapping(Paste.class, JpaPaste.class);
-        abstractTypeModule.addAbstractTypeMapping(Property.class, JpaProperty.class);
+        abstractTypeModule.addAbstractTypeMapping(PropertyValue.class, JpaPropertyValue.class);
         abstractTypeModule.addAbstractTypeMapping(AuthenticationMetaData.class, JpaAuthenticationMetaData.class);
+        abstractTypeModule.addAbstractTypeMapping(AclEntry.class, JpaAclEntry.class);
         abstractTypeModule.addAbstractTypeMapping(RegistrationRequest.class, RegistrationRequestImpl.class);
         abstractTypeModule.addAbstractTypeMapping(LoginRequest.class, LoginRequestImpl.class);
 
