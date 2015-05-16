@@ -1,23 +1,27 @@
 package io.upit.guice.security.authorizers;
 
 import com.google.inject.Inject;
-import io.upit.dal.AclEntryDAO;
+import com.google.inject.Provider;
+import io.upit.dal.models.AuthSession;
+
 import io.upit.guice.security.MethodAuthorizer;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Method;
 
-public class AclEntryMethodAuthorier implements MethodAuthorizer {
+public class AnonymousUserAuthorizer implements MethodAuthorizer {
 
-    private final AclEntryDAO aclEntryDAO;
+    private final Provider<AuthSession> authSessionProvider;
 
     @Inject
-    public AclEntryMethodAuthorier(AclEntryDAO aclEntryDAO) {
-        this.aclEntryDAO = aclEntryDAO;
+    public AnonymousUserAuthorizer(Provider<AuthSession> authSessionProvider) {
+        this.authSessionProvider = authSessionProvider;
     }
+
 
     @Override
     public boolean canExecuteMethod(Method method, Object[] arguments, Object invocatingObject, AccessibleObject accessibleObject) {
+
         return false;
     }
 }

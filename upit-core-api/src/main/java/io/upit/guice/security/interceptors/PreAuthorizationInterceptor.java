@@ -11,7 +11,7 @@ public class PreAuthorizationInterceptor implements MethodInterceptor {
     private final Provider<AuthSessionService> authSessionServiceProvider;
 
     @Inject
-    public PreAuthorizationInterceptor(Provider<AuthSessionService> authSessionServiceProvider){
+    public PreAuthorizationInterceptor(Provider<AuthSessionService> authSessionServiceProvider) {
         this.authSessionServiceProvider = authSessionServiceProvider;
     }
 

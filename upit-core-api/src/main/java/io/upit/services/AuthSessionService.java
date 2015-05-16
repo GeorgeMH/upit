@@ -11,6 +11,7 @@ import io.upit.dal.models.pojos.security.AuthenticationMetaDataImpl;
 import io.upit.dal.models.security.AuthenticationMetaData;
 import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
+import io.upit.guice.security.PreAuthorize;
 import io.upit.security.AuthenticationException;
 import io.upit.security.AuthenticationProvider;
 import io.upit.security.providers.Sha512AuthenticationProvider;
@@ -66,6 +67,7 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         return create(authSession);
     }
 
+    //@PreAuthorize(methodAuthorizer = {AnonymousUserAuthorizer.class})
     public AuthSession login(LoginRequest loginRequest) throws UpitServiceException {
         User user = userService.getByUserNameOrEmail(loginRequest.getUserNameOrEmail());
         if (null == user) {
