@@ -12,14 +12,13 @@ angular.module('upitWebSpa.upload')
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
     });
-    $scope.log = '';
 
     $scope.upload = function (files) {
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
           file.index = i;
-          Upload.upload({
+          file.upload = Upload.upload({
             url: '/api_v1/uploadedFile/upload',
             file: file
           }).progress(function (evt) {
@@ -35,4 +34,10 @@ angular.module('upitWebSpa.upload')
         }
       }
     };
+
+    $scope.abort = function (file) {
+      file.upload.abort();
+      var index = $scope.files.indexOf(file);
+      $scope.files.splice(index, 1);
+    }
   }]);
