@@ -5,23 +5,27 @@ import com.google.inject.Provider;
 import io.upit.dal.models.AuthSession;
 
 import io.upit.guice.security.MethodAuthorizer;
-
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Method;
+import io.upit.security.AuthorizationException;
+import io.upit.services.AuthSessionService;
+import org.aopalliance.intercept.MethodInvocation;
 
 public class AnonymousUserAuthorizer implements MethodAuthorizer {
 
+    private final AuthSessionService authSessionService;
     private final Provider<AuthSession> authSessionProvider;
 
     @Inject
-    public AnonymousUserAuthorizer(Provider<AuthSession> authSessionProvider) {
+    public AnonymousUserAuthorizer(AuthSessionService authSessionService, Provider<AuthSession> authSessionProvider) {
+        this.authSessionService = authSessionService;
         this.authSessionProvider = authSessionProvider;
     }
 
-
     @Override
-    public boolean canExecuteMethod(Method method, Object[] arguments, Object invocatingObject, AccessibleObject accessibleObject) {
+    public void authorizeMethodInvocation(MethodInvocation methodInvocation) throws AuthorizationException {
+        AuthSession currentSession = authSessionProvider.get();
 
-        return false;
+        if(!currentSession.isAnonymous()) {
+            throw new AuthorizationException("User must be anonymous");
+        }
     }
 }

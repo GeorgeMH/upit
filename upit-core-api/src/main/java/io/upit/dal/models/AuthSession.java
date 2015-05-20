@@ -19,4 +19,7 @@ public interface AuthSession extends Resource<String> {
     boolean isActive();
     void setActive(boolean active);
 
+    boolean isAnonymous();
+    void setAnonymous(boolean isAnonymous);
+
 }

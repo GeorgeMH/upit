@@ -15,6 +15,8 @@ import javax.ws.rs.core.Response;
 import com.google.inject.Inject;
 import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.DenyAllMethodAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.services.AuthSessionService;
 import io.upit.services.UserService;
@@ -56,6 +58,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("login/")
     @Transactional
+    @PreAuthorize(methodAuthorizers = {DenyAllMethodAuthorizer.class})
     public AuthSession login(LoginRequest loginRequest) {
         try {
             return authSessionService.login(loginRequest);

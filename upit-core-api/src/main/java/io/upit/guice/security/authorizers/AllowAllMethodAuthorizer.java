@@ -1,14 +1,14 @@
 package io.upit.guice.security.authorizers;
 
 import io.upit.guice.security.MethodAuthorizer;
-
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Method;
+import io.upit.security.AuthorizationException;
+import org.aopalliance.intercept.MethodInvocation;
 
 public class AllowAllMethodAuthorizer implements MethodAuthorizer {
 
     @Override
-    public boolean canExecuteMethod(Method method, Object[] arguments, Object invocatingObject, AccessibleObject accessibleObject) {
-        return true;
+    public void authorizeMethodInvocation(MethodInvocation methodInvocation) throws AuthorizationException {
+        // NOOP
     }
+
 }

@@ -18,23 +18,27 @@ public class AbstractResourceService<ResourceClass extends Resource<IDType>, IDT
         this.resourceClassDAO = resourceClassDAO;
     }
 
-    @PreAuthorize(methodAuthorizer = {AclEntryMethodAuthorizer.class}, argumentIndex = 0)
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass create(ResourceClass resource) throws UpitServiceException {
         return resourceClassDAO.create(resource);
     }
 
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass update(ResourceClass resource) {
         return resourceClassDAO.update(resource);
     }
 
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass delete(ResourceClass resource) {
         return resourceClassDAO.delete(resource);
     }
 
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass deleteById(IDType id) {
         return resourceClassDAO.deleteById(id);
     }
 
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass getById(IDType id) {
         return resourceClassDAO.getById(id);
     }

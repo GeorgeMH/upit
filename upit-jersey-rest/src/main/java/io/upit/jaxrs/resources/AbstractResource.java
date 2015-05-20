@@ -33,7 +33,7 @@ public abstract class AbstractResource<ResourceClass extends Resource<IDType>, I
 
     @PUT
     @Transactional
-    @PreAuthorize(methodAuthorizer = {AclEntryMethodAuthorizer.class})
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass update(ResourceClass resource) {
         return resourceService.update(resource);
     }

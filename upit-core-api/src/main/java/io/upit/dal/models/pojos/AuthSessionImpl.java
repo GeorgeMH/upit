@@ -11,6 +11,7 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
     private Date expires;
     private Date lastAccessed;
     private boolean active;
+    private boolean anonymous;
 
     @Override
     public Long getUserId() {
@@ -50,6 +51,16 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
     @Override
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public boolean isAnonymous() {
+        return anonymous;
+    }
+
+    @Override
+    public void setAnonymous(boolean isAnonymous) {
+        this.anonymous = isAnonymous;
     }
 
     @Override

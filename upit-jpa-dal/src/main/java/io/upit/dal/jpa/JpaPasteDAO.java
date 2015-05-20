@@ -2,14 +2,9 @@ package io.upit.dal.jpa;
 
 import com.google.inject.Inject;
 import Hashidsjava.Hashids;
-import io.upit.UpitServiceException;
 import io.upit.dal.PasteDAO;
-import io.upit.dal.UpitDAOException;
 import io.upit.dal.jpa.models.JpaPaste;
 import io.upit.dal.models.Paste;
-import io.upit.utils.mapping.MappingException;
-import io.upit.utils.mapping.PojoInterfaceMapper;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;

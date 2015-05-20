@@ -1,10 +1,11 @@
 package io.upit.guice.security;
 
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Method;
+import io.upit.security.AuthorizationException;
+import org.aopalliance.intercept.MethodInvocation;
+
 
 public interface MethodAuthorizer {
 
-    boolean canExecuteMethod(Method method, Object[] arguments, Object invocatingObject, AccessibleObject accessibleObject);
+    void authorizeMethodInvocation(MethodInvocation methodInvocation) throws AuthorizationException;
 
 }

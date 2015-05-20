@@ -3,10 +3,7 @@ package io.upit.dal.jpa.models;
 import io.upit.dal.models.AuthSession;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name="AuthSession")
@@ -20,11 +17,23 @@ public class JpaAuthSession implements AuthSession {
     @Version
     private int version;
 
+    @Column(nullable = false)
     private Long userId;
+
+    @Column
     private Date created;
+
+    @Column
     private Date expires;
+
+    @Column
     private Date lastAccessed;
+
+    @Column
     private boolean active;
+
+    @Column
+    private boolean anonymous;
 
     @Override
     public String getId() {
@@ -94,4 +103,13 @@ public class JpaAuthSession implements AuthSession {
         this.active = active;
     }
 
+    @Override
+    public boolean isAnonymous() {
+        return anonymous;
+    }
+
+    @Override
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
+    }
 }
