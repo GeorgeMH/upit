@@ -6,8 +6,8 @@
  * @description # Provides Security Support
  */
 
-angular.module('upit-web.security', [ 'ngRoute' ])
-    .config(['$routeProvider', function ($routeProvider) {
+angular.module('upit-web.security', ['ngRoute'])
+  .config(['$routeProvider', function ($routeProvider) {
 
 
-    }]);
+  }]);

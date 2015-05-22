@@ -7,6 +7,8 @@
  */
 angular.module('upit-web.page.paste', [
     'upit-web.upitRestApi',
+    'upit-web.security',
+
     'ngRoute'
   ])
   .config(['$routeProvider', function ($routeProvider) {
