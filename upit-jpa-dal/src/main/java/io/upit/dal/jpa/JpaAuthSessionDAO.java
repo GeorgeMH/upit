@@ -7,7 +7,7 @@ import io.upit.dal.models.AuthSession;
 
 import javax.persistence.EntityManager;
 
-public class JpaAuthSessionDAO extends EntityManagerDAO<AuthSession, String> implements AuthSessionDAO {
+public class JpaAuthSessionDAO extends EntityManagerDAO<AuthSession, JpaAuthSession, String> implements AuthSessionDAO {
 
     @Inject
     public JpaAuthSessionDAO(EntityManager entityManager) {

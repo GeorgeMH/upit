@@ -20,19 +20,19 @@ public class JpaAuthSession implements AuthSession {
     @Column(nullable = false)
     private Long userId;
 
-    @Column
+    @Column(nullable = false)
     private Date created;
 
-    @Column
+    @Column(nullable = false)
     private Date expires;
 
-    @Column
-    private Date lastAccessed;
+    @Column(nullable = true)
+    private Date lastValidated;
 
-    @Column
+    @Column(nullable = false)
     private boolean active;
 
-    @Column
+    @Column(nullable = false)
     private boolean anonymous;
 
     @Override
@@ -84,13 +84,13 @@ public class JpaAuthSession implements AuthSession {
     }
 
     @Override
-    public Date getLastAccessed() {
-        return lastAccessed;
+    public Date getLastValidated() {
+        return lastValidated;
     }
 
     @Override
-    public void setLastAccessed(Date lastAccessed) {
-        this.lastAccessed = lastAccessed;
+    public void setLastValidated(Date lastValidated) {
+        this.lastValidated = lastValidated;
     }
 
     @Override

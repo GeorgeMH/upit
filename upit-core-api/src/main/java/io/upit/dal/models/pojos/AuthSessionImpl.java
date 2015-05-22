@@ -9,7 +9,7 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
 
     private Long userId;
     private Date expires;
-    private Date lastAccessed;
+    private Date lastValidated;
     private boolean active;
     private boolean anonymous;
 
@@ -34,13 +34,13 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
     }
 
     @Override
-    public Date getLastAccessed() {
-        return lastAccessed;
+    public Date getLastValidated() {
+        return lastValidated;
     }
 
     @Override
-    public void setLastAccessed(Date lastAccessed) {
-        this.lastAccessed = lastAccessed;
+    public void setLastValidated(Date lastAccessed) {
+        this.lastValidated = lastAccessed;
     }
 
     @Override

@@ -11,7 +11,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-public class JpaPasteDAO extends EntityManagerDAO<Paste, Long> implements PasteDAO {
+public class JpaPasteDAO extends EntityManagerDAO<Paste, JpaPaste, Long> implements PasteDAO {
 
     private final Hashids hashids;
 

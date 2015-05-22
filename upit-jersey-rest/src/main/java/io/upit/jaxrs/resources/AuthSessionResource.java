@@ -8,8 +8,10 @@ import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
 import io.upit.guice.security.PreAuthorize;
-import io.upit.guice.security.authorizers.DenyAllMethodAuthorizer;
+import io.upit.guice.security.authorizers.AnonymousUserAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
+import io.upit.jaxrs.guice.RequestSessionFilter;
+import io.upit.security.AuthenticationException;
 import io.upit.services.AuthSessionService;
 import io.upit.services.UserService;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -18,7 +20,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 
 @Path("/authSession")
 @Produces(MediaType.APPLICATION_JSON)
@@ -41,14 +42,25 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
 
     @POST
     @Transactional
+    @Path("anonymous/")
+    public Response getAnonymousSession() {
+        try {
+            AuthSession ret = authSessionService.createAnonymousAuthSession();
+            return Response.ok(ret).cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, ret.getId())).build();
+        } catch (UpitServiceException e) {
+            throw new ResourceException("Failed Registration Request", e);
+        }
+    }
+
+    @POST
+    @Transactional
     @Path("register/")
+    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
     public Response register(RegistrationRequest registrationRequest) {
         try {
             AuthSession ret = authSessionService.register(registrationRequest);
-            String jsonAuthSession = objectMapper.writeValueAsString(ret);
-            //TODO: Cookie expiration etc
-            return Response.ok().cookie(new NewCookie("UPIT_LOGIN_TOKEN", jsonAuthSession)).build();
-        } catch (UpitServiceException | IOException e) {
+            return Response.ok(ret).cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, ret.getId())).build();
+        } catch (UpitServiceException e) {
             throw new ResourceException("Failed Registration Request", e);
         }
     }
@@ -56,7 +68,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("login/")
     @Transactional
-    @PreAuthorize(methodAuthorizers = {DenyAllMethodAuthorizer.class})
+    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
     public AuthSession login(LoginRequest loginRequest) {
         try {
             return authSessionService.login(loginRequest);
@@ -67,9 +79,9 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
 
     @POST
     @Path("validate/${sessionId}")
-    public AuthSession validate(@PathParam("sessionId") String sessionId) {
-        AuthSession ret = authSessionService.getById(sessionId);
-        return null != ret && ret.isActive() ? ret : null;
+    @Transactional
+    public AuthSession validate(@PathParam("sessionId") String sessionId) throws AuthenticationException {
+        return authSessionService.validateSessionById(sessionId);
     }
 
     @DELETE

@@ -16,9 +16,9 @@ public interface AuthSession extends Resource<String> {
 
     void setExpires(Date expires);
 
-    Date getLastAccessed();
+    Date getLastValidated();
 
-    void setLastAccessed(Date lastAccessed);
+    void setLastValidated(Date lastAccessed);
 
     boolean isActive();
 

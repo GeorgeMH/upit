@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class JpaAuthenticationMetaDataDAO extends EntityManagerDAO<AuthenticationMetaData, Long> implements AuthenticationMetaDataDAO {
+public class JpaAuthenticationMetaDataDAO extends EntityManagerDAO<AuthenticationMetaData, JpaAuthenticationMetaData, Long> implements AuthenticationMetaDataDAO {
 
     @Inject
     public JpaAuthenticationMetaDataDAO(EntityManager entityManager) {

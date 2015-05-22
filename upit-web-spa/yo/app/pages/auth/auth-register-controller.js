@@ -12,7 +12,7 @@ angular.module('upit-web.page.auth')
         },
 
         password: "",
-        authenticationType: ""
+        authenticationType: "sha512"
       }
     };
 

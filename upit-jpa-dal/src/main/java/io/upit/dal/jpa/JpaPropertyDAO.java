@@ -7,7 +7,7 @@ import io.upit.dal.models.PropertyValue;
 
 import javax.persistence.EntityManager;
 
-public class JpaPropertyDAO extends EntityManagerDAO<PropertyValue, String> implements PropertyDAO {
+public class JpaPropertyDAO extends EntityManagerDAO<PropertyValue, JpaPropertyValue, String> implements PropertyDAO {
 
     @Inject
     public JpaPropertyDAO(EntityManager entityManager) {

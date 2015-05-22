@@ -14,7 +14,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.io.InputStream;
 
-public class JpaUploadedFileDAO extends EntityManagerDAO<UploadedFile, Long> implements UploadedFileDAO {
+public class JpaUploadedFileDAO extends EntityManagerDAO<UploadedFile, JpaUploadedFile, Long> implements UploadedFileDAO {
 
     private final StreamingFileStorageStrategy fileStorageStrategy;
     private final Hashids hashids;

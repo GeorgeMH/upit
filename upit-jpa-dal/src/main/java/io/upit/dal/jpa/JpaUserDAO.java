@@ -10,7 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-public class JpaUserDAO extends EntityManagerDAO<User, Long> implements UserDAO {
+public class JpaUserDAO extends EntityManagerDAO<User, JpaUser, Long> implements UserDAO {
 
     @Inject
     public JpaUserDAO(EntityManager entityManager) {

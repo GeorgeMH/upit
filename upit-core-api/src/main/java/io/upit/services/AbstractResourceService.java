@@ -5,6 +5,7 @@ import io.upit.dal.DAO;
 import io.upit.dal.models.Resource;
 import io.upit.guice.security.PreAuthorize;
 import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
+import io.upit.guice.security.authorizers.DenyAllMethodAuthorizer;
 
 import java.io.Serializable;
 
@@ -18,7 +19,7 @@ public class AbstractResourceService<ResourceClass extends Resource<IDType>, IDT
         this.resourceClassDAO = resourceClassDAO;
     }
 
-    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
+    @PreAuthorize(methodAuthorizers = {DenyAllMethodAuthorizer.class})
     public ResourceClass create(ResourceClass resource) throws UpitServiceException {
         return resourceClassDAO.create(resource);
     }

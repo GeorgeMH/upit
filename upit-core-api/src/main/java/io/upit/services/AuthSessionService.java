@@ -19,6 +19,7 @@ import io.upit.security.AuthenticationProvider;
 import io.upit.security.providers.Sha512AuthenticationProvider;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +39,12 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         this.userService = userService;
     }
 
+
+    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
+    public AuthSession createAnonymousAuthSession() throws UpitServiceException {
+        return createNewAuthSession(null, null);
+    }
+
     @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
     public AuthSession register(RegistrationRequest registrationRequest) throws UpitServiceException {
         User userToCreate = registrationRequest.getRequestedUser();
@@ -53,7 +60,8 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         authenticationMetaData.setUserId(createdUser.getId());
         authenticationMetaDataDAO.create(authenticationMetaData);
 
-        return createNewAuthSession(createdUser);
+        // TODO: Since this requires the current user to be an anonymous session (that would be auto created), should we end the previous session?
+        return createNewAuthSession(null, null);
     }
 
     @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
@@ -67,7 +75,7 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         List<AuthenticationMetaData> authenticationMetaDatas = authenticationMetaDataDAO.getByUserId(user.getId());
 
         AuthenticationMetaData authenticationMetaData = authenticationMetaDatas.stream()
-            .filter(amd -> DEFAULT_AUTHENTICATION_PROVIDER.equals(amd.getAuthenticationType()))
+            .filter(amd -> loginRequest.getRequestType().equals(amd.getAuthenticationType()))
             .findFirst().get();
 
         if (null == authenticationMetaData) {
@@ -80,26 +88,21 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
             throw new AuthenticationException("Invalid username or password");
         }
 
-        Calendar currentCalendar = Calendar.getInstance();
-
-        AuthSession authSession = new AuthSessionImpl();
-        authSession.setUserId(user.getId());
-        authSession.setCreated(currentCalendar.getTime());
-        authSession.setActive(true);
-
-        //TODO: Make Expire Configurable properly
-        currentCalendar.add(Calendar.YEAR, 1);
-        authSession.setExpires(currentCalendar.getTime());
-
-        authSession = authSessionDao.create(authSession);
-
-        return authSession;
+        // TODO: LoginRequest should specifiy an expires date for the login session
+        return createNewAuthSession(user, null);
     }
 
     @PreAuthorize
-    public AuthSession validateSession(AuthSession session) throws AuthenticationException {
-        AuthSession realAuthSession = authSessionDao.getById(session.getId());
+    public AuthSession validateSessionById(String id) throws AuthenticationException {
+        AuthSession realAuthSession = authSessionDao.getById(id);
+
         if (null == realAuthSession) {
+            throw new AuthenticationException("Invalid Auth Session");
+        }
+
+        if(new Date().getTime() >= realAuthSession.getExpires().getTime()){
+            realAuthSession.setActive(false);
+            authSessionDao.update(realAuthSession);
             throw new AuthenticationException("Invalid Auth Session");
         }
 
@@ -110,25 +113,26 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         return realAuthSession;
     }
 
+    @PreAuthorize
+    public AuthSession validateSession(AuthSession session) throws AuthenticationException {
+        return validateSessionById(session.getId());
+    }
+
     @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public void endSession(AuthSession session) {
         AuthSession realAuthSession = authSessionDao.getById(session.getId());
         realAuthSession.setActive(false);
+        authSessionDao.update(realAuthSession);
     }
 
-
-    private AuthSession createNewAuthSession(User user) throws UpitServiceException {
-        Calendar currentCalendar = Calendar.getInstance();
-
+    private AuthSession createNewAuthSession(User user, Date expires) throws UpitServiceException {
         AuthSession authSession = new AuthSessionImpl();
-        authSession.setUserId(user.getId());
-        authSession.setCreated(currentCalendar.getTime());
         authSession.setActive(true);
-
-        //TODO: Make Expire Configurable
-        currentCalendar.add(Calendar.YEAR, 1);
-        authSession.setExpires(currentCalendar.getTime());
-
-        return create(authSession);
+        authSession.setAnonymous(null == user);
+        authSession.setUserId((null == user ? null : user.getId()));
+        authSession.setExpires(null);
+        authSession.setExpires(expires);
+        authSession.setLastValidated(null);
+        return authSessionDao.create(authSession);
     }
 }

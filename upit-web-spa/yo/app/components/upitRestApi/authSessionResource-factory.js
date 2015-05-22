@@ -12,6 +12,13 @@ angular.module('upit-web.upitRestApi')
       resourceName: 'authSession'
     };
 
+    var getAnonymousSession = function() {
+      return SimpleResourceClient.makeRestRequest(resourceContext, {
+        url: '/anonymous/',
+        method: 'POST'
+      });
+    };
+
     var register = function (registrationRequest) {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
         url: '/register/',
@@ -28,6 +35,14 @@ angular.module('upit-web.upitRestApi')
       });
     };
 
+    var validate = function(authenticationRequest) {
+      return SimpleResourceClient.makeRestRequest(resourceContext, {
+        url: '/validate/',
+        method: 'POST',
+        data: authenticationReuqest
+      });
+    };
+
     var end = function (authSession) {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
         url: '/end/',
@@ -37,6 +52,8 @@ angular.module('upit-web.upitRestApi')
     };
 
     return {
+      getAnonymousSession: getAnonymousSession,
+      validate: validate,
       register: register,
       login: login,
       end: end

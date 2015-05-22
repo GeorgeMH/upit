@@ -6,7 +6,7 @@ import io.upit.dal.models.security.acls.AclEntry;
 
 import javax.persistence.EntityManager;
 
-public class JpaAclEntryDAO extends EntityManagerDAO<AclEntry, String> {
+public class JpaAclEntryDAO extends EntityManagerDAO<AclEntry, JpaAclEntry, String> {
 
     @Inject
     public JpaAclEntryDAO(EntityManager entityManager) {

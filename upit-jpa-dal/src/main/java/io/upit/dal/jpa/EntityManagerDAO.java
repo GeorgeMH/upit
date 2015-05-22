@@ -8,37 +8,37 @@ import io.upit.utils.mapping.PojoInterfaceMapper;
 import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
-public class EntityManagerDAO<DataObject extends Resource<ID>, ID extends Serializable> implements DAO<DataObject, ID> {
+public class EntityManagerDAO<DataObject extends Resource<ID>, JpaDataObject extends DataObject, ID extends Serializable> implements DAO<DataObject, ID> {
 
     private final Class<DataObject> dataClassType;
-    private final Class<? extends DataObject> jpaClassType;
+    private final Class<JpaDataObject> jpaClassType;
     protected final EntityManager entityManager;
 
     @Inject
-    public EntityManagerDAO(Class<DataObject> dataClassType, Class<? extends DataObject> jpaClassType, EntityManager entityManager) {
+    public EntityManagerDAO(Class<DataObject> dataClassType, Class<JpaDataObject> jpaClassType, EntityManager entityManager) {
         this.dataClassType = dataClassType;
         this.jpaClassType = jpaClassType;
         this.entityManager = entityManager;
     }
 
-    public <DataObjectImpl extends DataObject> DataObject autoBoxForJpa(DataObjectImpl obj) {
+    public JpaDataObject autoBoxForJpa(DataObject obj) {
         if (null == obj) {
             return null;
         } else if (jpaClassType.isInstance(obj)) {
-            return obj;
+            return (JpaDataObject)obj;
         }
+        // Map one instance to the other
         return PojoInterfaceMapper.mapSiblingClass(dataClassType, jpaClassType, obj);
     }
 
-    public <DataObjectImpl extends DataObject> List<DataObject> autoBoxForJpa(List<DataObjectImpl> objs) {
-        List<DataObject> ret = new LinkedList<>();
-        for (DataObjectImpl impl : objs) {
-            ret.add(PojoInterfaceMapper.mapSiblingClass(dataClassType, jpaClassType, impl));
+    public List<DataObject> autoBoxForJpa(List<DataObject> objs) {
+        //TODO: This updates the list in place for performance reasons, this may not be what wew want since this is the DAO layer and not the service layer.
+        for (int i = 0; i < objs.size(); i++) {
+            objs.set(i, autoBoxForJpa(objs.get(i)));
         }
-        return ret;
+        return objs;
     }
 
 
