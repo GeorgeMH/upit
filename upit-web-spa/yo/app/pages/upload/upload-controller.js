@@ -24,7 +24,10 @@ angular.module('upit-web.page.upload')
           }).progress(function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             var fileInProgress = $scope.files[evt.config.file.index];
-            if (fileInProgress) {fileInProgress.progress = progressPercentage};
+            if (fileInProgress) {
+              fileInProgress.progress = progressPercentage
+            }
+            ;
           }).success(function (data, status, headers, config) {
             var completedFile = $scope.files[config.file.index];
             completedFile.urls = {};

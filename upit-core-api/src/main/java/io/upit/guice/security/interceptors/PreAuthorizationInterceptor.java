@@ -24,11 +24,11 @@ public class PreAuthorizationInterceptor implements MethodInterceptor {
         Method method = invocation.getMethod();
 
         PreAuthorize preAuthorize = method.getDeclaredAnnotation(PreAuthorize.class);
-        if(null == preAuthorize){
+        if (null == preAuthorize) {
             return invocation.proceed();
         }
 
-        for(Class<? extends MethodAuthorizer> methodAuthorizerClass : preAuthorize.methodAuthorizers()) {
+        for (Class<? extends MethodAuthorizer> methodAuthorizerClass : preAuthorize.methodAuthorizers()) {
             MethodAuthorizer methodAuthorizer = injectorProvider.get().getInstance(methodAuthorizerClass);
 
             // Throws an exception if there is a problem.

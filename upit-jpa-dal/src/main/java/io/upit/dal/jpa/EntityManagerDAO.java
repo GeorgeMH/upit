@@ -25,9 +25,9 @@ public class EntityManagerDAO<DataObject extends Resource<ID>, ID extends Serial
     }
 
     public <DataObjectImpl extends DataObject> DataObject autoBoxForJpa(DataObjectImpl obj) {
-        if(null == obj){
+        if (null == obj) {
             return null;
-        } else if(jpaClassType.isInstance(obj)){
+        } else if (jpaClassType.isInstance(obj)) {
             return obj;
         }
         return PojoInterfaceMapper.mapSiblingClass(dataClassType, jpaClassType, obj);
@@ -35,7 +35,7 @@ public class EntityManagerDAO<DataObject extends Resource<ID>, ID extends Serial
 
     public <DataObjectImpl extends DataObject> List<DataObject> autoBoxForJpa(List<DataObjectImpl> objs) {
         List<DataObject> ret = new LinkedList<>();
-        for(DataObjectImpl impl : objs){
+        for (DataObjectImpl impl : objs) {
             ret.add(PojoInterfaceMapper.mapSiblingClass(dataClassType, jpaClassType, impl));
         }
         return ret;
@@ -49,7 +49,7 @@ public class EntityManagerDAO<DataObject extends Resource<ID>, ID extends Serial
 
     @Override
     public DataObject create(DataObject entity) {
-        if(null == entity) {
+        if (null == entity) {
             throw new NullPointerException("Entity may not be null");
         }
         entity = autoBoxForJpa(entity);
@@ -75,7 +75,7 @@ public class EntityManagerDAO<DataObject extends Resource<ID>, ID extends Serial
     @Override
     public DataObject deleteById(ID id) {
         DataObject dataObject = getById(id);
-        if(null != dataObject) {
+        if (null != dataObject) {
             delete(dataObject);
         }
         return dataObject;

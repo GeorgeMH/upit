@@ -3,7 +3,7 @@ package io.upit.dal.models.pojos;
 import io.upit.dal.models.FileType;
 import io.upit.dal.models.UploadedFile;
 
-public class UploadedFileImpl extends AbstractResource<Long> implements UploadedFile{
+public class UploadedFileImpl extends AbstractResource<Long> implements UploadedFile {
 
     private String idHash;
     private String fileHash;
@@ -14,12 +14,12 @@ public class UploadedFileImpl extends AbstractResource<Long> implements Uploaded
     private String fileName;
 
     @Override
-    public String getIdHash(){
+    public String getIdHash() {
         return idHash;
     }
 
     @Override
-    public void setIdHash(String hash){
+    public void setIdHash(String hash) {
         this.idHash = hash;
     }
 
@@ -34,7 +34,7 @@ public class UploadedFileImpl extends AbstractResource<Long> implements Uploaded
     }
 
     @Override
-    public String getExtension(){
+    public String getExtension() {
         return extension;
     }
 
@@ -54,11 +54,11 @@ public class UploadedFileImpl extends AbstractResource<Long> implements Uploaded
     }
 
     @Override
-    public String getContentType(){
+    public String getContentType() {
         return contentType;
     }
 
-    public void setContentType(String contentType){
+    public void setContentType(String contentType) {
         this.contentType = contentType;
     }
 

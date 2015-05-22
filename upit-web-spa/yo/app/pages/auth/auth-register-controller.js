@@ -1,32 +1,32 @@
 'use strict';
 
 angular.module('upit-web.page.auth')
-    .controller('AuthRegisterController', ['$scope', '$location', 'AuthSessionResource', function($scope, $location, AuthSessionResource) {
+  .controller('AuthRegisterController', ['$scope', '$location', 'AuthSessionResource', function ($scope, $location, AuthSessionResource) {
 
-        $scope.model = {
+    $scope.model = {
 
-          registrationRequest: {
-            requestedUser: {
-              userName: "",
-              email: ""
-            },
+      registrationRequest: {
+        requestedUser: {
+          userName: "",
+          email: ""
+        },
 
-            password: "",
-            authenticationType: ""
-          }
-        };
+        password: "",
+        authenticationType: ""
+      }
+    };
 
-        $scope.registerUser = function() {
+    $scope.registerUser = function () {
 
-          AuthSessionResource.register($scope.model.registrationRequest)
-              .then(function(data) {
-              $location.path('/auth/login');
-            }, function(err) {
-              //TODO: Common form error handling?
-              console.log('foo');
-              console.log(err);
-            });
+      AuthSessionResource.register($scope.model.registrationRequest)
+        .then(function (data) {
+          $location.path('/auth/login');
+        }, function (err) {
+          //TODO: Common form error handling?
+          console.log('foo');
+          console.log(err);
+        });
 
-        };
+    };
 
-    }]);
+  }]);

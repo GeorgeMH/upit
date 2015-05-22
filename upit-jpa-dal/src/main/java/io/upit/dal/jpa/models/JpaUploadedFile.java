@@ -73,11 +73,11 @@ public class JpaUploadedFile implements UploadedFile {
         this.created = dateCreated;
     }
 
-    public String getIdHash(){
+    public String getIdHash() {
         return idHash;
     }
 
-    public void setIdHash(String idHash){
+    public void setIdHash(String idHash) {
         this.idHash = idHash;
     }
 
@@ -112,11 +112,11 @@ public class JpaUploadedFile implements UploadedFile {
     }
 
     @Override
-    public String getContentType(){
+    public String getContentType() {
         return contentType;
     }
 
-    public void setContentType(String contentType){
+    public void setContentType(String contentType) {
         this.contentType = contentType;
     }
 

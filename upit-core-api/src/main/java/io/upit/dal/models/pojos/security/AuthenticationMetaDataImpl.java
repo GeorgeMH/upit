@@ -25,7 +25,7 @@ public class AuthenticationMetaDataImpl extends AbstractResource<Long> implement
     }
 
     @Override
-    public String getUserNameOrEmail(){
+    public String getUserNameOrEmail() {
         return this.userNameOrEmail;
     }
 
@@ -45,12 +45,12 @@ public class AuthenticationMetaDataImpl extends AbstractResource<Long> implement
     }
 
     @Override
-    public String getSalt(){
+    public String getSalt() {
         return this.salt;
     }
 
     @Override
-    public void setSalt(String salt){
+    public void setSalt(String salt) {
         this.salt = salt;
     }
 

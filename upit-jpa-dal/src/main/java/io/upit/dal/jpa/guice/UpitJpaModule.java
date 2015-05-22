@@ -1,9 +1,9 @@
 package io.upit.dal.jpa.guice;
 
+import Hashidsjava.Hashids;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.persist.jpa.JpaPersistModule;
-import Hashidsjava.Hashids;
 import io.upit.dal.*;
 import io.upit.dal.jpa.*;
 import io.upit.dal.jpa.models.*;

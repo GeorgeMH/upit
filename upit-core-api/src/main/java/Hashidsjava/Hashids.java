@@ -1,29 +1,28 @@
 //TODO: This file is included manually because of this issue: https://github.com/peet/hashids.java/issues/3
 
 /**
- Copyright (c) 2012 Ivan Akimov
-
- Permission is hereby granted, free of charge, to any person
- obtaining a copy of this software and associated documentation
- files (the "Software"), to deal in the Software without
- restriction, including without limitation the rights to use,
- copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the
- Software is furnished to do so, subject to the following
- conditions:
-
- The above copyright notice and this permission notice shall be
- included in all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- OTHER DEALINGS IN THE SOFTWARE.
-
+ * Copyright (c) 2012 Ivan Akimov
+ * <p>
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ * <p>
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * <p>
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
  */
 package Hashidsjava;
 
@@ -66,34 +65,34 @@ public class Hashids {
 
     public Hashids(String salt, int minHashLength, String alphabet) throws Exception {
         this.salt = salt;
-        if(minHashLength < 0)
+        if (minHashLength < 0)
             this.minHashLength = 0;
         else
             this.minHashLength = minHashLength;
         this.alphabet = alphabet;
 
         String uniqueAlphabet = "";
-        for(int i = 0; i < this.alphabet.length(); i++){
-            if(!uniqueAlphabet.contains("" + this.alphabet.charAt(i))){
+        for (int i = 0; i < this.alphabet.length(); i++) {
+            if (!uniqueAlphabet.contains("" + this.alphabet.charAt(i))) {
                 uniqueAlphabet += "" + this.alphabet.charAt(i);
             }
         }
 
         this.alphabet = uniqueAlphabet;
 
-        if(this.alphabet.length() < this.minAlphabetLength){
+        if (this.alphabet.length() < this.minAlphabetLength) {
             throw new IllegalArgumentException("alphabet must contain at least " + this.minAlphabetLength + " unique characters");
         }
 
-        if(this.alphabet.contains(" ")){
+        if (this.alphabet.contains(" ")) {
             throw new IllegalArgumentException("alphabet cannot contains spaces");
         }
 
         // seps should contain only characters present in alphabet;
         // alphabet should not contains seps
-        for(int i = 0; i < this.seps.length(); i++){
+        for (int i = 0; i < this.seps.length(); i++) {
             int j = this.alphabet.indexOf(this.seps.charAt(i));
-            if(j == -1){
+            if (j == -1) {
                 this.seps = this.seps.substring(0, i) + " " + this.seps.substring(i + 1);
             } else {
                 this.alphabet = this.alphabet.substring(0, j) + " " + this.alphabet.substring(j + 1);
@@ -104,14 +103,14 @@ public class Hashids {
         this.seps = this.seps.replaceAll("\\s+", "");
         this.seps = this.consistentShuffle(this.seps, this.salt);
 
-        if((this.seps.equals("")) || ((this.alphabet.length() / this.seps.length()) > this.sepDiv)){
-            int seps_len = (int)Math.ceil(this.alphabet.length() / this.sepDiv);
+        if ((this.seps.equals("")) || ((this.alphabet.length() / this.seps.length()) > this.sepDiv)) {
+            int seps_len = (int) Math.ceil(this.alphabet.length() / this.sepDiv);
 
-            if(seps_len == 1){
+            if (seps_len == 1) {
                 seps_len++;
             }
 
-            if(seps_len > this.seps.length()){
+            if (seps_len > this.seps.length()) {
                 int diff = seps_len - this.seps.length();
                 this.seps += this.alphabet.substring(0, diff);
                 this.alphabet = this.alphabet.substring(diff);
@@ -122,9 +121,9 @@ public class Hashids {
 
         this.alphabet = this.consistentShuffle(this.alphabet, this.salt);
         // use double to round up
-        int guardCount = (int)Math.ceil((double)this.alphabet.length() / this.guardDiv);
+        int guardCount = (int) Math.ceil((double) this.alphabet.length() / this.guardDiv);
 
-        if(this.alphabet.length() < 3){
+        if (this.alphabet.length() < 3) {
             this.guards = this.seps.substring(0, guardCount);
             this.seps = this.seps.substring(guardCount);
         } else {
@@ -138,15 +137,16 @@ public class Hashids {
      * should use encode() since v1.0
      */
     @Deprecated
-    public String encrypt(long... numbers){
+    public String encrypt(long... numbers) {
         return encode(numbers);
     }
+
     /**
      * @deprecated
      * should use decode() since v1.0
      */
     @Deprecated
-    public long[] decrypt(String hash){
+    public long[] decrypt(String hash) {
         return decode(hash);
     }
 
@@ -155,7 +155,7 @@ public class Hashids {
      * should use encodeHex() since v1.0
      */
     @Deprecated
-    public String encryptHex(String hexa){
+    public String encryptHex(String hexa) {
         return encodeHex(hexa);
     }
 
@@ -164,7 +164,7 @@ public class Hashids {
      * should use decodeHex() since v1.0
      */
     @Deprecated
-    public String decryptHex(String hash){
+    public String decryptHex(String hash) {
         return decodeHex(hash);
     }
 
@@ -174,9 +174,9 @@ public class Hashids {
      * @param numbers the numbers to encrypt
      * @return the encrypt string
      */
-    public String encode(long... numbers){
+    public String encode(long... numbers) {
         String retval = "";
-        if(numbers.length == 0) {
+        if (numbers.length == 0) {
             return retval;
         }
 
@@ -189,10 +189,10 @@ public class Hashids {
      * @param hash the encrypt string
      * @return decryped numbers
      */
-    public long[] decode(String hash){
+    public long[] decode(String hash) {
         long[] ret = {};
 
-        if(hash.equals(""))
+        if (hash.equals(""))
             return ret;
 
         return this._decode(hash, this.alphabet);
@@ -204,8 +204,8 @@ public class Hashids {
      * @param hexa the hexa to encrypt
      * @return the encrypt string
      */
-    public String encodeHex(String hexa){
-        if(!hexa.matches("^[0-9a-fA-F]+$"))
+    public String encodeHex(String hexa) {
+        if (!hexa.matches("^[0-9a-fA-F]+$"))
             return "";
 
         List<Long> matched = new ArrayList<Long>();
@@ -216,7 +216,7 @@ public class Hashids {
 
         // conversion
         long[] result = new long[matched.size()];
-        for(int i = 0; i < matched.size(); i++) result[i] = matched.get(i);
+        for (int i = 0; i < matched.size(); i++) result[i] = matched.get(i);
 
         return this._encode(result);
     }
@@ -227,7 +227,7 @@ public class Hashids {
      * @param hash the encrypt string
      * @return decryped numbers
      */
-    public String decodeHex(String hash){
+    public String decodeHex(String hash) {
         String result = "";
         long[] numbers = this.decrypt(hash);
 
@@ -238,10 +238,10 @@ public class Hashids {
         return result;
     }
 
-    private String _encode(long... numbers){
+    private String _encode(long... numbers) {
         int numberHashInt = 0;
-        for(int i = 0; i < numbers.length; i++){
-            numberHashInt += (numbers[i] % (i+100));
+        for (int i = 0; i < numbers.length; i++) {
+            numberHashInt += (numbers[i] % (i + 100));
         }
         String alphabet = this.alphabet;
         char ret = alphabet.toCharArray()[numberHashInt % alphabet.length()];
@@ -251,7 +251,7 @@ public class Hashids {
         String buffer, ret_str = ret + "";
         char guard;
 
-        for(int i = 0; i < numbers.length; i++){
+        for (int i = 0; i < numbers.length; i++) {
             num = numbers[i];
             buffer = lottery + this.salt + alphabet;
 
@@ -260,21 +260,21 @@ public class Hashids {
 
             ret_str += last;
 
-            if(i + 1 < numbers.length){
-                num %= ((int)last.toCharArray()[0] + i);
-                sepsIndex = (int)(num % this.seps.length());
+            if (i + 1 < numbers.length) {
+                num %= ((int) last.toCharArray()[0] + i);
+                sepsIndex = (int) (num % this.seps.length());
                 ret_str += this.seps.toCharArray()[sepsIndex];
             }
         }
 
-        if(ret_str.length() < this.minHashLength){
-            guardIndex = (numberHashInt + (int)(ret_str.toCharArray()[0])) % this.guards.length();
+        if (ret_str.length() < this.minHashLength) {
+            guardIndex = (numberHashInt + (int) (ret_str.toCharArray()[0])) % this.guards.length();
             guard = this.guards.toCharArray()[guardIndex];
 
             ret_str = guard + ret_str;
 
-            if(ret_str.length() < this.minHashLength){
-                guardIndex = (numberHashInt + (int)(ret_str.toCharArray()[2])) % this.guards.length();
+            if (ret_str.length() < this.minHashLength) {
+                guardIndex = (numberHashInt + (int) (ret_str.toCharArray()[2])) % this.guards.length();
                 guard = this.guards.toCharArray()[guardIndex];
 
                 ret_str += guard;
@@ -282,11 +282,11 @@ public class Hashids {
         }
 
         int halfLen = alphabet.length() / 2;
-        while(ret_str.length() < this.minHashLength){
+        while (ret_str.length() < this.minHashLength) {
             alphabet = this.consistentShuffle(alphabet, alphabet);
             ret_str = alphabet.substring(halfLen) + ret_str + alphabet.substring(0, halfLen);
             int excess = ret_str.length() - this.minHashLength;
-            if(excess > 0){
+            if (excess > 0) {
                 int start_pos = excess / 2;
                 ret_str = ret_str.substring(start_pos, start_pos + this.minHashLength);
             }
@@ -295,7 +295,7 @@ public class Hashids {
         return ret_str;
     }
 
-    private long[] _decode(String hash, String alphabet){
+    private long[] _decode(String hash, String alphabet) {
         ArrayList<Long> ret = new ArrayList<Long>();
 
         int i = 0;
@@ -303,7 +303,7 @@ public class Hashids {
         String hashBreakdown = hash.replaceAll(regexp, " ");
         String[] hashArray = hashBreakdown.split(" ");
 
-        if(hashArray.length == 3 || hashArray.length == 2){
+        if (hashArray.length == 3 || hashArray.length == 2) {
             i = 1;
         }
 
@@ -324,7 +324,7 @@ public class Hashids {
 
         //transform from List<Long> to long[]
         long[] arr = new long[ret.size()];
-        for(int k = 0; k < arr.length; k++){
+        for (int k = 0; k < arr.length; k++) {
             arr[k] = ret.get(k);
         }
 
@@ -332,16 +332,16 @@ public class Hashids {
     }
 
     /* Private methods */
-    private String consistentShuffle(String alphabet, String salt){
-        if(salt.length() <= 0)
+    private String consistentShuffle(String alphabet, String salt) {
+        if (salt.length() <= 0)
             return alphabet;
 
         char[] arr = salt.toCharArray();
         int asc_val, j;
         char tmp;
-        for(int i = alphabet.length() - 1, v = 0, p = 0; i > 0; i--, v++){
+        for (int i = alphabet.length() - 1, v = 0, p = 0; i > 0; i--, v++) {
             v %= salt.length();
-            asc_val = (int)arr[v];
+            asc_val = (int) arr[v];
             p += asc_val;
             j = (asc_val + v + p) % i;
 
@@ -353,24 +353,24 @@ public class Hashids {
         return alphabet;
     }
 
-    private String hash(long input, String alphabet){
+    private String hash(long input, String alphabet) {
         String hash = "";
         int alphabetLen = alphabet.length();
         char[] arr = alphabet.toCharArray();
 
         do {
-            hash = arr[(int)(input % alphabetLen)] + hash;
+            hash = arr[(int) (input % alphabetLen)] + hash;
             input /= alphabetLen;
-        } while(input > 0);
+        } while (input > 0);
 
         return hash;
     }
 
-    private Long unhash(String input, String alphabet){
+    private Long unhash(String input, String alphabet) {
         long number = 0, pos;
         char[] input_arr = input.toCharArray();
 
-        for(int i = 0; i < input.length(); i++){
+        for (int i = 0; i < input.length(); i++) {
             pos = alphabet.indexOf(input_arr[i]);
             number += pos * Math.pow(alphabet.length(), input.length() - i - 1);
         }

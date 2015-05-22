@@ -26,7 +26,7 @@ public class UserImpl extends AbstractResource<Long> implements io.upit.dal.mode
     }
 
     @Override
-    public void setIdHash(String idHash){
+    public void setIdHash(String idHash) {
         this.idHash = idHash;
     }
 

@@ -3,7 +3,6 @@ package io.upit.guice.security.authorizers;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import io.upit.dal.models.AuthSession;
-
 import io.upit.guice.security.MethodAuthorizer;
 import io.upit.security.AuthorizationException;
 import io.upit.services.AuthSessionService;
@@ -24,7 +23,7 @@ public class AnonymousUserAuthorizer implements MethodAuthorizer {
     public void authorizeMethodInvocation(MethodInvocation methodInvocation) throws AuthorizationException {
         AuthSession currentSession = authSessionProvider.get();
 
-        if(!currentSession.isAnonymous()) {
+        if (!currentSession.isAnonymous()) {
             throw new AuthorizationException("User must be anonymous");
         }
     }

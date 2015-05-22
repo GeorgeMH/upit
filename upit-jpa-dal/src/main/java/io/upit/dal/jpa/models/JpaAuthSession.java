@@ -6,12 +6,12 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name="AuthSession")
+@Entity(name = "AuthSession")
 public class JpaAuthSession implements AuthSession {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
     @Version
@@ -45,11 +45,11 @@ public class JpaAuthSession implements AuthSession {
         this.id = id;
     }
 
-    public int getVersion(){
+    public int getVersion() {
         return version;
     }
 
-    public void setVersion(int version){
+    public void setVersion(int version) {
         this.version = version;
     }
 

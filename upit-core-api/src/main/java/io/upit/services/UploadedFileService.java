@@ -5,7 +5,7 @@ import io.upit.UpitServiceException;
 import io.upit.dal.UploadedFileDAO;
 import io.upit.dal.models.UploadedFile;
 
-import java.io.*;
+import java.io.InputStream;
 
 public class UploadedFileService extends AbstractResourceService<UploadedFile, Long> {
 

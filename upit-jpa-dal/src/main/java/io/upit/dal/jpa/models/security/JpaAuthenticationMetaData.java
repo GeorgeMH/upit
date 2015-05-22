@@ -4,10 +4,13 @@ import io.upit.dal.models.User;
 import io.upit.dal.models.pojos.AbstractResource;
 import io.upit.dal.models.security.AuthenticationMetaData;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
-@Entity(name="AuthenticationMetaData")
+@Entity(name = "AuthenticationMetaData")
 public class JpaAuthenticationMetaData extends AbstractResource<Long> implements AuthenticationMetaData {
 
     @Id
@@ -44,7 +47,7 @@ public class JpaAuthenticationMetaData extends AbstractResource<Long> implements
         return this.userId;
     }
 
-    public void setUserId(Long userId){
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -87,6 +90,7 @@ public class JpaAuthenticationMetaData extends AbstractResource<Long> implements
     public void setAuthenticationType(String authenticationType) {
         this.authenticationType = authenticationType;
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(getId());
@@ -102,10 +106,10 @@ public class JpaAuthenticationMetaData extends AbstractResource<Long> implements
     }
 
     public static JpaAuthenticationMetaData wrapToJpa(AuthenticationMetaData metaData) {
-        if(null == metaData) {
+        if (null == metaData) {
             return null;
-        } else if(metaData instanceof JpaAuthenticationMetaData){
-            return (JpaAuthenticationMetaData)metaData;
+        } else if (metaData instanceof JpaAuthenticationMetaData) {
+            return (JpaAuthenticationMetaData) metaData;
         }
 
         //This should rarely happen due to DI, should we log/assert it and blow up instead?

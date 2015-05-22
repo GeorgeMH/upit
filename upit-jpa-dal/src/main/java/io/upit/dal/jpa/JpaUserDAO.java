@@ -10,7 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-public class JpaUserDAO extends EntityManagerDAO<User, Long> implements UserDAO  {
+public class JpaUserDAO extends EntityManagerDAO<User, Long> implements UserDAO {
 
     @Inject
     public JpaUserDAO(EntityManager entityManager) {
@@ -24,7 +24,7 @@ public class JpaUserDAO extends EntityManagerDAO<User, Long> implements UserDAO 
         query.setParameter("input", input.toLowerCase());
         try {
             return query.getSingleResult();
-        } catch (NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }
@@ -34,7 +34,7 @@ public class JpaUserDAO extends EntityManagerDAO<User, Long> implements UserDAO 
         query.setParameter("idHash", idHash);
         try {
             return query.getSingleResult();
-        } catch (NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }

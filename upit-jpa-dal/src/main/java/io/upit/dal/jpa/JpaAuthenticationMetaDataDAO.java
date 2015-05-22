@@ -12,7 +12,7 @@ import java.util.List;
 public class JpaAuthenticationMetaDataDAO extends EntityManagerDAO<AuthenticationMetaData, Long> implements AuthenticationMetaDataDAO {
 
     @Inject
-    public JpaAuthenticationMetaDataDAO (EntityManager entityManager) {
+    public JpaAuthenticationMetaDataDAO(EntityManager entityManager) {
         super(AuthenticationMetaData.class, JpaAuthenticationMetaData.class, entityManager);
     }
 

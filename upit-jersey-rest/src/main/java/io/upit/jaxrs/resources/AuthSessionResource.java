@@ -1,18 +1,10 @@
 package io.upit.jaxrs.resources;
 
+import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import io.upit.UpitServiceException;
 import io.upit.dal.AuthenticationMetaDataDAO;
 import io.upit.dal.models.AuthSession;
-
-import java.io.IOException;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.NewCookie;
-import javax.ws.rs.core.Response;
-
-import com.google.inject.Inject;
 import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
 import io.upit.guice.security.PreAuthorize;
@@ -21,6 +13,12 @@ import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.services.AuthSessionService;
 import io.upit.services.UserService;
 import org.codehaus.jackson.map.ObjectMapper;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
 
 @Path("/authSession")
 @Produces(MediaType.APPLICATION_JSON)
@@ -50,7 +48,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
             String jsonAuthSession = objectMapper.writeValueAsString(ret);
             //TODO: Cookie expiration etc
             return Response.ok().cookie(new NewCookie("UPIT_LOGIN_TOKEN", jsonAuthSession)).build();
-        } catch (UpitServiceException|IOException e) {
+        } catch (UpitServiceException | IOException e) {
             throw new ResourceException("Failed Registration Request", e);
         }
     }
@@ -62,7 +60,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     public AuthSession login(LoginRequest loginRequest) {
         try {
             return authSessionService.login(loginRequest);
-        } catch( UpitServiceException e ) {
+        } catch (UpitServiceException e) {
             throw new ResourceException("Failed logging in", e);
         }
     }

@@ -16,9 +16,9 @@ angular.module('upit-web.page.upload', ['ngFileUpload'])
         templateUrl: 'upload/file.html',
         controller: 'FileCtrl',
         resolve: {
-          resolvedUploadedFile: ['$route', 'UploadedFileResource', function($route, UploadedFileResource) {
+          resolvedUploadedFile: ['$route', 'UploadedFileResource', function ($route, UploadedFileResource) {
             // Conditionally resolve the uploaded file by the ID in the URL
-            if($route.current.params.fileIdHash) {
+            if ($route.current.params.fileIdHash) {
               return UploadedFileResource.getByIdHash($route.current.params.fileIdHash);
 
             }

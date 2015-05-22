@@ -14,7 +14,7 @@ public class JpaAclEntry implements AclEntry {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
     @Version

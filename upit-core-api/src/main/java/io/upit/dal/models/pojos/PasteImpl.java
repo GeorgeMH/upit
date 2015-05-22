@@ -2,7 +2,6 @@ package io.upit.dal.models.pojos;
 
 import io.upit.dal.models.Paste;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class PasteImpl extends AbstractResource<Long> implements Paste {
@@ -14,12 +13,12 @@ public class PasteImpl extends AbstractResource<Long> implements Paste {
     private String syntaxId;
 
     @Override
-    public String getIdHash(){
+    public String getIdHash() {
         return idHash;
     }
 
     @Override
-    public void setIdHash(String idHash){
+    public void setIdHash(String idHash) {
         this.idHash = idHash;
     }
 
@@ -67,7 +66,7 @@ public class PasteImpl extends AbstractResource<Long> implements Paste {
     public int hashCode() {
         return Objects.hash(getId());
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Paste)) {

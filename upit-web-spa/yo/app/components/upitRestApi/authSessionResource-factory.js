@@ -6,13 +6,13 @@
  * @description # Paste Module
  */
 angular.module('upit-web.upitRestApi')
-  .factory('AuthSessionResource', ['$q', 'SimpleResourceClient', function($q, SimpleResourceClient) {
+  .factory('AuthSessionResource', ['$q', 'SimpleResourceClient', function ($q, SimpleResourceClient) {
 
     var resourceContext = {
       resourceName: 'authSession'
     };
 
-    var register = function(registrationRequest) {
+    var register = function (registrationRequest) {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
         url: '/register/',
         method: 'POST',
@@ -20,7 +20,7 @@ angular.module('upit-web.upitRestApi')
       });
     };
 
-    var login = function(authenticationReuqest) {
+    var login = function (authenticationReuqest) {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
         url: '/login/',
         method: 'POST',
@@ -28,7 +28,7 @@ angular.module('upit-web.upitRestApi')
       });
     };
 
-    var end = function(authSession) {
+    var end = function (authSession) {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
         url: '/end/',
         method: 'POST',

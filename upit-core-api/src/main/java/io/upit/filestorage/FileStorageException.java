@@ -6,11 +6,11 @@ public class FileStorageException extends Exception {
 
     }
 
-    public FileStorageException(String s){
+    public FileStorageException(String s) {
         super(s);
     }
 
-    public FileStorageException(String s, Throwable t){
+    public FileStorageException(String s, Throwable t) {
         super(s, t);
     }
 

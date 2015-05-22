@@ -70,10 +70,10 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof AuthSession)){
+        if (!(obj instanceof AuthSession)) {
             return false;
         }
-        AuthSession check = (AuthSession)obj;
+        AuthSession check = (AuthSession) obj;
         return Objects.equals(getId(), check.getId());
     }
 

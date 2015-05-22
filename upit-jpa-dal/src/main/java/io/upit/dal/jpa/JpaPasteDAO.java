@@ -1,10 +1,11 @@
 package io.upit.dal.jpa;
 
-import com.google.inject.Inject;
 import Hashidsjava.Hashids;
+import com.google.inject.Inject;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.jpa.models.JpaPaste;
 import io.upit.dal.models.Paste;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -36,7 +37,7 @@ public class JpaPasteDAO extends EntityManagerDAO<Paste, Long> implements PasteD
 
         try {
             return query.getSingleResult();
-        }catch(NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }

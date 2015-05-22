@@ -1,18 +1,13 @@
 package io.upit.jaxrs.resources;
 
-import com.google.inject.persist.Transactional;
 import Hashidsjava.Hashids;
-import io.upit.UpitServiceException;
+import com.google.inject.Inject;
 import io.upit.dal.AuthenticationMetaDataDAO;
-import io.upit.dal.UserDAO;
 import io.upit.dal.models.User;
+import io.upit.services.UserService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-
-import com.google.inject.Inject;
-import io.upit.jaxrs.exceptions.ResourceException;
-import io.upit.services.UserService;
 
 @Path("/user")
 @Consumes(MediaType.APPLICATION_JSON)

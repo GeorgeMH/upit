@@ -31,7 +31,7 @@ public class AbstractResource<IDType> implements Resource<IDType> {
     }
 
     @Override
-    public Date getCreated(){
+    public Date getCreated() {
         return created;
     }
 

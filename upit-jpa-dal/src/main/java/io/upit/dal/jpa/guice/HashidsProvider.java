@@ -1,9 +1,9 @@
 package io.upit.dal.jpa.guice;
 
+import Hashidsjava.Hashids;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
-import Hashidsjava.Hashids;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
@@ -17,11 +17,11 @@ public class HashidsProvider implements Provider<Hashids> {
     private final Hashids instance;
 
     @Inject
-    public HashidsProvider(@Named("UpitConfiguration")Configuration configuration) {
+    public HashidsProvider(@Named("UpitConfiguration") Configuration configuration) {
         Hashids tmpInstance = null;
-            try {
+        try {
             String salt = configuration.getString(SALT_KEY, null);
-            if(null == salt) {
+            if (null == salt) {
                 salt = RandomStringUtils.random(31, true, true);
                 logger.warn("Randomly generated Hashids salt: " + salt);
                 configuration.setProperty(SALT_KEY, salt);
@@ -30,7 +30,7 @@ public class HashidsProvider implements Provider<Hashids> {
             }
 
             tmpInstance = new Hashids(salt, 5);
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.error("Failed initializing  Hashids", e);
         }
         this.instance = tmpInstance;

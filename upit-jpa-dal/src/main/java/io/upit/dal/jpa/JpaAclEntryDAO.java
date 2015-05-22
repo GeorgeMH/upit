@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 public class JpaAclEntryDAO extends EntityManagerDAO<AclEntry, String> {
 
     @Inject
-    public JpaAclEntryDAO(EntityManager entityManager){
+    public JpaAclEntryDAO(EntityManager entityManager) {
         super(AclEntry.class, JpaAclEntry.class, entityManager);
     }
 

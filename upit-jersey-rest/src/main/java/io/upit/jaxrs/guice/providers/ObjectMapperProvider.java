@@ -1,5 +1,6 @@
 package io.upit.jaxrs.guice.providers;
 
+import com.google.inject.Provider;
 import io.upit.dal.jpa.models.JpaAuthSession;
 import io.upit.dal.jpa.models.JpaPaste;
 import io.upit.dal.jpa.models.JpaPropertyValue;
@@ -10,7 +11,6 @@ import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.Paste;
 import io.upit.dal.models.PropertyValue;
 import io.upit.dal.models.User;
-
 import io.upit.dal.models.pojos.security.LoginRequestImpl;
 import io.upit.dal.models.pojos.security.RegistrationRequestImpl;
 import io.upit.dal.models.security.AuthenticationMetaData;
@@ -21,8 +21,6 @@ import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.module.SimpleModule;
-
-import com.google.inject.Provider;
 
 public class ObjectMapperProvider implements Provider<ObjectMapper> {
 

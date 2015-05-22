@@ -1,7 +1,6 @@
 package io.upit.guice;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
@@ -26,16 +25,16 @@ public class UpitCoreGuiceModule extends AbstractModule {
         File instanceHomeDirectory = new File("./upit/");
         File uploadedFileRepositoryPath = new File(instanceHomeDirectory, "uploadedFiles/");
 
-        if(uploadedFileRepositoryPath.exists()) {
-            if(!uploadedFileRepositoryPath.isDirectory()) {
+        if (uploadedFileRepositoryPath.exists()) {
+            if (!uploadedFileRepositoryPath.isDirectory()) {
                 addError("Upload File Repository exists and is not a directory: " + uploadedFileRepositoryPath.getAbsolutePath());
                 return;
-            } else if(!uploadedFileRepositoryPath.canWrite()) {
+            } else if (!uploadedFileRepositoryPath.canWrite()) {
                 addError("Upload File Repository exists but is not writable: " + uploadedFileRepositoryPath.getAbsolutePath());
                 return;
             }
         } else {
-            if(!uploadedFileRepositoryPath.mkdirs()){
+            if (!uploadedFileRepositoryPath.mkdirs()) {
                 addError("Failed creating Upload File Repository: " + uploadedFileRepositoryPath.getAbsolutePath());
                 return;
             }

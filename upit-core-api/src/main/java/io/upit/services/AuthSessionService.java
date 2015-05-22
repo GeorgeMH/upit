@@ -67,16 +67,16 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         List<AuthenticationMetaData> authenticationMetaDatas = authenticationMetaDataDAO.getByUserId(user.getId());
 
         AuthenticationMetaData authenticationMetaData = authenticationMetaDatas.stream()
-                .filter( amd -> DEFAULT_AUTHENTICATION_PROVIDER.equals(amd.getAuthenticationType()) )
-                .findFirst().get();
+            .filter(amd -> DEFAULT_AUTHENTICATION_PROVIDER.equals(amd.getAuthenticationType()))
+            .findFirst().get();
 
-        if(null == authenticationMetaData) {
+        if (null == authenticationMetaData) {
             throw new AuthenticationException("Invalid username or password");
         }
 
         // Hard coded Sha512 authentication provider for now
         AuthenticationProvider authenticationProvider = new Sha512AuthenticationProvider();
-        if(!authenticationProvider.authenticate(loginRequest, authenticationMetaData)) {
+        if (!authenticationProvider.authenticate(loginRequest, authenticationMetaData)) {
             throw new AuthenticationException("Invalid username or password");
         }
 
@@ -99,11 +99,11 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
     @PreAuthorize
     public AuthSession validateSession(AuthSession session) throws AuthenticationException {
         AuthSession realAuthSession = authSessionDao.getById(session.getId());
-        if(null == realAuthSession) {
+        if (null == realAuthSession) {
             throw new AuthenticationException("Invalid Auth Session");
         }
 
-        if(!realAuthSession.isActive()) {
+        if (!realAuthSession.isActive()) {
             throw new AuthenticationException("Invalid Auth Session");
         }
 

@@ -8,7 +8,9 @@ import io.upit.dal.models.UploadedFile;
 import io.upit.dal.models.pojos.UploadedFileImpl;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.services.UploadedFileService;
-import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +28,7 @@ import java.util.Set;
 @Path("/uploadedFile")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> {
+public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
     private final Logger logger = LoggerFactory.getLogger(UploadedFileResource.class);
 
     private final UploadedFileService uploadedFileService;
@@ -46,7 +48,7 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
 
     @GET
     @Path("hash/{shortHash}")
-    public UploadedFile getByIdHash(@PathParam("shortHash") String shortHash){
+    public UploadedFile getByIdHash(@PathParam("shortHash") String shortHash) {
         return uploadedFileService.getByIdHash(shortHash);
     }
 
@@ -54,16 +56,16 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
     @Path("download/{shortHash}")
     public Response download(@PathParam("shortHash") String shortHash) {
         int dotIdx = shortHash.indexOf('.');
-        if(dotIdx > 0){
+        if (dotIdx > 0) {
             shortHash = shortHash.substring(0, dotIdx);
         }
 
         final UploadedFile uploadedFile = uploadedFileService.getByIdHash(shortHash);
-        if(null == uploadedFile) {
+        if (null == uploadedFile) {
             return Response.status(404).build();
         }
 
-        try(final InputStream fileInputStream = uploadedFileService.getFileStream(uploadedFile);){
+        try (final InputStream fileInputStream = uploadedFileService.getFileStream(uploadedFile);) {
             if (null == fileInputStream) {
                 return Response.status(404).build();
             }
@@ -99,10 +101,10 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
             Response.ResponseBuilder response = Response.ok(streamingOutput, uploadedFile.getContentType());
             response.header("content-length", uploadedFile.getFileSize() + "");
 
-            if(null == uploadedFile.getContentType() || !uploadedFile.getContentType().startsWith("image")) {
+            if (null == uploadedFile.getContentType() || !uploadedFile.getContentType().startsWith("image")) {
                 response.header("content-disposition", ContentDisposition.type("attachment")
-                        .fileName(uploadedFile.getFileName())
-                        .size(uploadedFile.getFileSize()));
+                    .fileName(uploadedFile.getFileName())
+                    .size(uploadedFile.getFileSize()));
             }
             return response.build();
         } catch (IOException | UpitServiceException e) {
@@ -119,7 +121,7 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
     public Set<UploadedFile> uploadFiles(@Context HttpServletRequest request) {
         // TODO: Clean ths up!
 
-        if(!ServletFileUpload.isMultipartContent(request)) {
+        if (!ServletFileUpload.isMultipartContent(request)) {
             //TODO better error/exceptions
             throw new ResourceException("Invalid Request");
         }
@@ -130,23 +132,23 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
 
         try {
             FileItemIterator items = servletFileUpload.getItemIterator(request);
-            while(items.hasNext()){
+            while (items.hasNext()) {
                 FileItemStream item = items.next();
-                if(item.isFormField()){
+                if (item.isFormField()) {
                     continue;
                 }
 
                 UploadedFile uploadedFile = new UploadedFileImpl();
                 uploadedFile.setFileName(item.getName());
 
-                if(null != item.getContentType() && item.getContentType().length() > 0) {
+                if (null != item.getContentType() && item.getContentType().length() > 0) {
                     uploadedFile.setContentType(item.getContentType());
                 }
 
                 UploadedFile parsedUploadedFile = uploadedFileService.uploadFile(uploadedFile, item.openStream());
                 resultSet.add(parsedUploadedFile);
             }
-        } catch (FileUploadException|IOException|UpitServiceException e) {
+        } catch (FileUploadException | IOException | UpitServiceException e) {
             //TODO better error/exceptions
             throw new ResourceException("Failed processing file upload", e);
         }

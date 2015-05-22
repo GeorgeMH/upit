@@ -89,10 +89,10 @@ public class JpaUser implements User {
     }
 
     public static JpaUser wrapUser(User user) {
-        if(null == user) {
+        if (null == user) {
             return null;
-        } else if(user instanceof JpaUser){
-            return (JpaUser)user;
+        } else if (user instanceof JpaUser) {
+            return (JpaUser) user;
         }
 
         //This should rarely happen due to DI, should we log/assert it?

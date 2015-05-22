@@ -66,43 +66,43 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-          port: 9000,
-          // Change this to '0.0.0.0' to access the server from outside.
-          hostname: 'localhost',
-          livereload: 35729
+        port: 9000,
+        // Change this to '0.0.0.0' to access the server from outside.
+        hostname: 'localhost',
+        livereload: 35729
       },
       proxies: [
         {
           context: '/api_v1',
-          host: 'localhost', 
+          host: 'localhost',
           port: 8080,
           https: false,
           changeOrigin: false,
           xforward: false
         },
         {
-            context: '/d',
-            host: 'localhost',
-            port: 8080,
-            https: false,
-            changeOrigin: false,
-            xforward: false
+          context: '/d',
+          host: 'localhost',
+          port: 8080,
+          https: false,
+          changeOrigin: false,
+          xforward: false
         }
       ],
       livereload: {
         options: {
           open: true,
           middleware: function (connect, options) {
-              return [
-                  require('grunt-connect-proxy/lib/utils').proxyRequest,
-                  connect.static('.tmp'),
-                  connect.static('test'),
-                  connect().use(
-                      '/bower_components',
-                      connect.static('./bower_components')
-                  ),
-                  connect.static(appConfig.app)
-              ];
+            return [
+              require('grunt-connect-proxy/lib/utils').proxyRequest,
+              connect.static('.tmp'),
+              connect.static('test'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect.static(appConfig.app)
+            ];
           }
         }
       },
@@ -192,7 +192,7 @@ module.exports = function (grunt) {
       },
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath: /\.\.\//
       }
     },
 
@@ -232,7 +232,7 @@ module.exports = function (grunt) {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images']
+        assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images']
       }
     },
 
@@ -391,9 +391,7 @@ module.exports = function (grunt) {
       }
     },
 
-    complexity: {
-
-    }
+    complexity: {}
   });
 
 
@@ -420,11 +418,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     // TODO FIX THE TESTS :\
-   // 'clean:server',
-   // 'concurrent:test',
-   // 'autoprefixer',
-  //  'connect:test',
-   // 'karma'
+    // 'clean:server',
+    // 'concurrent:test',
+    // 'autoprefixer',
+    //  'connect:test',
+    // 'karma'
   ]);
 
   grunt.registerTask('build', [
@@ -445,7 +443,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-      //TODO: Enable tests!
+    //TODO: Enable tests!
     //newer:jshint',
     //'test',
     'build'

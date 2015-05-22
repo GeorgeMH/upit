@@ -1,46 +1,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>io.upit</groupId>
-        <artifactId>upit</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
-    </parent>
+  <parent>
+    <groupId>io.upit</groupId>
+    <artifactId>upit</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+  </parent>
 
-    <artifactId>upit-core-api</artifactId>
+  <artifactId>upit-core-api</artifactId>
 
-    <name>upit-core-dal</name>
-    <description>Core API of Upit.IO</description>
+  <name>upit-core-dal</name>
+  <description>Core API of Upit.IO</description>
 
-    <dependencies>
+  <dependencies>
 
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>1.10</version>
-        </dependency>
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>1.10</version>
+    </dependency>
 
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.9</version>
-        </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.9</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.tika</groupId>
-            <artifactId>tika-core</artifactId>
-            <version>1.6</version>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.tika</groupId>
+      <artifactId>tika-core</artifactId>
+      <version>1.6</version>
+    </dependency>
 
-        <!-- Guice -->
+    <!-- Guice -->
 
-        <dependency>
-            <groupId>com.google.inject.extensions</groupId>
-            <artifactId>guice-persist</artifactId>
-            <version>3.0</version>
-        </dependency>
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-persist</artifactId>
+      <version>3.0</version>
+    </dependency>
 
-    </dependencies>
+  </dependencies>
 
 </project>
