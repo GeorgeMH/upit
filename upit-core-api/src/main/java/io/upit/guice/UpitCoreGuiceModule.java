@@ -1,13 +1,14 @@
 package io.upit.guice;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
 import io.upit.filestorage.LocalDiskFileStorageStrategy;
 import io.upit.filestorage.StreamingFileStorageStrategy;
 import io.upit.guice.security.PreAuthorize;
 import io.upit.guice.security.interceptors.PreAuthorizationInterceptor;
-import io.upit.services.AuthSessionService;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -59,8 +60,7 @@ public class UpitCoreGuiceModule extends AbstractModule {
             addError("Failed building Configuration", e);
             return;
         }
-
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(PreAuthorize.class), new PreAuthorizationInterceptor(getProvider(AuthSessionService.class)));
+        bindInterceptor(Matchers.any(), Matchers.annotatedWith(PreAuthorize.class), new PreAuthorizationInterceptor(getProvider(Injector.class)));
     }
 
 

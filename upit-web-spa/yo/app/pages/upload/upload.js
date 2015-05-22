@@ -5,7 +5,7 @@
  * @name upit.controller:MainCtrl
  * @description # Paste Module
  */
-angular.module('upitWebSpa.upload', ['ngFileUpload'])
+angular.module('upit-web.page.upload', ['ngFileUpload'])
   .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/upload', {

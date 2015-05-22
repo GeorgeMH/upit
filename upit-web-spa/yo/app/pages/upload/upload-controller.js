@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of upit
  */
-angular.module('upitWebSpa.upload')
+angular.module('upit-web.page.upload')
   .controller('UpCtrl', ['$scope', '$window', 'Upload', 'FileUrlGenerator', function ($scope, $window, Upload, FileUrlGenerator) {
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
