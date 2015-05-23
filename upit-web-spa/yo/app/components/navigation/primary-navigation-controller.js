@@ -6,10 +6,10 @@
  * @description # Navigation Controller
  */
 angular.module('upit-web.components.navigation')
-  .controller('NavigationController', ['$scope', '$location', 'SecurityService', function ($scope, $location, SecurityService) {
+  .controller('NavigationController', ['$scope', '$location', '$timeout', 'SecurityService', function ($scope, $location, $timeout, SecurityService) {
 
     $scope.model = {
-
+      isUserLoggedIn: false
     };
 
     $scope.menuClass = function (page) {

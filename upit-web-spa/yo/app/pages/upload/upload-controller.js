@@ -8,7 +8,7 @@
  * Controller of upit
  */
 angular.module('upit-web.page.upload')
-  .controller('UpCtrl', ['$scope', '$window', 'Upload', 'FileUrlGenerator', function ($scope, $window, Upload, FileUrlGenerator) {
+  .controller('UploadController', ['$scope', '$window', 'Upload', 'FileUrlGenerator', function ($scope, $window, Upload, FileUrlGenerator) {
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
     });

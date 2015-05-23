@@ -2,13 +2,12 @@
 
 angular.module('upit-web.page.upload')
   .service('FileUrlGenerator', ['$location', function ($location) {
-    var self = this;
 
-    self.getBaseURL = function () {
+    var getBaseURL = function () {
       return $location.protocol() + '://' + $location.host() + ($location.port() ? ':' + $location.port() : '');
     };
 
-    self.directDownload = function (uploadedFile, showExtension) {
+    var directDownload = function (uploadedFile, showExtension) {
       var url = getBaseURL() + '/d/' + encodeURIComponent(uploadedFile.idHash);
       if (showExtension && uploadedFile.extension) {
         url += uploadedFile.extension;
@@ -16,25 +15,25 @@ angular.module('upit-web.page.upload')
       return url;
     };
 
-    self.directDownloadWithName = function (uploadedFile) {
+    var directDownloadWithName = function (uploadedFile) {
       if (!uploadedFile.fileName) {
         return null;
       }
       return directDownload(uploadedFile, false) + '/' + uploadedFile.fileName;
     };
 
-    self.spaShort = function (uploadedFile) {
+    var spaShort = function (uploadedFile) {
       return getBaseURL() + '/#/file/' + uploadedFile.idHash + '/';
     };
 
-    self.spaShortWithName = function (uploadedFile) {
+    var spaShortWithName = function (uploadedFile) {
       if (!uploadedFile.fileName) {
         return null;
       }
       return spaShort(uploadedFile) + uploadedFile.fileName;
     };
 
-    self.getURLs = function (uploadedFile) {
+    var getURLs = function (uploadedFile) {
       return {
         directDownload: directDownload(uploadedFile, true),
         directDownloadWithName: directDownloadWithName(uploadedFile),
@@ -44,12 +43,12 @@ angular.module('upit-web.page.upload')
     };
 
     return {
-      getBaseURL: self.getBaseURL,
-      directDownload: self.directDownload,
-      directDownloadWithName: self.directDownloadWithName,
-      spaShort: self.spaShort,
-      spaShortWithName: self.spaShortWithName,
-      getURLs: self.getURLs
+      getBaseURL: getBaseURL,
+      directDownload: directDownload,
+      directDownloadWithName: directDownloadWithName,
+      spaShort: spaShort,
+      spaShortWithName: spaShortWithName,
+      getURLs: getURLs
     };
 
   }]);
