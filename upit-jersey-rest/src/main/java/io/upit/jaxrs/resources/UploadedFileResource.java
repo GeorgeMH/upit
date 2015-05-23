@@ -6,7 +6,6 @@ import com.sun.jersey.core.header.ContentDisposition;
 import io.upit.UpitServiceException;
 import io.upit.dal.models.UploadedFile;
 import io.upit.dal.models.pojos.UploadedFileImpl;
-import io.upit.guice.security.PreAuthorize;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.services.UploadedFileService;
 import org.apache.commons.fileupload.FileItemIterator;
@@ -42,7 +41,6 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
 
     @POST
     @Transactional
-    @PreAuthorize
     public UploadedFile create(UploadedFile resource) {
         //TODO better error/exceptions
         throw new ResourceException("Access Denied.");
@@ -50,14 +48,12 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
 
     @GET
     @Path("hash/{shortHash}")
-    @PreAuthorize
     public UploadedFile getByIdHash(@PathParam("shortHash") String shortHash) {
         return uploadedFileService.getByIdHash(shortHash);
     }
 
     @GET
     @Path("download/{shortHash}")
-    //@PreAuthorize
     public Response download(@PathParam("shortHash") String shortHash) {
         int dotIdx = shortHash.indexOf('.');
         if (dotIdx > 0) {
@@ -84,10 +80,9 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
                 public void pipe(InputStream is, OutputStream os) throws IOException {
                     try {
                         int n;
-                        byte[] buffer = new byte[1024 * 8];
+                        byte[] buffer = new byte[1024];
                         while ((n = is.read(buffer)) > -1) {
                             os.write(buffer, 0, n);
-                            os.flush();
                         }
                     } finally {
                         try {
