@@ -1,7 +1,6 @@
 package io.upit.jaxrs.resources;
 
 import com.google.inject.Inject;
-import io.upit.guice.security.PreAuthorize;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,7 +19,6 @@ public class FileDownloadRequest {
 
     @GET
     @Path("{shortHash}")
-    //@PreAuthorize
     public Response get(@PathParam("shortHash") String shortHash) {
         return uploadedFileResource.download(shortHash);
     }

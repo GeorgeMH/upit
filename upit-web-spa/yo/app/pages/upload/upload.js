@@ -10,11 +10,11 @@ angular.module('upit-web.page.upload', ['ngFileUpload'])
 
     $routeProvider.when('/upload', {
       templateUrl: 'pages/upload/upload.html',
-      controller: 'UploadController'
+      controller: 'UpCtrl'
     })
       .when('/file/:fileIdHash/:fileName?', {
         templateUrl: 'pages/upload/file.html',
-        controller: 'FileController',
+        controller: 'FileCtrl',
         resolve: {
           resolvedUploadedFile: ['$route', 'UploadedFileResource', function ($route, UploadedFileResource) {
             // Conditionally resolve the uploaded file by the ID in the URL

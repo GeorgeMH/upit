@@ -3,6 +3,8 @@ package io.upit.jaxrs.resources;
 import com.google.inject.persist.Transactional;
 import io.upit.UpitServiceException;
 import io.upit.dal.models.Resource;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.services.AbstractResourceService;
 
@@ -31,6 +33,7 @@ public abstract class AbstractResource<ResourceClass extends Resource<IDType>, I
 
     @PUT
     @Transactional
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass update(ResourceClass resource) {
         return resourceService.update(resource);
     }

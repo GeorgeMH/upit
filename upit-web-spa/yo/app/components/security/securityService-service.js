@@ -13,10 +13,10 @@ angular.module('upit-web.security')
     this.init = function () {
       getAuthSession().then(function() {
         // Set an interval to validate the AuthSession every so often
-        validateTokenInterval = setInterval(function() {
+        validateTokenInterval = setInterval(function(){
           AuthSessionResource.validate(currentAuthSession).then(function(authSession){
             currentAuthSession = authSession;
-          }, function(err) {
+          }, function(err){
             // TODO? Redirect to the login page? Might be nice to warn a user their token is about to expire
             console.log('TODO: Validate AuthSession failed');
           });
@@ -29,6 +29,8 @@ angular.module('upit-web.security')
 
       var authSessionId = $cookies.get(AUTH_SESSION_ID_COOKIE_NAME);
 
+      var authSessionPromise = null;
+
       var handleError = function(err){
         deferred.reject(err);
         return deferred.promise;
@@ -37,7 +39,7 @@ angular.module('upit-web.security')
       var getAnonymousAuthSessionPromise = function(){
         AuthSessionResource.getAnonymousSession().then(function(authSession){
           currentAuthSession = authSession;
-          deferred.resolve(currentAuthSession);
+          deferred.resolved(currentAuthSession);
         }, handleError);
       };
 
