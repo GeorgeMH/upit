@@ -1,74 +1,93 @@
 package io.upit.jaxrs.resources;
 
-import com.google.inject.Provider;
+import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
-import io.upit.dal.AuthSessionDAO;
-import io.upit.dal.UserDAO;
+import io.upit.UpitServiceException;
+import io.upit.dal.AuthenticationMetaDataDAO;
 import io.upit.dal.models.AuthSession;
-import io.upit.dal.models.User;
-import io.upit.dal.models.pojos.AuthSessionImpl;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import io.upit.dal.models.security.LoginRequest;
+import io.upit.dal.models.security.RegistrationRequest;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AnonymousUserAuthorizer;
+import io.upit.jaxrs.exceptions.ResourceException;
+import io.upit.jaxrs.guice.RequestSessionFilter;
+import io.upit.security.AuthenticationException;
+import io.upit.services.AuthSessionService;
+import io.upit.services.UserService;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-
-import com.google.inject.Inject;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
 
 @Path("/authSession")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthSessionResource extends AbstractResource<AuthSession, String> {
 
-    private final AuthSessionDAO authSessionDao;
-    private final UserDAO userDao;
+    private final AuthSessionService authSessionService;
+    private final UserService userService;
+    private final AuthenticationMetaDataDAO authenticationMetaDataDAO;
+    private final ObjectMapper objectMapper;
 
     @Inject
-    public AuthSessionResource(AuthSessionDAO authSessionDAO, UserDAO userDao) {
-        super(AuthSession.class, authSessionDAO);
-        this.authSessionDao = authSessionDAO;
-        this.userDao = userDao;
+    public AuthSessionResource(AuthSessionService authSessionService, UserService userDao, AuthenticationMetaDataDAO authenticationMetaDataDAO, ObjectMapper objectMapper) {
+        super(AuthSession.class, authSessionService);
+        this.authSessionService = authSessionService;
+        this.userService = userDao;
+        this.authenticationMetaDataDAO = authenticationMetaDataDAO;
+        this.objectMapper = objectMapper;
+    }
+
+    @POST
+    @Transactional
+    @Path("anonymous/")
+    public Response getAnonymousSession() {
+        try {
+            AuthSession ret = authSessionService.createAnonymousAuthSession();
+            return Response.ok(ret).cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, ret.getId())).build();
+        } catch (UpitServiceException e) {
+            throw new ResourceException("Failed Registration Request", e);
+        }
+    }
+
+    @POST
+    @Transactional
+    @Path("register/")
+    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
+    public Response register(RegistrationRequest registrationRequest) {
+        try {
+            AuthSession ret = authSessionService.register(registrationRequest);
+            return Response.ok(ret).cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, ret.getId())).build();
+        } catch (UpitServiceException e) {
+            throw new ResourceException("Failed Registration Request", e);
+        }
     }
 
     @POST
     @Path("login/")
     @Transactional
-    public AuthSession login(@QueryParam("userName") String userName, @QueryParam("password") String password) {
-        User user = userDao.getByUserNameOrEmail(userName);
-        if (null == user) {
-            return null;
+    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
+    public AuthSession login(LoginRequest loginRequest) {
+        try {
+            return authSessionService.login(loginRequest);
+        } catch (UpitServiceException e) {
+            throw new ResourceException("Failed logging in", e);
         }
-
-        Calendar currentCalendar = Calendar.getInstance();
-
-        AuthSession authSession = new AuthSessionImpl();
-        authSession.setId(UUID.randomUUID().toString());
-        authSession.setUserId(user.getId());
-        authSession.setCreated(currentCalendar.getTime());
-        authSession.setActive(true);
-
-        currentCalendar.add(Calendar.YEAR, 1);
-
-        //TODO: Make Expire Configurable
-        authSession.setExpires(currentCalendar.getTime());
-
-        authSessionDao.create(authSession);
-
-        return authSession;
     }
 
     @POST
     @Path("validate/${sessionId}")
-    public AuthSession validate(@PathParam("sessionId") String sessionId) {
-        return authSessionDao.getById(sessionId);
+    @Transactional
+    public AuthSession validate(@PathParam("sessionId") String sessionId) throws AuthenticationException {
+        return authSessionService.validateSessionById(sessionId);
     }
 
     @DELETE
-    @Path("end/")
+    @Path("end/${sessionId}")
     public void end(AuthSession session) {
-        authSessionDao.delete(session);
+        authSessionService.endSession(session);
     }
 
 }

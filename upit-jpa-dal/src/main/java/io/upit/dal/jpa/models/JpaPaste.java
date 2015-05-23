@@ -1,7 +1,6 @@
 package io.upit.dal.jpa.models;
 
 import io.upit.dal.models.Paste;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -41,22 +40,22 @@ public class JpaPaste implements Paste {
     }
 
     @Override
-    public int getVersion(){
+    public int getVersion() {
         return version;
     }
 
     @Override
-    public void setVersion(int version){
+    public void setVersion(int version) {
         this.version = version;
     }
 
     @Override
-    public String getIdHash(){
+    public String getIdHash() {
         return idHash;
     }
 
     @Override
-    public void setIdHash(String idHash){
+    public void setIdHash(String idHash) {
         this.idHash = idHash;
     }
 

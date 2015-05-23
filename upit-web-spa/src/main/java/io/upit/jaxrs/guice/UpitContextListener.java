@@ -9,7 +9,7 @@ import io.upit.guice.UpitCoreGuiceModule;
 public class UpitContextListener extends GuiceServletContextListener {
 
     private Injector injector;
-    
+
     @Override
     protected Injector getInjector() {
         if (null == injector) {

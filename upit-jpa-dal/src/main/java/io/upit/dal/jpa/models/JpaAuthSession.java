@@ -3,28 +3,37 @@ package io.upit.dal.jpa.models;
 import io.upit.dal.models.AuthSession;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name="AuthSession")
+@Entity(name = "AuthSession")
 public class JpaAuthSession implements AuthSession {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
     @Version
     private int version;
 
-    private String userId;
+    @Column(nullable = false)
+    private Long userId;
+
+    @Column(nullable = false)
     private Date created;
+
+    @Column(nullable = false)
     private Date expires;
-    private Date lastAccessed;
+
+    @Column(nullable = true)
+    private Date lastValidated;
+
+    @Column(nullable = false)
     private boolean active;
+
+    @Column(nullable = false)
+    private boolean anonymous;
 
     @Override
     public String getId() {
@@ -36,21 +45,21 @@ public class JpaAuthSession implements AuthSession {
         this.id = id;
     }
 
-    public int getVersion(){
+    public int getVersion() {
         return version;
     }
 
-    public void setVersion(int version){
+    public void setVersion(int version) {
         this.version = version;
     }
 
     @Override
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
     @Override
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -75,13 +84,13 @@ public class JpaAuthSession implements AuthSession {
     }
 
     @Override
-    public Date getLastAccessed() {
-        return lastAccessed;
+    public Date getLastValidated() {
+        return lastValidated;
     }
 
     @Override
-    public void setLastAccessed(Date lastAccessed) {
-        this.lastAccessed = lastAccessed;
+    public void setLastValidated(Date lastValidated) {
+        this.lastValidated = lastValidated;
     }
 
     @Override
@@ -94,4 +103,13 @@ public class JpaAuthSession implements AuthSession {
         this.active = active;
     }
 
+    @Override
+    public boolean isAnonymous() {
+        return anonymous;
+    }
+
+    @Override
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
+    }
 }

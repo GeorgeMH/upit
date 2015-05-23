@@ -7,18 +7,19 @@ import java.util.Objects;
 
 public class AuthSessionImpl extends AbstractResource<String> implements AuthSession {
 
-    private String userId;
+    private Long userId;
     private Date expires;
-    private Date lastAccessed;
+    private Date lastValidated;
     private boolean active;
+    private boolean anonymous;
 
     @Override
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
     @Override
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -33,13 +34,13 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
     }
 
     @Override
-    public Date getLastAccessed() {
-        return lastAccessed;
+    public Date getLastValidated() {
+        return lastValidated;
     }
 
     @Override
-    public void setLastAccessed(Date lastAccessed) {
-        this.lastAccessed = lastAccessed;
+    public void setLastValidated(Date lastAccessed) {
+        this.lastValidated = lastAccessed;
     }
 
     @Override
@@ -53,16 +54,26 @@ public class AuthSessionImpl extends AbstractResource<String> implements AuthSes
     }
 
     @Override
+    public boolean isAnonymous() {
+        return anonymous;
+    }
+
+    @Override
+    public void setAnonymous(boolean isAnonymous) {
+        this.anonymous = isAnonymous;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(getId());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof AuthSession)){
+        if (!(obj instanceof AuthSession)) {
             return false;
         }
-        AuthSession check = (AuthSession)obj;
+        AuthSession check = (AuthSession) obj;
         return Objects.equals(getId(), check.getId());
     }
 

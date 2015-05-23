@@ -1,19 +1,18 @@
 package io.upit.dal.models;
 
-import java.util.Date;
 
-public interface User extends Resource<String>{
+public interface User extends Resource<Long> {
 
-    public String getUserName();
+    String getIdHash();
+
+    void setIdHash(String idHash);
+
+    String getUserName();
+
     void setUserName(String userName);
 
-    public String getEmail();
-    public void setEmail(String email);
+    String getEmail();
 
-    public String getPassword();
-    public void setPassword(String password);
-
-    public Date getCreated();
-    public void setCreated(Date dateCreated);
+    void setEmail(String email);
 
 }

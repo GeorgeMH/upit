@@ -7,15 +7,10 @@ import io.upit.dal.models.AuthSession;
 
 import javax.persistence.EntityManager;
 
-public class JpaAuthSessionDAO extends EntityManagerDAO<AuthSession, String> implements AuthSessionDAO {
+public class JpaAuthSessionDAO extends EntityManagerDAO<AuthSession, JpaAuthSession, String> implements AuthSessionDAO {
 
     @Inject
     public JpaAuthSessionDAO(EntityManager entityManager) {
-        super(JpaAuthSession.class, entityManager);
-    }
-
-    @Override
-    public AuthSession getByUserNameOrEmail(String input) {
-        return null;
+        super(AuthSession.class, JpaAuthSession.class, entityManager);
     }
 }

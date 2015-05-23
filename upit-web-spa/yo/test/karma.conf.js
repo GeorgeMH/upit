@@ -3,7 +3,7 @@
 // Generated on 2014-08-27 using
 // generator-karma 0.8.3
 
-module.exports = function(config) {
+module.exports = function (config) {
   'use strict';
 
   config.set({

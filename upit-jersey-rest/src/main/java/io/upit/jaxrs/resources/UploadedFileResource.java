@@ -3,12 +3,14 @@ package io.upit.jaxrs.resources;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.sun.jersey.core.header.ContentDisposition;
-import io.upit.dal.UpitDAOException;
-import io.upit.dal.UploadedFileDAO;
-import io.upit.dal.jpa.models.JpaUploadedFile;
+import io.upit.UpitServiceException;
 import io.upit.dal.models.UploadedFile;
+import io.upit.dal.models.pojos.UploadedFileImpl;
 import io.upit.jaxrs.exceptions.ResourceException;
-import org.apache.commons.fileupload.*;
+import io.upit.services.UploadedFileService;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,15 +28,15 @@ import java.util.Set;
 @Path("/uploadedFile")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> {
+public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
     private final Logger logger = LoggerFactory.getLogger(UploadedFileResource.class);
 
-    private final UploadedFileDAO uploadedFileDAO;
+    private final UploadedFileService uploadedFileService;
 
     @Inject
-    public UploadedFileResource(UploadedFileDAO dao) {
+    public UploadedFileResource(UploadedFileService dao) {
         super(UploadedFile.class, dao);
-        this.uploadedFileDAO = dao;
+        this.uploadedFileService = dao;
     }
 
     @POST
@@ -46,67 +48,70 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
 
     @GET
     @Path("hash/{shortHash}")
-    public UploadedFile getByIdHash(@PathParam("shortHash") String shortHash){
-        return uploadedFileDAO.getByIdHash(shortHash);
+    public UploadedFile getByIdHash(@PathParam("shortHash") String shortHash) {
+        return uploadedFileService.getByIdHash(shortHash);
     }
 
     @GET
     @Path("download/{shortHash}")
     public Response download(@PathParam("shortHash") String shortHash) {
         int dotIdx = shortHash.indexOf('.');
-        if(dotIdx > 0){
+        if (dotIdx > 0) {
             shortHash = shortHash.substring(0, dotIdx);
         }
 
-        UploadedFile uploadedFile = uploadedFileDAO.getByIdHash(shortHash);
-        if(null == uploadedFile) {
+        final UploadedFile uploadedFile = uploadedFileService.getByIdHash(shortHash);
+        if (null == uploadedFile) {
             return Response.status(404).build();
         }
 
-        final InputStream fileInputStream = uploadedFileDAO.getFileStream(uploadedFile);
-        if(null == fileInputStream){
-            return Response.status(404).build();
-        }
-
-        StreamingOutput streamingOutput = new StreamingOutput() {
-            @Override
-            public void write(OutputStream output) throws IOException, WebApplicationException {
-                pipe(fileInputStream, output);
+        try (final InputStream fileInputStream = uploadedFileService.getFileStream(uploadedFile);) {
+            if (null == fileInputStream) {
+                return Response.status(404).build();
             }
 
-            public void pipe(InputStream is, OutputStream os) throws IOException {
-                try {
-                    int n;
-                    byte[] buffer = new byte[1024];
-                    while ((n = is.read(buffer)) > -1) {
-                        os.write(buffer, 0, n);
-                    }
-                } finally {
+            // TODO? Surely there is a library that does this in apache commons or something
+            StreamingOutput streamingOutput = new StreamingOutput() {
+                @Override
+                public void write(OutputStream output) throws IOException, WebApplicationException {
+                    pipe(new BufferedInputStream(fileInputStream), new BufferedOutputStream(output));
+                }
+
+                public void pipe(InputStream is, OutputStream os) throws IOException {
                     try {
-                        os.close();
-                    } catch (IOException e) {
+                        int n;
+                        byte[] buffer = new byte[1024];
+                        while ((n = is.read(buffer)) > -1) {
+                            os.write(buffer, 0, n);
+                        }
+                    } finally {
+                        try {
+                            os.close();
+                        } catch (IOException e) {
+                        }
 
-                    }
-
-                    try {
-                        is.close();
-                    } catch (IOException e) {
-
+                        try {
+                            is.close();
+                        } catch (IOException e) {
+                        }
                     }
                 }
+            };
+
+            Response.ResponseBuilder response = Response.ok(streamingOutput, uploadedFile.getContentType());
+            response.header("content-length", uploadedFile.getFileSize() + "");
+
+            if (null == uploadedFile.getContentType() || !uploadedFile.getContentType().startsWith("image")) {
+                response.header("content-disposition", ContentDisposition.type("attachment")
+                    .fileName(uploadedFile.getFileName())
+                    .size(uploadedFile.getFileSize()));
             }
-
-        };
-
-        Response.ResponseBuilder response = Response.ok(streamingOutput, uploadedFile.getContentType());
-        response.header("content-length", uploadedFile.getFileSize() + "");
-
-        if(null == uploadedFile.getContentType() || !uploadedFile.getContentType().startsWith("image")) {
-            response.header("content-disposition", ContentDisposition.type("attachment")
-                                                                     .fileName(uploadedFile.getFileName())
-                                                                     .size(uploadedFile.getFileSize()));
+            return response.build();
+        } catch (IOException | UpitServiceException e) {
+            logger.error("Exception while serving file to client", e);
+            Response.ResponseBuilder response = Response.serverError(); // TODO: Error handling
+            return response.build();
         }
-        return response.build();
     }
 
     @POST
@@ -116,7 +121,7 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
     public Set<UploadedFile> uploadFiles(@Context HttpServletRequest request) {
         // TODO: Clean ths up!
 
-        if(!ServletFileUpload.isMultipartContent(request)) {
+        if (!ServletFileUpload.isMultipartContent(request)) {
             //TODO better error/exceptions
             throw new ResourceException("Invalid Request");
         }
@@ -127,24 +132,23 @@ public class UploadedFileResource  extends AbstractResource<UploadedFile, Long> 
 
         try {
             FileItemIterator items = servletFileUpload.getItemIterator(request);
-            while(items.hasNext()){
+            while (items.hasNext()) {
                 FileItemStream item = items.next();
-                if(item.isFormField()){
+                if (item.isFormField()) {
                     continue;
                 }
 
-                JpaUploadedFile uploadedFile = new JpaUploadedFile();
+                UploadedFile uploadedFile = new UploadedFileImpl();
                 uploadedFile.setFileName(item.getName());
 
-
-                if(null != item.getContentType() && item.getContentType().length() > 0) {
+                if (null != item.getContentType() && item.getContentType().length() > 0) {
                     uploadedFile.setContentType(item.getContentType());
                 }
 
-                UploadedFile parsedUploadedFile = uploadedFileDAO.create(uploadedFile, item.openStream());
+                UploadedFile parsedUploadedFile = uploadedFileService.uploadFile(uploadedFile, item.openStream());
                 resultSet.add(parsedUploadedFile);
             }
-        } catch (FileUploadException|IOException|UpitDAOException e) {
+        } catch (FileUploadException | IOException | UpitServiceException e) {
             //TODO better error/exceptions
             throw new ResourceException("Failed processing file upload", e);
         }

@@ -1,7 +1,7 @@
 package io.upit.dal.jpa;
 
+import Hashidsjava.Hashids;
 import com.google.inject.Inject;
-import fm.jiecao.lib.Hashids;
 import io.upit.dal.UpitDAOException;
 import io.upit.dal.UploadedFileDAO;
 import io.upit.dal.jpa.models.JpaUploadedFile;
@@ -9,17 +9,19 @@ import io.upit.dal.models.UploadedFile;
 import io.upit.filestorage.FileStorageException;
 import io.upit.filestorage.StreamingFileStorageStrategy;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import java.io.InputStream;
 
-public class JpaUploadedFileDAO  extends EntityManagerDAO<UploadedFile, Long> implements UploadedFileDAO {
+public class JpaUploadedFileDAO extends EntityManagerDAO<UploadedFile, JpaUploadedFile, Long> implements UploadedFileDAO {
 
     private final StreamingFileStorageStrategy fileStorageStrategy;
     private final Hashids hashids;
 
     @Inject
     public JpaUploadedFileDAO(EntityManager entityManager, StreamingFileStorageStrategy fileStorageStrategy, Hashids hashids) {
-        super(JpaUploadedFile.class, entityManager);
+        super(UploadedFile.class, JpaUploadedFile.class, entityManager);
         this.fileStorageStrategy = fileStorageStrategy;
         this.hashids = hashids;
     }
@@ -30,7 +32,7 @@ public class JpaUploadedFileDAO  extends EntityManagerDAO<UploadedFile, Long> im
 
         try {
             return query.getSingleResult();
-        }catch(NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }
@@ -42,7 +44,7 @@ public class JpaUploadedFileDAO  extends EntityManagerDAO<UploadedFile, Long> im
 
         try {
             return query.getSingleResult();
-        }catch(NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }
@@ -53,7 +55,7 @@ public class JpaUploadedFileDAO  extends EntityManagerDAO<UploadedFile, Long> im
             UploadedFile uploadedFileFromStore = fileStorageStrategy.storeFile(uploadedFile, inputStream);
 
             UploadedFile existingEntity = getByFileHash(uploadedFileFromStore.getFileHash());
-            if(null == existingEntity) {
+            if (null == existingEntity) {
                 existingEntity = create(uploadedFileFromStore);
                 existingEntity.setIdHash(hashids.encode(existingEntity.getId()));
                 update(existingEntity);

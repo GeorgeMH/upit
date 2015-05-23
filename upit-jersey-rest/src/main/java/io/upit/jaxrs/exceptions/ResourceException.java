@@ -5,7 +5,7 @@ public class ResourceException extends RuntimeException {
 //    private Class<?> resourceClass;
 
     public ResourceException() {
-        super();
+
     }
 
     public ResourceException(String msg) {

@@ -1,0 +1,71 @@
+<div class="row">
+
+  <div class="col-xs-12">
+    <h1 class="page-header">paste
+      <small>a snippet of code or text to share</small>
+    </h1>
+  </div>
+
+</div>
+
+<div class="row" data-ng-if="model.paste">
+
+  <div class="col-xs-12">
+    <div class="input-group pull-right" data-ng-if="model.paste.syntaxId">
+      <input type="checkbox" data-ng-model="model.showLineNumbers"/> Show Line Numbers
+    </div>
+  </div>
+
+  <div class="col-xs-12" data-ng-if="model.paste.parentId">
+
+  </div>
+
+  <div class="col-xs-12" data-ng-if="model.paste.syntaxId">
+        <pre id="codeBlock" data-ng-class="{'line-numbers':model.showLineNumbers}" data-prism="">
+            <code data-ng-class="getPasteLanguageClass()" data-ng-bind="model.paste.text"></code>
+        </pre>
+  </div>
+
+  <div class="col-xs-12" data-ng-if="!model.paste.syntaxId">
+        <pre id="codeBlock">
+            <code data-ng-bind="model.paste.text"></code>
+        </pre>
+  </div>
+
+</div>
+
+<hr data-ng-if="model.paste"/>
+
+<div class="row">
+
+  <div class="col-xs-12">
+
+    <form data-ng-submit="createPaste();" role="form">
+
+      <div class="form-group">
+        <label for="syntaxLanguage1">Syntax Highlighting</label>
+        <select id="syntaxLanguage1" data-ng-model="model.newPasteForm.syntaxId"
+                data-ng-options="language for language in model.languages">
+        </select>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control monoSpacedFont" data-ng-model="model.newPasteForm.text" rows="15"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="syntaxLanguage2">Syntax Highlighting</label>
+        <select id="syntaxLanguage2" data-ng-model="model.newPasteForm.syntaxId"
+                data-ng-options="language for language in model.languages">
+        </select>
+      </div>
+
+      <div class="form-group pull-right">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

@@ -6,12 +6,12 @@ import java.io.InputStream;
 
 public interface UploadedFileDAO extends DAO<UploadedFile, Long> {
 
-    public UploadedFile create(UploadedFile uploadedFile, InputStream inputStream) throws UpitDAOException;
+    UploadedFile create(UploadedFile uploadedFile, InputStream inputStream) throws UpitDAOException;
 
-    public InputStream getFileStream(UploadedFile uploadedFile);
+    InputStream getFileStream(UploadedFile uploadedFile);
 
-    public UploadedFile getByFileHash(String fileHash);
+    UploadedFile getByFileHash(String fileHash);
 
-    public UploadedFile getByIdHash(String shortHash);
+    UploadedFile getByIdHash(String shortHash);
 
 }

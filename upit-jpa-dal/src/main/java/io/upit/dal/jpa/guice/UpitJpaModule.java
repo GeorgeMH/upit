@@ -1,28 +1,15 @@
 package io.upit.dal.jpa.guice;
 
+import Hashidsjava.Hashids;
 import com.google.inject.AbstractModule;
-import com.google.inject.Injector;
-import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.google.inject.name.Names;
 import com.google.inject.persist.jpa.JpaPersistModule;
-import fm.jiecao.lib.Hashids;
-import io.upit.dal.AuthSessionDAO;
-import io.upit.dal.PasteDAO;
-import io.upit.dal.UploadedFileDAO;
-import io.upit.dal.UserDAO;
-import io.upit.dal.jpa.JpaAuthSessionDAO;
-import io.upit.dal.jpa.JpaPasteDAO;
-import io.upit.dal.jpa.JpaUploadedFileDAO;
-import io.upit.dal.jpa.JpaUserDAO;
-import io.upit.dal.jpa.models.JpaAuthSession;
-import io.upit.dal.jpa.models.JpaPaste;
-import io.upit.dal.jpa.models.JpaUploadedFile;
-import io.upit.dal.jpa.models.JpaUser;
-import io.upit.dal.models.AuthSession;
-import io.upit.dal.models.Paste;
-import io.upit.dal.models.UploadedFile;
-import io.upit.dal.models.User;
+import io.upit.dal.*;
+import io.upit.dal.jpa.*;
+import io.upit.dal.jpa.models.*;
+import io.upit.dal.jpa.models.security.JpaAuthenticationMetaData;
+import io.upit.dal.models.*;
+import io.upit.dal.models.security.AuthenticationMetaData;
 
 public class UpitJpaModule extends AbstractModule {
 
@@ -43,6 +30,12 @@ public class UpitJpaModule extends AbstractModule {
 
         bind(UploadedFile.class).to(JpaUploadedFile.class);
         bind(UploadedFileDAO.class).to(JpaUploadedFileDAO.class);
+
+        bind(PropertyValue.class).to(JpaPropertyValue.class);
+        bind(PropertyDAO.class).to(JpaPropertyDAO.class);
+
+        bind(AuthenticationMetaData.class).to(JpaAuthenticationMetaData.class);
+        bind(AuthenticationMetaDataDAO.class).to(JpaAuthenticationMetaDataDAO.class);
     }
 
 }

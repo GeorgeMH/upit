@@ -7,11 +7,8 @@ import java.util.Date;
 public class AbstractResource<IDType> implements Resource<IDType> {
 
     private IDType id;
-
     private int version;
-
     private Date created;
-
 
     @Override
     public IDType getId() {
@@ -34,7 +31,7 @@ public class AbstractResource<IDType> implements Resource<IDType> {
     }
 
     @Override
-    public Date getCreated(){
+    public Date getCreated() {
         return created;
     }
 

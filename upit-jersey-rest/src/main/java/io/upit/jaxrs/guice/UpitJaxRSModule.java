@@ -1,23 +1,18 @@
 package io.upit.jaxrs.guice;
 
-import com.google.inject.name.Named;
-import com.google.inject.name.Names;
-import com.google.inject.persist.PersistFilter;
-import io.upit.jaxrs.guice.providers.JacksonJsonProviderProvider;
-import io.upit.jaxrs.guice.providers.ObjectMapperProvider;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-import org.codehaus.jackson.map.ObjectMapper;
-
 import com.google.inject.Singleton;
+import com.google.inject.persist.PersistFilter;
 import com.google.inject.servlet.ServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
+import io.upit.jaxrs.guice.providers.JacksonJsonProviderProvider;
+import io.upit.jaxrs.guice.providers.ObjectMapperProvider;
+import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UpitJaxRSModule extends ServletModule {
     private final Logger logger = LoggerFactory.getLogger(UpitJaxRSModule.class);

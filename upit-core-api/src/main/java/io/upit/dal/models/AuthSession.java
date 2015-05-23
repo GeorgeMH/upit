@@ -4,19 +4,28 @@ import java.util.Date;
 
 public interface AuthSession extends Resource<String> {
 
-    public String getUserId();
-    public void setUserId(String userId);
+    Long getUserId();
 
-    public Date getCreated();
-    public void setCreated(Date created);
+    void setUserId(Long userId);
 
-    public Date getExpires();
-    public void setExpires(Date expires);
+    Date getCreated();
 
-    public Date getLastAccessed();
-    public void setLastAccessed(Date lastAccessed);
+    void setCreated(Date created);
 
-    public boolean isActive();
-    public void setActive(boolean active);
+    Date getExpires();
+
+    void setExpires(Date expires);
+
+    Date getLastValidated();
+
+    void setLastValidated(Date lastAccessed);
+
+    boolean isActive();
+
+    void setActive(boolean active);
+
+    boolean isAnonymous();
+
+    void setAnonymous(boolean isAnonymous);
 
 }

@@ -4,22 +4,28 @@ import java.util.Date;
 
 public interface Paste extends Resource<Long> {
 
-    public String getIdHash();
-    public void setIdHash(String idHash);
+    String getIdHash();
 
-    public String getText();
-    public void setText(String text);
+    void setIdHash(String idHash);
 
-    public String getUserId();
-    public void setUserId(String userId);
-    
-    public Date getCreated();
-    public void setCreated(Date date);
+    String getText();
 
-    public String getParentId();
-    public void setParentId(String parentId);
+    void setText(String text);
 
-    public String getSyntaxId();
-    public void setSyntaxId(String syntaxId);
+    String getUserId();
+
+    void setUserId(String userId);
+
+    Date getCreated();
+
+    void setCreated(Date date);
+
+    String getParentId();
+
+    void setParentId(String parentId);
+
+    String getSyntaxId();
+
+    void setSyntaxId(String syntaxId);
 
 }

@@ -1,190 +1,223 @@
 <!doctype html>
 <html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <title>upit.io</title>
-    <meta name="description" content="Simple pastebin and file hosting.">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<head>
+  <meta charset="utf-8">
+  <title>upit.io</title>
+  <meta name="description" content="Simple pastebin and file hosting.">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+  <base href="/">
 
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
 
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
+  <!-- build:css(.) styles/prism-combined.css -->
+  <link rel="stylesheet" href="bower_components/prism/themes/prism.css"/>
+  <link rel="stylesheet" href="bower_components/prism/plugins/line-numbers/prism-line-numbers.css"/>
+  <!-- endbuild -->
 
-    <!-- build:css(.) styles/prism-combined.css -->
-      <link rel="stylesheet" href="bower_components/prism/themes/prism.css" />
-      <link rel="stylesheet" href="bower_components/prism/plugins/line-numbers/prism-line-numbers.css" />
-    <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
 
-    <!-- build:css(.tmp) styles/main.css -->
-      <link rel="stylesheet" href="styles/main.css">
-      <link rel="stylesheet" href="upload/upload.css">
-    <!-- endbuild -->
-  </head>
+  <!-- build:css(.tmp) upload/upload.css -->
+  <link rel="stylesheet" href="upload/upload.css">
+  <!-- endbuild -->
+</head>
 
-  <body data-ng-app="upitWebSpa">
+<body data-ng-app="upit-web">
 
-    <!--[if lt IE 9]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+<!--[if lt IE 9]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
 
-    <!-- Navigation -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container" data-ng-controller="NavigationCtrl">
+<!-- Primary Header Navigation. -->
+<!-- Navigation -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">upit.io</a>
-            </div>
+  <div class="container" data-ng-="NavigationController">
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li data-ng-class="menuClass('up')">
-                      <a href="#/upload/">upload</a>
-                    </li>
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">upit.io</a>
+    </div>
 
-                    <li data-ng-class="menuClass('paste')">
-                        <a href="#/paste/">paste</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li data-ng-class="menuClass('upload')">
+          <a href="#/upload/">upload</a>
+        </li>
 
-        </div>
-        <!-- /.container -->
+        <li data-ng-class="menuClass('paste')">
+          <a href="#/paste/">paste</a>
+        </li>
+
+        <li data-ng-class="menuClass('login')">
+          <a href="#/auth/login/">login</a>
+        </li>
+        <li data-ng-class="menuClass('register')">
+          <a href="#/auth/register/">register</a>
+        </li>
+
+      </ul>
 
     </div>
 
-    <div class="container">
 
-        <div data-ng-view="">
-        </div>
+    <!-- /.navbar-collapse -->
 
-        <hr/>
+  </div>
+  <!-- /.container -->
 
-        <div class="footer">
-            <p class="pull-right">upit.io</p>
-            <p class="pull-left"><span class="label label-warning">Warning</span> Upit.IO is beta software. Use at your own risk.</p>
-        </div>
-    </div>
+</div>
+
+<div class="container">
+
+  <div data-ng-view="">
+  </div>
+
+  <hr/>
+
+  <div class="footer">
+    <p class="pull-right">upit.io</p>
+
+    <p class="pull-left"><span class="label label-warning">Warning</span> Upit.IO is beta software. Use at your own
+      risk.</p>
+  </div>
+</div>
 
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <!--
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<!--
+ <script>
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script> -->
+   ga('create', 'UA-XXXXX-X');
+   ga('send', 'pageview');
+</script> -->
 
-    <!-- build:js(.) scripts/oldieshim.js -->
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
-    <!-- endbuild -->
+<!-- build:js(.) scripts/oldieshim.js -->
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+<!-- endbuild -->
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/prism/prism.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/json3/lib/json3.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/prism/prism.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
-    <!-- build:js(.) scripts/prism-plugins-languages.js -->
+<!-- build:js(.) scripts/prism-plugins-languages.js -->
 
-    <!-- Prism Plugins -->
-    <script src="bower_components/prism/plugins/line-numbers/prism-line-numbers.js"></script>
+<!-- Prism Plugins -->
+<script src="bower_components/prism/plugins/line-numbers/prism-line-numbers.js"></script>
 
-    <!-- Prism langs -->
-    <script src="bower_components/prism/components/prism-aspnet.js"></script>
-    <script src="bower_components/prism/components/prism-autohotkey.js"></script>
-    <script src="bower_components/prism/components/prism-bash.js"></script>
-    <script src="bower_components/prism/components/prism-c.js"></script>
-    <script src="bower_components/prism/components/prism-clike.js"></script>
-    <script src="bower_components/prism/components/prism-coffeescript.js"></script>
-    <script src="bower_components/prism/components/prism-cpp.js"></script>
-    <script src="bower_components/prism/components/prism-csharp.js"></script>
-    <script src="bower_components/prism/components/prism-css.js"></script>
-    <script src="bower_components/prism/components/prism-css-extras.js"></script>
-    <script src="bower_components/prism/components/prism-gherkin.js"></script>
-    <script src="bower_components/prism/components/prism-git.js"></script>
-    <script src="bower_components/prism/components/prism-go.js"></script>
-    <script src="bower_components/prism/components/prism-groovy.js"></script>
-    <script src="bower_components/prism/components/prism-haskell.js"></script>
-    <script src="bower_components/prism/components/prism-http.js"></script>
-    <script src="bower_components/prism/components/prism-ini.js"></script>
-    <script src="bower_components/prism/components/prism-java.js"></script>
-    <script src="bower_components/prism/components/prism-javascript.js"></script>
-    <script src="bower_components/prism/components/prism-latex.js"></script>
-    <script src="bower_components/prism/components/prism-markup.js"></script>
-    <script src="bower_components/prism/components/prism-nsis.js"></script>
-    <script src="bower_components/prism/components/prism-objectivec.js"></script>
-    <script src="bower_components/prism/components/prism-php.js"></script>
-    <script src="bower_components/prism/components/prism-php-extras.js"></script>
-    <script src="bower_components/prism/components/prism-python.js"></script>
-    <script src="bower_components/prism/components/prism-rip.js"></script>
-    <script src="bower_components/prism/components/prism-ruby.js"></script>
-    <script src="bower_components/prism/components/prism-scala.js"></script>
-    <script src="bower_components/prism/components/prism-scss.js"></script>
-    <script src="bower_components/prism/components/prism-sql.js"></script>
-    <script src="bower_components/prism/components/prism-swift.js"></script>
-    <script src="bower_components/prism/components/prism-twig.js"></script>
-    <!-- endbuild -->
+<!-- Prism langs -->
+<script src="bower_components/prism/components/prism-aspnet.js"></script>
+<script src="bower_components/prism/components/prism-autohotkey.js"></script>
+<script src="bower_components/prism/components/prism-bash.js"></script>
+<script src="bower_components/prism/components/prism-c.js"></script>
+<script src="bower_components/prism/components/prism-clike.js"></script>
+<script src="bower_components/prism/components/prism-coffeescript.js"></script>
+<script src="bower_components/prism/components/prism-cpp.js"></script>
+<script src="bower_components/prism/components/prism-csharp.js"></script>
+<script src="bower_components/prism/components/prism-css.js"></script>
+<script src="bower_components/prism/components/prism-css-extras.js"></script>
+<script src="bower_components/prism/components/prism-gherkin.js"></script>
+<script src="bower_components/prism/components/prism-git.js"></script>
+<script src="bower_components/prism/components/prism-go.js"></script>
+<script src="bower_components/prism/components/prism-groovy.js"></script>
+<script src="bower_components/prism/components/prism-haskell.js"></script>
+<script src="bower_components/prism/components/prism-http.js"></script>
+<script src="bower_components/prism/components/prism-ini.js"></script>
+<script src="bower_components/prism/components/prism-java.js"></script>
+<script src="bower_components/prism/components/prism-javascript.js"></script>
+<script src="bower_components/prism/components/prism-latex.js"></script>
+<script src="bower_components/prism/components/prism-markup.js"></script>
+<script src="bower_components/prism/components/prism-nsis.js"></script>
+<script src="bower_components/prism/components/prism-objectivec.js"></script>
+<script src="bower_components/prism/components/prism-php.js"></script>
+<script src="bower_components/prism/components/prism-php-extras.js"></script>
+<script src="bower_components/prism/components/prism-python.js"></script>
+<script src="bower_components/prism/components/prism-rip.js"></script>
+<script src="bower_components/prism/components/prism-ruby.js"></script>
+<script src="bower_components/prism/components/prism-scala.js"></script>
+<script src="bower_components/prism/components/prism-scss.js"></script>
+<script src="bower_components/prism/components/prism-sql.js"></script>
+<script src="bower_components/prism/components/prism-swift.js"></script>
+<script src="bower_components/prism/components/prism-twig.js"></script>
+<!-- endbuild -->
 
-    <!-- build:js({.tmp,app}) scripts/upit.js -->
-    <script src="app.js"></script>
+<!-- build:js({.tmp,app}) scripts/upit.js -->
+<script src="app.js"></script>
 
-    <script src="components/upitRestApi/upitRestApi.js"></script>
-    <script src="components/upitRestApi/simpleResourceClient-factory.js"></script>
-    <script src="components/upitRestApi/pasteResource-factory.js"></script>
-    <script src="components/upitRestApi/uploadedFileResource-factory.js"></script>
+<script src="components/security/security.js"></script>
+<script src="components/security/securityService-service.js"></script>
 
-    <script src="components/navigation/navigation.js"></script>
-    <script src="components/navigation/navigation-controller.js"></script>
+<script src="components/upitRestApi/upitRestApi.js"></script>
+<script src="components/upitRestApi/simpleResourceClient-factory.js"></script>
+<script src="components/upitRestApi/pasteResource-factory.js"></script>
+<script src="components/upitRestApi/uploadedFileResource-factory.js"></script>
+<script src="components/upitRestApi/userResource-factory.js"></script>
+<script src="components/upitRestApi/authSessionResource-factory.js"></script>
 
-    <script src="main/main.js"></script>
-    <script src="main/main-controller.js"></script>
 
-    <script src="paste/paste.js"></script>
-    <script src="paste/paste-controller.js"></script>
+<script src="components/navigation/navigation.js"></script>
+<script src="components/navigation/primary-navigation-controller.js"></script>
 
-    <script src="upload/upload.js"></script>
-    <script src="upload/upload-controller.js"></script>
-    <script src="upload/file-controller.js"></script>
-    <script src="upload/fileUrlGenerator-factory.js"></script>
-    <script src="upload/humanFileSize-filter.js"></script>
+<script src="pages/main/main.js"></script>
+<script src="pages/main/main-controller.js"></script>
 
-    <!-- endbuild -->
+<script src="pages/paste/paste.js"></script>
+<script src="pages/paste/paste-controller.js"></script>
 
-  </body>
+<script src="pages/upload/upload.js"></script>
+<script src="pages/upload/fileUrlGenerator-service.js"></script>
+<script src="pages/upload/humanFileSize-filter.js"></script>
+<script src="pages/upload/upload-controller.js"></script>
+<script src="pages/upload/file-controller.js"></script>
+
+<script src="pages/user/user.js"></script>
+<script src="pages/user/user-profile-controller.js"></script>
+
+<script src="pages/auth/auth.js"></script>
+<script src="pages/auth/auth-login-controller.js"></script>
+<script src="pages/auth/auth-logout-controller.js"></script>
+<script src="pages/auth/auth-register-controller.js"></script>
+
+<!-- endbuild -->
+
+</body>
 
 </html>

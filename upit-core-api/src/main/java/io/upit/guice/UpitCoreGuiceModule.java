@@ -1,12 +1,15 @@
 package io.upit.guice;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Injector;
+import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
 import io.upit.filestorage.LocalDiskFileStorageStrategy;
 import io.upit.filestorage.StreamingFileStorageStrategy;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.interceptors.PreAuthorizationInterceptor;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.DefaultConfigurationBuilder;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,16 +25,16 @@ public class UpitCoreGuiceModule extends AbstractModule {
         File instanceHomeDirectory = new File("./upit/");
         File uploadedFileRepositoryPath = new File(instanceHomeDirectory, "uploadedFiles/");
 
-        if(uploadedFileRepositoryPath.exists()) {
-            if(!uploadedFileRepositoryPath.isDirectory()) {
+        if (uploadedFileRepositoryPath.exists()) {
+            if (!uploadedFileRepositoryPath.isDirectory()) {
                 addError("Upload File Repository exists and is not a directory: " + uploadedFileRepositoryPath.getAbsolutePath());
                 return;
-            } else if(!uploadedFileRepositoryPath.canWrite()) {
+            } else if (!uploadedFileRepositoryPath.canWrite()) {
                 addError("Upload File Repository exists but is not writable: " + uploadedFileRepositoryPath.getAbsolutePath());
                 return;
             }
         } else {
-            if(!uploadedFileRepositoryPath.mkdirs()){
+            if (!uploadedFileRepositoryPath.mkdirs()) {
                 addError("Failed creating Upload File Repository: " + uploadedFileRepositoryPath.getAbsolutePath());
                 return;
             }
@@ -56,7 +59,7 @@ public class UpitCoreGuiceModule extends AbstractModule {
             addError("Failed building Configuration", e);
             return;
         }
-
+        bindInterceptor(Matchers.any(), Matchers.annotatedWith(PreAuthorize.class), new PreAuthorizationInterceptor(getProvider(Injector.class)));
     }
 
 

@@ -2,8 +2,10 @@ package io.upit.dal;
 
 import io.upit.dal.models.User;
 
-public interface UserDAO extends DAO<User, String> {
+public interface UserDAO extends DAO<User, Long> {
 
-    public User getByUserNameOrEmail(String input);
+    User getByUserNameOrEmail(String input);
+
+    User getByIdHash(String shortHash);
 
 }

@@ -6,14 +6,14 @@ import java.io.Serializable;
 
 public interface DAO<DataObject extends Resource<IDType>, IDType extends Serializable> {
 
-    public DataObject create(DataObject data) throws UpitDAOException;
+    DataObject create(DataObject data) throws UpitDAOException;
 
-    public DataObject update(DataObject data) throws UpitDAOException;
+    DataObject update(DataObject data) throws UpitDAOException;
 
-    public DataObject delete(DataObject data) throws UpitDAOException;
+    DataObject delete(DataObject data) throws UpitDAOException;
 
-    public DataObject deleteById(IDType id) throws UpitDAOException;
+    DataObject deleteById(IDType id) throws UpitDAOException;
 
-    public DataObject getById(IDType id);
+    DataObject getById(IDType id);
 
 }

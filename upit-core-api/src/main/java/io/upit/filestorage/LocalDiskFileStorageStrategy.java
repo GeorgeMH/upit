@@ -26,7 +26,7 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
     private final File uploadedFileRepository;
 
     @Inject
-    public LocalDiskFileStorageStrategy(@Named("upitLocalDiskFileRepository") File uploadedFileRepository){
+    public LocalDiskFileStorageStrategy(@Named("upitLocalDiskFileRepository") File uploadedFileRepository) {
         this.uploadedFileRepository = uploadedFileRepository;
     }
 
@@ -35,25 +35,26 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
         MessageDigest messageDigest = createNewMessageDigest();
 
         File targetTempFile = null;
-        try(DigestInputStream digestInputStream = new DigestInputStream(inputStream, messageDigest);) {
+        try (DigestInputStream digestInputStream = new DigestInputStream(inputStream, messageDigest)) {
             targetTempFile = File.createTempFile("upit-", "uploadingFile", uploadedFileRepository);
             Files.copy(digestInputStream, targetTempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch(IOException e) {
-            if(null != targetTempFile) {
+        } catch (IOException e) {
+            if (null != targetTempFile) {
                 targetTempFile.delete();
             }
             throw new FileStorageException("Failed writing file to temporary target: " + targetTempFile.getAbsolutePath(), e);
         } finally {
-            if(null != inputStream){
+            if (null != inputStream) {
                 try {
                     inputStream.close();
-                } catch (IOException e) { }
+                } catch (IOException e) {
+                }
             }
         }
 
         String fileHash = (new HexBinaryAdapter().marshal(messageDigest.digest()));
 
-        if(null == fileHash || "".equals(fileHash.trim())) {
+        if (null == fileHash || "".equals(fileHash.trim())) {
             targetTempFile.delete();
             throw new FileStorageException("Failed calculating uploaded file hash (unknown)");
         }
@@ -65,7 +66,7 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
 
         File finalFileName = new File(uploadedFileRepository, fileHash);
 
-        if(!finalFileName.exists()) {
+        if (!finalFileName.exists()) {
             targetTempFile.renameTo(finalFileName);
         } else {
             // duplicate file
@@ -84,7 +85,7 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
         }
     }
 
-    private MessageDigest createNewMessageDigest(){
+    private MessageDigest createNewMessageDigest() {
         try {
             return MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
@@ -94,25 +95,25 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
 
     private void detectType(UploadedFile uploadedFile, File targetTempFile) throws FileStorageException {
         // Best effort file type detection
-        try(InputStream detectorInputStream = new BufferedInputStream(new FileInputStream(targetTempFile))) {
+        try (InputStream detectorInputStream = new BufferedInputStream(new FileInputStream(targetTempFile))) {
             Metadata metaData = new Metadata();
-            if(null != uploadedFile.getFileName()) {
+            if (null != uploadedFile.getFileName()) {
                 metaData.set(Metadata.RESOURCE_NAME_KEY, uploadedFile.getFileName());
             }
-            if(null != uploadedFile.getContentType()) {
+            if (null != uploadedFile.getContentType()) {
                 metaData.set(Metadata.CONTENT_TYPE, uploadedFile.getContentType());
             }
 
             MediaType mediaType = new MimeTypes().detect(detectorInputStream, metaData);
-            if(null != mediaType) {
+            if (null != mediaType) {
                 // Override the client supplied mime type
                 uploadedFile.setContentType(mediaType.toString());
                 uploadedFile.setFileType(FileType.getFileType(mediaType.toString()));
 
-                MimeTypes allTypes =  MimeTypes.getDefaultMimeTypes();
+                MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
                 try {
-                    MimeType  mimeType = allTypes.forName(mediaType.toString());
-                    if(null != mimeType && null != mimeType.getExtension() && !"".equals(mimeType.getExtension())) {
+                    MimeType mimeType = allTypes.forName(mediaType.toString());
+                    if (null != mimeType && null != mimeType.getExtension() && !"".equals(mimeType.getExtension())) {
                         uploadedFile.setExtension(mimeType.getExtension());
                     }
                 } catch (MimeTypeException e) {
@@ -122,7 +123,7 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
                 uploadedFile.setFileType(FileType.UNKNOWN);
             }
 
-            if(null == uploadedFile.getExtension() || "".equals(uploadedFile.getExtension())) {
+            if (null == uploadedFile.getExtension() || "".equals(uploadedFile.getExtension())) {
                 int idx = -1;
                 if (null != uploadedFile.getFileName() && (idx = uploadedFile.getFileName().indexOf(".")) > 0) {
                     uploadedFile.setExtension(uploadedFile.getFileName().substring(idx));
