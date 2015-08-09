@@ -1,10 +1,10 @@
 package io.upit.dal.jpa;
 
-import Hashidsjava.Hashids;
 import com.google.inject.Inject;
 import io.upit.dal.PasteDAO;
 import io.upit.dal.jpa.models.JpaPaste;
 import io.upit.dal.models.Paste;
+import org.hashids.Hashids;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

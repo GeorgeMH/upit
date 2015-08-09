@@ -1,6 +1,5 @@
 package io.upit.dal.jpa.guice;
 
-import Hashidsjava.Hashids;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.persist.jpa.JpaPersistModule;
@@ -10,6 +9,7 @@ import io.upit.dal.jpa.models.*;
 import io.upit.dal.jpa.models.security.JpaAuthenticationMetaData;
 import io.upit.dal.models.*;
 import io.upit.dal.models.security.AuthenticationMetaData;
+import org.hashids.Hashids;
 
 public class UpitJpaModule extends AbstractModule {
 

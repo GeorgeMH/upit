@@ -1,9 +1,9 @@
 package io.upit.services;
 
-import Hashidsjava.Hashids;
 import com.google.inject.Inject;
 import io.upit.dal.UserDAO;
 import io.upit.dal.models.User;
+import org.hashids.Hashids;
 
 public class UserService extends AbstractResourceService<User, Long> {
 

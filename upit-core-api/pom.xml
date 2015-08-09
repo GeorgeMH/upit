@@ -33,6 +33,13 @@
       <version>1.6</version>
     </dependency>
 
+    <!-- Import HashIds to encode/decode ids of type Long-->
+    <dependency>
+      <groupId>org.hashids</groupId>
+      <artifactId>hashids</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+
     <!-- Guice -->
 
     <dependency>

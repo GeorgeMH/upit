@@ -20,6 +20,13 @@
       <version>${upit.version}</version>
     </dependency>
 
+    <!-- Import HashIds to encode/decode ids of type Long-->
+    <dependency>
+      <groupId>org.hashids</groupId>
+      <artifactId>hashids</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+
     <!-- Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>

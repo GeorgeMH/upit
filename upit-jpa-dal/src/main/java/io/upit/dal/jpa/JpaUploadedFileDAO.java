@@ -1,6 +1,5 @@
 package io.upit.dal.jpa;
 
-import Hashidsjava.Hashids;
 import com.google.inject.Inject;
 import io.upit.dal.UpitDAOException;
 import io.upit.dal.UploadedFileDAO;
@@ -8,6 +7,7 @@ import io.upit.dal.jpa.models.JpaUploadedFile;
 import io.upit.dal.models.UploadedFile;
 import io.upit.filestorage.FileStorageException;
 import io.upit.filestorage.StreamingFileStorageStrategy;
+import org.hashids.Hashids;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
