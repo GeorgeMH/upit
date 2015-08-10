@@ -7,6 +7,6 @@
  */
 angular.module('upit-web.page.main').controller('MainController', ['$scope', '$location', function ($scope, $location) {
 
-  $location.path('/upload');
+  $location.path('/upload/');
 
 }]);

@@ -1,8 +1,5 @@
 package io.upit.security;
 
-/**
- * Created by george on 5/19/15.
- */
 public class AuthorizationException extends UpitSecurityException {
 
     public AuthorizationException() {

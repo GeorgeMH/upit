@@ -14,7 +14,8 @@ angular.module('upit-web.page.main', [
 
     $routeProvider.when('/', {
       templateUrl: 'pages/main/main.html',
-      controller: 'MainController'
+      //controller: 'MainController'
+      redirectTo: '/upload/'
     });
 
   }]);
