@@ -6,9 +6,11 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 import io.upit.dal.*;
 import io.upit.dal.jpa.*;
 import io.upit.dal.jpa.models.*;
+import io.upit.dal.jpa.models.security.JpaAclEntry;
 import io.upit.dal.jpa.models.security.JpaAuthenticationMetaData;
 import io.upit.dal.models.*;
 import io.upit.dal.models.security.AuthenticationMetaData;
+import io.upit.dal.models.security.acls.AclEntry;
 import org.hashids.Hashids;
 
 public class UpitJpaModule extends AbstractModule {
@@ -18,6 +20,9 @@ public class UpitJpaModule extends AbstractModule {
         install(new JpaPersistModule("upit-dal-hibernate"));
 
         bind(Hashids.class).toProvider(HashidsProvider.class).in(Singleton.class);
+
+        bind(AclEntry.class).to(JpaAclEntry.class);
+        bind(AclEntryDAO.class).to(JpaAclEntryDAO.class);
 
         bind(User.class).to(JpaUser.class);
         bind(UserDAO.class).to(JpaUserDAO.class);

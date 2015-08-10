@@ -6,6 +6,10 @@ import com.sun.jersey.core.header.ContentDisposition;
 import io.upit.UpitServiceException;
 import io.upit.dal.models.UploadedFile;
 import io.upit.dal.models.pojos.UploadedFileImpl;
+import io.upit.dal.models.security.acls.AclEntry;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
+import io.upit.guice.security.authorizers.DenyAllMethodAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.services.UploadedFileService;
 import org.apache.commons.fileupload.FileItemIterator;
@@ -40,20 +44,21 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
     }
 
     @POST
-    @Transactional
+    @PreAuthorize(methodAuthorizers = {DenyAllMethodAuthorizer.class})
     public UploadedFile create(UploadedFile resource) {
-        //TODO better error/exceptions
         throw new ResourceException("Access Denied.");
     }
 
     @GET
     @Path("hash/{shortHash}")
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public UploadedFile getByIdHash(@PathParam("shortHash") String shortHash) {
         return uploadedFileService.getByIdHash(shortHash);
     }
 
     @GET
     @Path("download/{shortHash}")
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public Response download(@PathParam("shortHash") String shortHash) {
         int dotIdx = shortHash.indexOf('.');
         if (dotIdx > 0) {
@@ -65,7 +70,8 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
             return Response.status(404).build();
         }
 
-        try (final InputStream fileInputStream = uploadedFileService.getFileStream(uploadedFile);) {
+        try {
+            final InputStream fileInputStream = uploadedFileService.getFileStream(uploadedFile);
             if (null == fileInputStream) {
                 return Response.status(404).build();
             }
@@ -74,26 +80,14 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
             StreamingOutput streamingOutput = new StreamingOutput() {
                 @Override
                 public void write(OutputStream output) throws IOException, WebApplicationException {
-                    pipe(new BufferedInputStream(fileInputStream), new BufferedOutputStream(output));
+                    pipe(fileInputStream, new BufferedOutputStream(output));
                 }
 
                 public void pipe(InputStream is, OutputStream os) throws IOException {
-                    try {
-                        int n;
-                        byte[] buffer = new byte[1024];
-                        while ((n = is.read(buffer)) > -1) {
-                            os.write(buffer, 0, n);
-                        }
-                    } finally {
-                        try {
-                            os.close();
-                        } catch (IOException e) {
-                        }
-
-                        try {
-                            is.close();
-                        } catch (IOException e) {
-                        }
+                    int n;
+                    byte[] buffer = new byte[4096];
+                    while ((n = is.read(buffer)) > -1) {
+                        os.write(buffer, 0, n);
                     }
                 }
             };
@@ -107,10 +101,8 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
                     .size(uploadedFile.getFileSize()));
             }
             return response.build();
-        } catch (IOException | UpitServiceException e) {
-            logger.error("Exception while serving file to client", e);
-            Response.ResponseBuilder response = Response.serverError(); // TODO: Error handling
-            return response.build();
+        } catch (UpitServiceException e) {
+            return Response.serverError().build();
         }
     }
 
@@ -118,6 +110,7 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Transactional
+    @PreAuthorize
     public Set<UploadedFile> uploadFiles(@Context HttpServletRequest request) {
         // TODO: Clean ths up!
 

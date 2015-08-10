@@ -3,10 +3,6 @@ package io.upit.jaxrs.guice;
 import com.google.inject.Inject;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
-import io.upit.UpitServiceException;
-import io.upit.dal.models.AuthSession;
-import io.upit.security.RequestSession;
-import io.upit.services.AuthSessionService;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -17,11 +13,9 @@ public class RequestSessionFilter implements Filter {
 
     public static final String AUTH_SESSION_ID_COOKIE_NAME = "authSessionId";
 
-    private final AuthSessionService authSessionService;
-
     @Inject
-    public RequestSessionFilter(AuthSessionService authSessionService) {
-        this.authSessionService = authSessionService;
+    public RequestSessionFilter() {
+
     }
 
     @Override
@@ -34,6 +28,7 @@ public class RequestSessionFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         Cookie cookie = null;
+        if(null != httpRequest.getCookies() && httpRequest.getCookies().length > 0)
         for (Cookie theCookie : httpRequest.getCookies()) {
             if (AUTH_SESSION_ID_COOKIE_NAME.equals(theCookie.getName())) {
                 cookie = theCookie;
@@ -47,24 +42,7 @@ public class RequestSessionFilter implements Filter {
             authSessionId = cookie.getValue();
         }
 
-        AuthSession session = null;
-
-        if (null != authSessionId) {
-            session = authSessionService.getById(authSessionId);
-            if(null == session) {
-                throw new ServletException("Unable to create anonymous AuthSession for request");
-            }
-        } else {
-            try {
-                session = authSessionService.createAnonymousAuthSession();
-            } catch (UpitServiceException e) {
-                throw new ServletException("Unable to create anonymous AuthSession for request", e);
-            }
-        }
-
-        RequestSession requestSession = new RequestSession(session);
-
-        httpRequest.setAttribute(Key.get(RequestSession.class, Names.named("RequestSession")).toString(), requestSession);
+        httpRequest.setAttribute(Key.get(String.class, Names.named("AuthSessionId")).toString(), authSessionId);
 
         chain.doFilter(request, response);
     }

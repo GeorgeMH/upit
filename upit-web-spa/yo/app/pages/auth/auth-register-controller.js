@@ -23,7 +23,6 @@ angular.module('upit-web.page.auth')
           $location.path('/auth/login');
         }, function (err) {
           //TODO: Common form error handling?
-          console.log('foo');
           console.log(err);
         });
 

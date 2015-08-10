@@ -7,7 +7,7 @@
   <parent>
     <artifactId>upit</artifactId>
     <groupId>io.upit</groupId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>upit-jpa-dal</artifactId>
@@ -17,7 +17,8 @@
     <dependency>
       <groupId>io.upit</groupId>
       <artifactId>upit-core-api</artifactId>
-      <version>${upit.version}</version>
+      <!--<version>${upit.version}</version>-->
+      <version>0.0.3-SNAPSHOT</version>
     </dependency>
 
     <!-- Import HashIds to encode/decode ids of type Long-->
@@ -49,11 +50,10 @@
 
 
     <!-- Guice -->
-
     <dependency>
       <groupId>com.google.inject.extensions</groupId>
       <artifactId>guice-persist</artifactId>
-      <version>3.0</version>
+      <version>4.0</version>
     </dependency>
 
 

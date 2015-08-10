@@ -5,7 +5,7 @@
   <parent>
     <groupId>io.upit</groupId>
     <artifactId>upit</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>upit-core-api</artifactId>
@@ -41,11 +41,10 @@
     </dependency>
 
     <!-- Guice -->
-
     <dependency>
       <groupId>com.google.inject.extensions</groupId>
       <artifactId>guice-persist</artifactId>
-      <version>3.0</version>
+      <version>4.0</version>
     </dependency>
 
   </dependencies>

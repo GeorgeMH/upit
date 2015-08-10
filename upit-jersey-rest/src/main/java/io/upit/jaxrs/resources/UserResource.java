@@ -1,10 +1,12 @@
 package io.upit.jaxrs.resources;
 
-import Hashidsjava.Hashids;
 import com.google.inject.Inject;
 import io.upit.dal.AuthenticationMetaDataDAO;
 import io.upit.dal.models.User;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.services.UserService;
+import org.hashids.Hashids;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,6 +30,7 @@ public class UserResource extends AbstractResource<User, Long> {
 
     @GET
     @Path("/hash/{idHash}")
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public User getByIdHash(@PathParam("idHash") String hash) {
         return userService.getByIdHash(hash);
     }

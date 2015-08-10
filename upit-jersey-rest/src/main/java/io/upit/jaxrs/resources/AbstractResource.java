@@ -23,6 +23,7 @@ public abstract class AbstractResource<ResourceClass extends Resource<IDType>, I
 
     @POST
     @Transactional
+    @PreAuthorize
     public ResourceClass create(ResourceClass resource) {
         try {
             return resourceService.create(resource);
@@ -40,6 +41,7 @@ public abstract class AbstractResource<ResourceClass extends Resource<IDType>, I
 
     @DELETE
     @Transactional
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass delete(ResourceClass resource) {
         return resourceService.delete(resource);
     }
@@ -47,6 +49,7 @@ public abstract class AbstractResource<ResourceClass extends Resource<IDType>, I
     @DELETE
     @Path("{id}")
     @Transactional
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass deleteById(@PathParam("id") IDType id) {
         return resourceService.deleteById(id);
     }
@@ -54,6 +57,7 @@ public abstract class AbstractResource<ResourceClass extends Resource<IDType>, I
     @GET
     @Path("{id}")
     @Transactional
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public ResourceClass getById(@PathParam("id") IDType id) {
         return resourceService.getById(id);
     }

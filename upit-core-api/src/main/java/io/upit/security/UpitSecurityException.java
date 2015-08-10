@@ -3,7 +3,7 @@ package io.upit.security;
 
 import io.upit.UpitServiceException;
 
-public class UpitSecurityException extends UpitServiceException {
+public class UpitSecurityException extends RuntimeException {
 
     public UpitSecurityException() {
         super();

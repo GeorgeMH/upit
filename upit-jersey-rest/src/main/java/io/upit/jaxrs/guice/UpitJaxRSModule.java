@@ -21,6 +21,7 @@ public class UpitJaxRSModule extends ServletModule {
     protected void configureServlets() {
         bind(ObjectMapper.class).toProvider(ObjectMapperProvider.class).in(Singleton.class);
         bind(JacksonJsonProvider.class).toProvider(JacksonJsonProviderProvider.class).in(Singleton.class);
+        bind(RequestSessionFilter.class).in(Singleton.class);
 
         // Configure the primary REST handlers
         Map<String, String> jerseyInitParams = new HashMap<>();
@@ -28,6 +29,7 @@ public class UpitJaxRSModule extends ServletModule {
         jerseyInitParams.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
 
 
+        filter("/d/*", "/api_v1/*").through(RequestSessionFilter.class);
         filter("/d/*", "/api_v1/*").through(PersistFilter.class);
         serve("/d/*", "/api_v1/*").with(GuiceContainer.class, jerseyInitParams);
     }

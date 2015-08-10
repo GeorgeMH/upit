@@ -2,6 +2,8 @@ package io.upit.jaxrs.resources;
 
 import com.google.inject.Inject;
 import io.upit.dal.models.Paste;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.services.PasteService;
 
 import javax.ws.rs.*;
@@ -22,6 +24,7 @@ public class PasteResource extends AbstractResource<Paste, Long> {
 
     @GET
     @Path("/hash/{idHash}")
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public Paste getByIdHash(@PathParam("idHash") String hash) {
         return pasteService.getByIdHash(hash);
     }

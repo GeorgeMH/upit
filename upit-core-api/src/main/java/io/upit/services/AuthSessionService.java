@@ -11,14 +11,10 @@ import io.upit.dal.models.pojos.security.AuthenticationMetaDataImpl;
 import io.upit.dal.models.security.AuthenticationMetaData;
 import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
-import io.upit.guice.security.PreAuthorize;
-import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
-import io.upit.guice.security.authorizers.AnonymousUserAuthorizer;
 import io.upit.security.AuthenticationException;
 import io.upit.security.AuthenticationProvider;
 import io.upit.security.providers.Sha512AuthenticationProvider;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -40,12 +36,10 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
     }
 
 
-    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
     public AuthSession createAnonymousAuthSession() throws UpitServiceException {
         return createNewAuthSession(null, null);
     }
 
-    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
     public AuthSession register(RegistrationRequest registrationRequest) throws UpitServiceException {
         User userToCreate = registrationRequest.getRequestedUser();
 
@@ -64,7 +58,6 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         return createNewAuthSession(null, null);
     }
 
-    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
     public AuthSession login(LoginRequest loginRequest) throws UpitServiceException {
         User user = userService.getByUserNameOrEmail(loginRequest.getUserNameOrEmail());
         if (null == user) {
@@ -92,7 +85,6 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         return createNewAuthSession(user, null);
     }
 
-    @PreAuthorize
     public AuthSession validateSessionById(String id) throws AuthenticationException {
         AuthSession realAuthSession = authSessionDao.getById(id);
 
@@ -113,12 +105,10 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         return realAuthSession;
     }
 
-    @PreAuthorize
     public AuthSession validateSession(AuthSession session) throws AuthenticationException {
         return validateSessionById(session.getId());
     }
 
-    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public void endSession(AuthSession session) {
         AuthSession realAuthSession = authSessionDao.getById(session.getId());
         realAuthSession.setActive(false);

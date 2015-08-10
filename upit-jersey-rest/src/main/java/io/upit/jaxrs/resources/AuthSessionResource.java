@@ -8,6 +8,7 @@ import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
 import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.guice.security.authorizers.AnonymousUserAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.jaxrs.guice.RequestSessionFilter;
@@ -43,6 +44,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Transactional
     @Path("anonymous/")
+    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
     public Response getAnonymousSession() {
         try {
             AuthSession ret = authSessionService.createAnonymousAuthSession();
@@ -80,12 +82,14 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("validate/${sessionId}")
     @Transactional
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public AuthSession validate(@PathParam("sessionId") String sessionId) throws AuthenticationException {
         return authSessionService.validateSessionById(sessionId);
     }
 
     @DELETE
     @Path("end/${sessionId}")
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public void end(AuthSession session) {
         authSessionService.endSession(session);
     }
