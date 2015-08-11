@@ -54,8 +54,7 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         authenticationMetaData.setUserId(createdUser.getId());
         authenticationMetaDataDAO.create(authenticationMetaData);
 
-        // TODO: Since this requires the current user to be an anonymous session (that would be auto created), should we end the previous session?
-        return createNewAuthSession(null, null);
+        return createNewAuthSession(createdUser, null);
     }
 
     public AuthSession login(LoginRequest loginRequest) throws UpitServiceException {
@@ -120,9 +119,8 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         authSession.setActive(true);
         authSession.setAnonymous(null == user);
         authSession.setUserId((null == user ? null : user.getId()));
-        authSession.setExpires(null);
         authSession.setExpires(expires);
-        authSession.setLastValidated(null);
+        authSession.setLastValidated(new Date());
         return authSessionDao.create(authSession);
     }
 }

@@ -7,7 +7,7 @@
  */
 
 angular.module('upit-web.page.main', [
-  'upit-web.security',
+  'upit-web.common.security',
   'ngRoute'
 ])
   .config(['$routeProvider', function ($routeProvider) {

@@ -5,4 +5,4 @@
  * @name upit.controller:MainCtrl
  * @description # Upit Rest API module
  */
-angular.module('upit-web.upitRestApi', []);
+angular.module('upit-web.common.upitRestApi', []);

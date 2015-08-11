@@ -17,13 +17,13 @@ public class JpaAuthSession implements AuthSession {
     @Version
     private int version;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long userId;
 
     @Column(nullable = false)
     private Date created;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date expires;
 
     @Column(nullable = true)

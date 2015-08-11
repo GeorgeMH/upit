@@ -2,7 +2,7 @@
 
 
 angular.module('upit-web.page.user', [
-  'upit-web.upitRestApi',
+  'upit-web.common.upitRestApi',
   'ngRoute'
 ]).config(['$routeProvider', function ($routeProvider) {
 

@@ -2,12 +2,11 @@
 
 /**
  * @ngdoc function
- * @name upiWebSpa.security
+ * @name upiWebSpa.common.security
  * @description # Provides Security Support
  */
 
-angular.module('upit-web.security', ['ngRoute'])
+angular.module('upit-web.common.security', ['ngRoute'])
   .config(['$routeProvider', function ($routeProvider) {
-
 
   }]);

@@ -44,7 +44,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Transactional
     @Path("anonymous/")
-    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
+    @PreAuthorize
     public Response getAnonymousSession() {
         try {
             AuthSession ret = authSessionService.createAnonymousAuthSession();
@@ -57,7 +57,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Transactional
     @Path("register/")
-    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
+    @PreAuthorize
     public Response register(RegistrationRequest registrationRequest) {
         try {
             AuthSession ret = authSessionService.register(registrationRequest);

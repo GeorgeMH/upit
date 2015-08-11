@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('upit-web.upitRestApi')
+angular.module('upit-web.common.upitRestApi')
   .factory('SimpleResourceClient', ['$log', '$q', '$http', function ($log, $q, $http) {
     var self = this;
 

@@ -10,6 +10,8 @@
  */
 angular
   .module('upit-web', [
+    'upit-web.common.upitRestApi',
+    'upit-web.common.security',
 
     'upit-web.components.navigation',
     'upit-web.page.auth',
@@ -26,4 +28,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap'
-  ]);
+  ]).controller("IndexController", ['$scope', 'SecurityService', function($scope, SecurityService){
+    SecurityService.init();
+
+    $scope.authSession
+  }]);

@@ -5,7 +5,7 @@
  * @name upit.controller:MainCtrl
  * @description # Paste Module
  */
-angular.module('upit-web.upitRestApi')
+angular.module('upit-web.common.upitRestApi')
   .factory('AuthSessionResource', ['$q', 'SimpleResourceClient', function ($q, SimpleResourceClient) {
 
     var resourceContext = {
@@ -35,7 +35,7 @@ angular.module('upit-web.upitRestApi')
       });
     };
 
-    var validate = function(authenticationRequest) {
+    var validate = function(authenticationReuqest) {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
         url: '/validate/',
         method: 'POST',
