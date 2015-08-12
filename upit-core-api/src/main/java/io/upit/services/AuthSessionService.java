@@ -35,7 +35,6 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         this.userService = userService;
     }
 
-
     public AuthSession createAnonymousAuthSession() throws UpitServiceException {
         return createNewAuthSession(null, null);
     }

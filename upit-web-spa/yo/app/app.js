@@ -28,8 +28,15 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap'
-  ]).controller("IndexController", ['$scope', 'SecurityService', function($scope, SecurityService){
-    SecurityService.init();
+  ]).controller("IndexController", ['$scope', 'SecurityService', function($scope, SecurityService) {
 
-    $scope.authSession
+    $scope.root = {
+      userAuthSession: {isActive: false},
+      isLoadingSessionContext: true
+    };
+
+    SecurityService.init(function(authSession){
+      angular.merge($scope.root.userAuthSession, authSession);
+    });
+
   }]);

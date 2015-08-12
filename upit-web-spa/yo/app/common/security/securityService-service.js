@@ -9,20 +9,30 @@ angular.module('upit-web.common.security')
     var currentAuthSession = null;
     var validateTokenInterval = null;
 
-    this.init = function () {
-      if(null === validateTokenInterval) {
+    var isFetchingToken = false;
+
+    this.init = function (updatedAuthSessionCallback) {
+      if(false === isFetchingToken && (null === currentAuthSession || null === validateTokenInterval)) {
+        var handleError = function(err){
+          clearInterval(validateTokenInterval);
+          currentAuthSession = null;
+          updatedAuthSessionCallback(currentAuthSession);
+          console.log('TODO: Validate AuthSession failed: ' + err);
+        };
+        isFetchingToken = true;
         setAuthSession().then(function() {
-          console.log("AuthSession: " + currentAuthSession.id);
+          isFetchingToken = false;
+          console.log("AuthSession: " + currentAuthSession.id + " : userId: " + currentAuthSession.userId);
+
           // Set an interval to validate the AuthSession every so often
           validateTokenInterval = setInterval(function() {
-            AuthSessionResource.validate(currentAuthSession).then(function(validatedCurrentAuthSession){
+            AuthSessionResource.validate(currentAuthSession.id).then(function(validatedCurrentAuthSession){
               console.log("Validated auth session: " + validatedCurrentAuthSession);
-              angular.merge(currentAuthSession, validatedCurrentAuthSession);
-            }, function(err){
-              // TODO? Redirect to the login page? Might be nice to warn a user their token is about to expire
-              console.log('TODO: Validate AuthSession failed: ' + err);
-            });
+              currentAuthSession = validatedCurrentAuthSession;
+              updatedAuthSessionCallback(currentAuthSession);
+            }, handleError);
           }, VALIDATE_TOKEN_INTERVAL);
+
         });
       }
     };

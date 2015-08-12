@@ -31,7 +31,7 @@
   <!-- endbuild -->
 </head>
 
-<body data-ng-app="upit-web" data-ng-controller="IndexController" data-ng-strict-di="">
+<body data-ng-app="upit-web" data-ng-controller="IndexController">
 
 <!--[if lt IE 9]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
@@ -86,9 +86,15 @@
 
 </div>
 
+
 <div class="container">
 
-  <div data-ng-view="">
+  <div data-ng-if="!root.currentAuthSession || root.currentAuthSession.isActive" class="text-center">
+    <h1>Loading please wait</h1>
+    <h1><i class="fa fa-spinner fa-spin"></i></h1>
+  </div>
+
+  <div data-ng-view="" data-ng-if="root.currentAuthSession && root.currentAuthSession.isActive">
   </div>
 
   <hr/>
