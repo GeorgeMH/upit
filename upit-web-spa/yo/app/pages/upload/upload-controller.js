@@ -8,8 +8,10 @@
  * Controller of upit
  */
 angular.module('upit-web.page.upload')
-  .controller('UploadController', ['$scope', '$window', 'Upload', 'FileUrlGenerator', 'SecurityService', function ($scope, $window, Upload, FileUrlGenerator, SecurityService) {
-    SecurityService.init();
+  .controller('UploadController', ['$scope', '$window', 'Upload', 'FileUrlGenerator', 'SecurityService', function ($scope, $window, Upload, FileUrlGenerator) {
+
+    $scope.files = [];
+
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
     });
@@ -28,7 +30,6 @@ angular.module('upit-web.page.upload')
             if (fileInProgress) {
               fileInProgress.progress = progressPercentage
             }
-            ;
           }).success(function (data, status, headers, config) {
             var completedFile = $scope.files[config.file.index];
             completedFile.urls = {};

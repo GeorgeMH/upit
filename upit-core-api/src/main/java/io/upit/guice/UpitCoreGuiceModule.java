@@ -22,7 +22,7 @@ public class UpitCoreGuiceModule extends AbstractModule {
     @Override
     protected void configure() {
 
-        File instanceHomeDirectory = new File("./upit/");
+        File instanceHomeDirectory = new File("upit/");
         File uploadedFileRepositoryPath = new File(instanceHomeDirectory, "uploadedFiles/");
 
         if (uploadedFileRepositoryPath.exists()) {

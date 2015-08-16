@@ -107,10 +107,12 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         return validateSessionById(session.getId());
     }
 
-    public void endSession(AuthSession session) {
-        AuthSession realAuthSession = authSessionDao.getById(session.getId());
-        realAuthSession.setActive(false);
-        authSessionDao.update(realAuthSession);
+    public void endSession(String sessionId) {
+        AuthSession realAuthSession = authSessionDao.getById(sessionId);
+        if(null != realAuthSession) {
+            realAuthSession.setActive(false);
+            authSessionDao.update(realAuthSession);
+        }
     }
 
     private AuthSession createNewAuthSession(User user, Date expires) throws UpitServiceException {

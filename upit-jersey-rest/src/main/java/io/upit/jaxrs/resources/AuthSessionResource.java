@@ -9,7 +9,6 @@ import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
 import io.upit.guice.security.PreAuthorize;
 import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
-import io.upit.guice.security.authorizers.AnonymousUserAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.jaxrs.guice.RequestSessionFilter;
 import io.upit.security.AuthenticationException;
@@ -70,10 +69,12 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("login/")
     @Transactional
-    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
-    public AuthSession login(LoginRequest loginRequest) {
+//    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
+    @PreAuthorize
+    public Response login(LoginRequest loginRequest) {
         try {
-            return authSessionService.login(loginRequest);
+            AuthSession ret = authSessionService.login(loginRequest);
+            return Response.ok(ret).cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, "")).build();
         } catch (UpitServiceException e) {
             throw new ResourceException("Failed logging in", e);
         }
@@ -83,15 +84,17 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @Path("validate/${sessionId}")
     @Transactional
     @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
-    public AuthSession validate(@PathParam("sessionId") String sessionId) throws AuthenticationException {
-        return authSessionService.validateSessionById(sessionId);
+    public Response validate(@PathParam("sessionId") String sessionId) throws AuthenticationException {
+        AuthSession ret = authSessionService.validateSessionById(sessionId);
+        return Response.ok(ret).cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, ret.getId())).build();
     }
 
     @DELETE
     @Path("end/${sessionId}")
     @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
-    public void end(AuthSession session) {
-        authSessionService.endSession(session);
+    public Response end(@PathParam("sessionId") String sessionId) {
+        authSessionService.endSession(sessionId);
+        return Response.ok().cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, "")).build();
     }
 
 }

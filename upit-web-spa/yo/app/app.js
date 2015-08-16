@@ -20,7 +20,6 @@ angular
     'upit-web.page.paste',
     'upit-web.page.upload',
 
-
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -28,15 +27,13 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap'
-  ]).controller("IndexController", ['$scope', 'SecurityService', function($scope, SecurityService) {
+  ]).run(['$rootScope', 'SecurityService', function($rootScope, SecurityService) {
 
-    $scope.root = {
-      userAuthSession: {isActive: false},
-      isLoadingSessionContext: true
-    };
+    $rootScope.userAuthSession = { isActive: false };
 
-    SecurityService.init(function(authSession){
-      angular.merge($scope.root.userAuthSession, authSession);
+    SecurityService.start(function(authSession) {
+      console.log("AuthSessionChange");
+      angular.merge($rootScope.userAuthSession, authSession);
     });
 
   }]);
