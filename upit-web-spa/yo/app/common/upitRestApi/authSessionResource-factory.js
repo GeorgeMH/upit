@@ -35,11 +35,10 @@ angular.module('upit-web.common.upitRestApi')
       });
     };
 
-    var validate = function(authenticationReuqest) {
+    var validate = function(sessionId) {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
-        url: '/validate/',
-        method: 'POST',
-        data: authenticationReuqest
+        url: '/validate/' + sessionId,
+        method: 'GET'
       });
     };
 

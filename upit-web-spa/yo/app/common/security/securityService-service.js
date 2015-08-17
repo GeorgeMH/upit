@@ -3,6 +3,7 @@
  */
 angular.module('upit-web.common.security')
   .service('SecurityService', ['$q', '$cookies', '$interval', 'AuthSessionResource', 'UserResource', function ($q, $cookies, $interval, AuthSessionResource, UserResource) {
+    var self = this;
 
     var SERVICE_STATES = {
       STARTING: "STARTING",
@@ -63,7 +64,6 @@ angular.module('upit-web.common.security')
     }
 
     // Private functions
-
     var startValidateTokenInterval = function() {
       if(validateTokenInterval) {
         return;
@@ -71,16 +71,20 @@ angular.module('upit-web.common.security')
         console.log("Starting validate token auth interval");
         // Set an interval to validate the AuthSession every so often
         validateTokenInterval = $interval(function() {
-          AuthSessionResource.validate(currentAuthSession.id).then(function(validatedCurrentAuthSession){
-            console.log("Validated auth session: " + validatedCurrentAuthSession);
-            setAuthSession(validatedCurrentAuthSession);
-          }, function(err){
-            console.log("Failed validating auth token: " + err);
-            setAuthSession(null);
-          });
-
+          self.validateCurrentToken();
         }, VALIDATE_TOKEN_INTERVAL);
       }
+    };
+
+    this.validateCurrentToken = function() {
+      return AuthSessionResource.validate(currentAuthSession.id).then(function(validatedCurrentAuthSession){
+        console.log("Validated auth session: " + validatedCurrentAuthSession);
+        self.setAuthSession(validatedCurrentAuthSession);
+      }, function(err){
+        console.log("Failed validating auth token: " + err);
+        // TODO: error handling
+        self.setAuthSession(null);
+      });
     };
 
     var stopValidateTokenInterval = function() {
@@ -90,8 +94,8 @@ angular.module('upit-web.common.security')
       }
     };
 
-    var setAuthSession = function(newAuthSession) {
-      if(null == newAuthSession){
+    this.setAuthSession = function(newAuthSession) {
+      if(null == newAuthSession) {
         currentAuthSession = newAuthSession;
       } else if (currentAuthSession) {
         angular.merge(currentAuthSession, newAuthSession); // merge to preserve any bindings the old token may have had
@@ -115,30 +119,35 @@ angular.module('upit-web.common.security')
 
 
       if(currentAuthSession) {
+        console.log("currentAuthSession exists and has been validated previously");
         deferred.resolve(currentAuthSession);
         return deferred.promise;
       }
 
-      var authSessionId = $cookies.get(AUTH_SESSION_ID_COOKIE_NAME);
-
       var getAnonymousAuthSessionPromise = function(){
         return AuthSessionResource.getAnonymousSession().then(function(authSession){
-          currentAuthSession = authSession;
+          console.log("Getting anonymous session");
+          self.setAuthSession(authSession);
           deferred.resolve(currentAuthSession);
           return deferred.promise;
         }, handleError);
       };
 
-      if(authSessionId) {
-        return AuthSessionResource.getById(authSessionId).then(function(authSession){
+      var authSessionId = $cookies.get(AUTH_SESSION_ID_COOKIE_NAME);
+
+      if(!authSessionId) {
+        console.log("No existing AuthSession cookie set")
+        return getAnonymousAuthSessionPromise();
+      } else {
+        console.log("Validating existing auth session id: " + authSessionId);
+        AuthSessionResource.validate(authSessionId).then(function(authSession){
+          console.log("Successfully validated auth session");
           setAuthSession(authSession);
           deferred.resolve(currentAuthSession);
-          return deferred.promise;
         }, function(err){
-          return getAnonymousAuthSessionPromise();
+          currentAuthSession = null;
+          getAnonymousAuthSessionPromise();
         });
-      } else {
-        return getAnonymousAuthSessionPromise();
       }
 
       return deferred.promise;

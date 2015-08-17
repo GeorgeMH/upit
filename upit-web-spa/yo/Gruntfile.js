@@ -77,16 +77,16 @@ module.exports = function (grunt) {
           host: 'localhost',
           port: 8080,
           https: false,
-          changeOrigin: false,
-          xforward: false
+          changeOrigin: true,
+          xforward: true
         },
         {
           context: '/d',
           host: 'localhost',
           port: 8080,
           https: false,
-          changeOrigin: false,
-          xforward: false
+          changeOrigin: true,
+          xforward: true
         }
       ],
       livereload: {

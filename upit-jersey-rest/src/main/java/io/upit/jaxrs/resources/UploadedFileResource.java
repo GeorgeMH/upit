@@ -6,7 +6,6 @@ import com.sun.jersey.core.header.ContentDisposition;
 import io.upit.UpitServiceException;
 import io.upit.dal.models.UploadedFile;
 import io.upit.dal.models.pojos.UploadedFileImpl;
-import io.upit.dal.models.security.acls.AclEntry;
 import io.upit.guice.security.PreAuthorize;
 import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.guice.security.authorizers.DenyAllMethodAuthorizer;

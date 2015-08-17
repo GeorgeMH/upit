@@ -9,6 +9,7 @@ import io.upit.dal.models.security.LoginRequest;
 import io.upit.dal.models.security.RegistrationRequest;
 import io.upit.guice.security.PreAuthorize;
 import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
+import io.upit.guice.security.authorizers.AnonymousUserAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.jaxrs.guice.RequestSessionFilter;
 import io.upit.security.AuthenticationException;
@@ -21,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
-@Path("/authSession")
+@Path("authSession")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthSessionResource extends AbstractResource<AuthSession, String> {
@@ -47,7 +48,7 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     public Response getAnonymousSession() {
         try {
             AuthSession ret = authSessionService.createAnonymousAuthSession();
-            return Response.ok(ret).cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, ret.getId())).build();
+            return Response.ok(ret).cookie(createAuthCookie(ret.getId())).build();
         } catch (UpitServiceException e) {
             throw new ResourceException("Failed Registration Request", e);
         }
@@ -69,24 +70,24 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @POST
     @Path("login/")
     @Transactional
-//    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
-    @PreAuthorize
+    @PreAuthorize(methodAuthorizers = {AnonymousUserAuthorizer.class})
     public Response login(LoginRequest loginRequest) {
         try {
             AuthSession ret = authSessionService.login(loginRequest);
-            return Response.ok(ret).cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, "")).build();
+            return Response.ok(ret).cookie(createAuthCookie(ret.getId())).build();
         } catch (UpitServiceException e) {
             throw new ResourceException("Failed logging in", e);
         }
     }
 
-    @POST
+    @GET
     @Path("validate/${sessionId}")
     @Transactional
-    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
+    @PreAuthorize
     public Response validate(@PathParam("sessionId") String sessionId) throws AuthenticationException {
-        AuthSession ret = authSessionService.validateSessionById(sessionId);
-        return Response.ok(ret).cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, ret.getId())).build();
+        throw new AuthenticationException("VALIDATE_CALLED");
+        //AuthSession ret = authSessionService.validateSessionById(sessionId);
+        //return Response.ok(ret).cookie(createAuthCookie(ret.getId())).build();
     }
 
     @DELETE
@@ -94,7 +95,14 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public Response end(@PathParam("sessionId") String sessionId) {
         authSessionService.endSession(sessionId);
-        return Response.ok().cookie(new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, "")).build();
+        return Response.ok().cookie(createAuthCookie(sessionId, 0)).build();
     }
 
+    private NewCookie createAuthCookie(String sessionId) {
+        return createAuthCookie(sessionId, 86400); // TODO: make this sane/configurable
+    }
+
+    private NewCookie createAuthCookie(String sessionId, int ttl) {
+        return new NewCookie(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME, sessionId, "/", null, null, ttl, false);
+    }
 }

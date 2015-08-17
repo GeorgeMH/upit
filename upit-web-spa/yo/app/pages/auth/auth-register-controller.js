@@ -19,10 +19,10 @@ angular.module('upit-web.page.auth')
     $scope.registerUser = function () {
 
       AuthSessionResource.register($scope.model.registrationRequest)
-        .then(function (data) {
+        .then(function (authSession) {
           $location.path('/auth/login');
         }, function (err) {
-          //TODO: Common form error handling?
+          //TODO: Common form error handling, flash somehting on the screen for the error
           console.log(err);
         });
 

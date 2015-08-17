@@ -28,12 +28,17 @@ angular
     'ngTouch',
     'ui.bootstrap'
   ]).run(['$rootScope', 'SecurityService', function($rootScope, SecurityService) {
-
+    // Minimal Auth Session impl that is used while the SecurityService starts and validates the users credentials
     $rootScope.userAuthSession = { isActive: false };
 
+    // Start the Security Management Service. The supplied callback will keep the rootScope userAuthSession updated
     SecurityService.start(function(authSession) {
-      console.log("AuthSessionChange");
-      angular.merge($rootScope.userAuthSession, authSession);
+      if(authSession) {
+        console.log("AuthSessionChange: " + authSession.id);
+        angular.merge($rootScope.userAuthSession, authSession);
+      } else {
+        console.log("AuthSession Failed");
+      }
     });
 
   }]);
