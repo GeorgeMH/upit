@@ -66,12 +66,16 @@
           <a href="#/paste/">paste</a>
         </li>
 
-        <li data-ng-class="menuClass('login')">
+        <li data-ng-class="menuClass('login')" data-ng-if="!userAuthSession || userAuthSession.anonymous">
           <a href="#/auth/login/">login</a>
         </li>
 
-        <li data-ng-class="menuClass('register')">
+        <li data-ng-class="menuClass('register')" data-ng-if="!userAuthSession || userAuthSession.anonymous">
           <a href="#/auth/register/">register</a>
+        </li>
+
+        <li data-ng-class="menuClass('UserProfile')" data-ng-if="null !== currentUser && currentUser.id">
+          <a ng-href="#/user/{{currentUser.idHash}}">profile</a>
         </li>
 
       </ul>
@@ -89,7 +93,7 @@
 
 <div class="container">
 
-  <div data-ng-view=""">
+  <div data-ng-view="">
   </div>
 
   <hr/>
@@ -98,7 +102,7 @@
     <p class="pull-right">upit.io</p>
 
     <p class="pull-left"><span class="label label-warning">Warning</span> Upit.IO is beta software. Use at your own
-      risk. {{userAuthSession.id}}</p>
+      risk.</p>
   </div>
 </div>
 

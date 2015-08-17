@@ -23,7 +23,7 @@ public class AnonymousUserAuthorizer implements MethodAuthorizer {
     public void authorizeMethodInvocation(MethodInvocation methodInvocation) throws AuthorizationException {
         AuthSession currentSession = authSessionProvider.get();
 
-        if (null == currentSession || !currentSession.isAnonymous()) {
+        if (null != currentSession && !currentSession.isAnonymous()) {
             throw new AuthorizationException("User must be anonymous: " + methodInvocation.toString());
         }
     }

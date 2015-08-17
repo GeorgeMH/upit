@@ -8,8 +8,12 @@
 
 </div>
 
+<div class="row" data-ng-if="userAuthSession && userAuthSession.userId">
+  Yay: {{userAuthSession.userId}}
+</div>
 
-<div class="row">
+
+<div class="row" data-ng-if="!userAuthSession || userAuthSession.anonymous">
 
   <form class="form-horizontal">
 

@@ -95,10 +95,12 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
             throw new AuthenticationException("Inactive Auth Session");
         }
 
-        if(new Date().getTime() >= realAuthSession.getExpires().getTime()){
-            realAuthSession.setActive(false);
-            authSessionDao.update(realAuthSession);
-            throw new AuthenticationException("Expired Auth Session");
+        if(null != realAuthSession.getExpires()) {
+            if (new Date().getTime() >= realAuthSession.getExpires().getTime()) {
+                realAuthSession.setActive(false);
+                authSessionDao.update(realAuthSession);
+                throw new AuthenticationException("Expired Auth Session");
+            }
         }
 
         return realAuthSession;
@@ -124,7 +126,7 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         if(ttlSeconds > 0) {
             authSession.setExpires(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(ttlSeconds)));
         }else {
-
+            authSession.setExpires(null);
         }
         authSession.setLastValidated(new Date());
         return authSessionDao.create(authSession);

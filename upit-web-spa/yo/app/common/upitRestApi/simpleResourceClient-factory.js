@@ -48,7 +48,7 @@ angular.module('upit-web.common.upitRestApi')
 
     var getById = function (resourceContext, resourceId) {
       return makeRestRequest(resourceContext, {
-        url: resourceId,
+        url: "/" + resourceId,
         method: 'GET'
       });
     };

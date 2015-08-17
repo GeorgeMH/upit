@@ -18,10 +18,9 @@ angular.module('upit-web.common.security')
     var currentAuthSession = null;
     var validateTokenInterval = null;
 
-    var onAuthTokenChangeHandler;;
+    var currentUser = null;
 
-    var isFetchingToken = false;
-
+    var onAuthTokenChangeHandler;
 
     this.start = function (updatedAuthSessionCallback) {
       if(serviceState !== SERVICE_STATES.STOPPED) {
@@ -31,7 +30,6 @@ angular.module('upit-web.common.security')
       onAuthTokenChangeHandler = updatedAuthSessionCallback || function() { };
 
       return resolveAuthSession().then(function() {
-        isFetchingToken = false;
         if(currentAuthSession) {
           console.log("AuthSession: " + currentAuthSession.id + " : userId: " + currentAuthSession.userId + ", anonymous " + currentAuthSession.anonymous);
         }
@@ -44,13 +42,27 @@ angular.module('upit-web.common.security')
     };
 
     this.getUser = function () {
-      var authSession = getAuthSession();
-      if (!authSession || !authSession.userId) {
-        return $q(null);
-      }
-      return UserResource.getById(authSession.userId);
-    };
+      var deferred = $q.defer();
 
+      if(currentUser) {
+        deferred.resolve(currentUser);
+        return deferred.promise;
+      }
+      var authSession = self.getAuthSession();
+      if (!authSession || !authSession.userId) {
+        deferred.reject("No Auth Session");
+        return deferred.promise;
+      }
+
+      UserResource.getById(authSession.userId).then(function(user){
+        currentUser = user;
+        deferred.resolve(currentUser);
+      }, function(err){
+        deferred.reject(err);
+      });
+
+      return deferred.promise;
+    };
 
     this.isAnonymous = function() {
       if(!currentAuthSession) {
@@ -78,7 +90,7 @@ angular.module('upit-web.common.security')
 
     this.validateCurrentToken = function() {
       return AuthSessionResource.validate(currentAuthSession.id).then(function(validatedCurrentAuthSession){
-        console.log("Validated auth session: " + validatedCurrentAuthSession);
+        console.log("Validated AuthSession: " + validatedCurrentAuthSession.id + " : userId: " + validatedCurrentAuthSession.userId + ", anonymous " + validatedCurrentAuthSession.anonymous);
         self.setAuthSession(validatedCurrentAuthSession);
       }, function(err){
         console.log("Failed validating auth token: " + err);
@@ -103,9 +115,23 @@ angular.module('upit-web.common.security')
         currentAuthSession = angular.copy(newAuthSession);
       }
 
-      if(onAuthTokenChangeHandler) {
-        onAuthTokenChangeHandler(currentAuthSession);
+      // TODO: What about if currentAuthSession.userId != currentUser.id ?
+
+      if(currentAuthSession && currentAuthSession.userId && !currentAuthSession.anonymous) {
+        self.getUser().then(function (user) {
+          if (onAuthTokenChangeHandler) {
+            onAuthTokenChangeHandler(currentAuthSession, user);
+          }
+        }, function(err){
+          console.log("Failed getting user: " + err);
+          if (onAuthTokenChangeHandler) {
+            onAuthTokenChangeHandler(currentAuthSession, null);
+          }
+        });
+      } else if (currentAuthSession && onAuthTokenChangeHandler) {
+        onAuthTokenChangeHandler(currentAuthSession, null);
       }
+
     };
 
     var resolveAuthSession = function () {
@@ -142,7 +168,7 @@ angular.module('upit-web.common.security')
         console.log("Validating existing auth session id: " + authSessionId);
         AuthSessionResource.validate(authSessionId).then(function(authSession){
           console.log("Successfully validated auth session");
-          setAuthSession(authSession);
+          self.setAuthSession(authSession);
           deferred.resolve(currentAuthSession);
         }, function(err){
           currentAuthSession = null;

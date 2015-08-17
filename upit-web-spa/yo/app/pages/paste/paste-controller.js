@@ -8,10 +8,13 @@
  * PasteCtrl of upit
  */
 angular.module('upit-web.page.paste').controller('PasteController',
-  ['$scope', '$location', '$filter', '$timeout', 'PasteResource', 'resolvedPaste', function ($scope, $location, $filter, $timeout, PasteResource, resolvedPaste) {
+  ['$scope', '$location', '$filter', '$timeout', 'SecurityService', 'PasteResource', 'UserResource', 'resolvedPaste',
+    function ($scope, $location, $filter, $timeout, SecurityService, PasteResource, UserResource, resolvedPaste) {
 
     var model = {
       paste: resolvedPaste,
+
+      pastedByUser: null,
 
       showLineNumbers: true,
 
@@ -28,8 +31,21 @@ angular.module('upit-web.page.paste').controller('PasteController',
         syntaxId: resolvedPaste ? resolvedPaste.syntaxId : ""
       }
     };
-
     $scope.model = model;
+
+     SecurityService.getUser().then(function(user) {
+      if(user && user.id) {
+        model.newPasteForm.userId = user.id;
+      }
+    });
+
+    if(resolvedPaste && resolvedPaste.userId && resolvedPaste.userId > 0) {
+      UserResource.getById(resolvedPaste.userId).then(function(user) {
+        model.pastedByUser = user;
+      }, function(err) {
+        console.log("Failed getting user " + resolvedPaste.userId);
+      });
+    }
 
     var resetHighlighting = function () {
       if (!model || !model.paste || !model.paste.syntaxId) {

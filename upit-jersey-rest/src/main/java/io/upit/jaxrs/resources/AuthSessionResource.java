@@ -81,17 +81,16 @@ public class AuthSessionResource extends AbstractResource<AuthSession, String> {
     }
 
     @GET
-    @Path("validate/${sessionId}")
+    @Path("validate/{sessionId}")
     @Transactional
     @PreAuthorize
     public Response validate(@PathParam("sessionId") String sessionId) throws AuthenticationException {
-        throw new AuthenticationException("VALIDATE_CALLED");
-        //AuthSession ret = authSessionService.validateSessionById(sessionId);
-        //return Response.ok(ret).cookie(createAuthCookie(ret.getId())).build();
+        AuthSession ret = authSessionService.validateSessionById(sessionId);
+        return Response.ok(ret).cookie(createAuthCookie(ret.getId())).build();
     }
 
     @DELETE
-    @Path("end/${sessionId}")
+    @Path("end/{sessionId}")
     @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public Response end(@PathParam("sessionId") String sessionId) {
         authSessionService.endSession(sessionId);
