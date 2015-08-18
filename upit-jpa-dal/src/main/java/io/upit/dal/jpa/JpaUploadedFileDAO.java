@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.io.InputStream;
+import java.util.List;
 
 public class JpaUploadedFileDAO extends EntityManagerDAO<UploadedFile, JpaUploadedFile, Long> implements UploadedFileDAO {
 
@@ -44,6 +45,19 @@ public class JpaUploadedFileDAO extends EntityManagerDAO<UploadedFile, JpaUpload
 
         try {
             return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<? extends UploadedFile> getByUserId(long userId) {
+        TypedQuery<JpaUploadedFile> query = entityManager.createQuery("SELECT uf FROM UploadedFile uf WHERE uf.userId = :userId", JpaUploadedFile.class);
+
+        query.setParameter("userId", userId);
+
+        try {
+            return query.getResultList();
         } catch (NoResultException e) {
             return null;
         }

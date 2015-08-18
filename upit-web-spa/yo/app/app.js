@@ -33,6 +33,7 @@ angular
 
   }])
   .run(['$rootScope', 'SecurityService', function($rootScope, SecurityService) {
+
     // Minimal Auth Session impl that is used while the SecurityService starts and validates the users credentials
     $rootScope.userAuthSession = { isActive: false };
     $rootScope.currentUser = { };

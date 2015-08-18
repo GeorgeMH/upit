@@ -25,6 +25,9 @@ public class JpaUploadedFile implements UploadedFile {
     @Column(unique = true)
     private String idHash;
 
+    @Column(unique = false)
+    private Long userId;
+
     @Column(unique = true)
     private String fileHash;
 
@@ -73,12 +76,24 @@ public class JpaUploadedFile implements UploadedFile {
         this.created = dateCreated;
     }
 
+    @Override
     public String getIdHash() {
         return idHash;
     }
 
+    @Override
     public void setIdHash(String idHash) {
         this.idHash = idHash;
+    }
+
+    @Override
+    public Long getUserId() {
+        return this.userId;
+    }
+
+    @Override
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

@@ -1,20 +1,25 @@
 package io.upit.jaxrs.resources;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
+import com.google.inject.servlet.RequestScoped;
 import com.sun.jersey.core.header.ContentDisposition;
 import io.upit.UpitServiceException;
+import io.upit.dal.models.AuthSession;
 import io.upit.dal.models.UploadedFile;
 import io.upit.dal.models.pojos.UploadedFileImpl;
 import io.upit.guice.security.PreAuthorize;
 import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.guice.security.authorizers.DenyAllMethodAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
+import io.upit.jaxrs.guice.providers.AuthSessionProvider;
 import io.upit.services.UploadedFileService;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +31,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Path("/uploadedFile")
@@ -35,11 +41,13 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
     private final Logger logger = LoggerFactory.getLogger(UploadedFileResource.class);
 
     private final UploadedFileService uploadedFileService;
+    private final AuthSessionProvider authSessionProvider;
 
     @Inject
-    public UploadedFileResource(UploadedFileService dao) {
+    public UploadedFileResource(UploadedFileService dao, AuthSessionProvider authSessionProvider) {
         super(UploadedFile.class, dao);
         this.uploadedFileService = dao;
+        this.authSessionProvider = authSessionProvider;
     }
 
     @POST
@@ -53,6 +61,13 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
     @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
     public UploadedFile getByIdHash(@PathParam("shortHash") String shortHash) {
         return uploadedFileService.getByIdHash(shortHash);
+    }
+
+    @GET
+    @Path("user/{userId}")
+    @PreAuthorize(methodAuthorizers = {AclEntryMethodAuthorizer.class})
+    public List<? extends UploadedFile> getFilesByUserId(@PathParam("userId")int userId) {
+        return uploadedFileService.getFilesByUserId(userId);
     }
 
     @GET
@@ -75,19 +90,12 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
                 return Response.status(404).build();
             }
 
-            // TODO? Surely there is a library that does this in apache commons or something
+            // TODO: Old Jersey 1.8 ASM library isn't fully java 1.8 compatibile, this could be a one liner :(
+            // We need a better JAX-RS provider
             StreamingOutput streamingOutput = new StreamingOutput() {
                 @Override
                 public void write(OutputStream output) throws IOException, WebApplicationException {
-                    pipe(fileInputStream, new BufferedOutputStream(output));
-                }
-
-                public void pipe(InputStream is, OutputStream os) throws IOException {
-                    int n;
-                    byte[] buffer = new byte[4096];
-                    while ((n = is.read(buffer)) > -1) {
-                        os.write(buffer, 0, n);
-                    }
+                    IOUtils.copy(fileInputStream, output);
                 }
             };
 
@@ -122,6 +130,9 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
 
         Set<UploadedFile> resultSet = new HashSet<>();
 
+        AuthSession authSession = authSessionProvider.get();
+        Long userId = null == authSession ? null  : authSession.getUserId();
+
         try {
             FileItemIterator items = servletFileUpload.getItemIterator(request);
             while (items.hasNext()) {
@@ -138,6 +149,8 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
                 }
 
                 UploadedFile parsedUploadedFile = uploadedFileService.uploadFile(uploadedFile, item.openStream());
+                parsedUploadedFile.setUserId(userId);
+
                 resultSet.add(parsedUploadedFile);
             }
         } catch (FileUploadException | IOException | UpitServiceException e) {

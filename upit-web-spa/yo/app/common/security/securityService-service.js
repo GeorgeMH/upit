@@ -2,7 +2,8 @@
  * This service manages the 'Authenticated State' of the current User.
  */
 angular.module('upit-web.common.security')
-  .service('SecurityService', ['$q', '$cookies', '$interval', 'AuthSessionResource', 'UserResource', function ($q, $cookies, $interval, AuthSessionResource, UserResource) {
+  .service('SecurityService', ['$q', '$cookies', '$interval', 'AuthSessionResource', 'UserResource',
+    function ($q, $cookies, $interval, AuthSessionResource, UserResource) {
     var self = this;
 
     var SERVICE_STATES = {
@@ -31,7 +32,8 @@ angular.module('upit-web.common.security')
 
       return resolveAuthSession().then(function() {
         if(currentAuthSession) {
-          console.log("AuthSession: " + currentAuthSession.id + " : userId: " + currentAuthSession.userId + ", anonymous " + currentAuthSession.anonymous);
+          console.log("AuthSession: " + currentAuthSession.id + " : userId: " + currentAuthSession.userId +
+            ", anonymous " + currentAuthSession.anonymous);
         }
         startValidateTokenInterval();
       });
@@ -90,7 +92,8 @@ angular.module('upit-web.common.security')
 
     this.validateCurrentToken = function() {
       return AuthSessionResource.validate(currentAuthSession.id).then(function(validatedCurrentAuthSession){
-        console.log("Validated AuthSession: " + validatedCurrentAuthSession.id + " : userId: " + validatedCurrentAuthSession.userId + ", anonymous " + validatedCurrentAuthSession.anonymous);
+        console.log("Validated AuthSession: " + validatedCurrentAuthSession.id + " : userId: " +
+          validatedCurrentAuthSession.userId + ", anonymous " + validatedCurrentAuthSession.anonymous);
         self.setAuthSession(validatedCurrentAuthSession);
       }, function(err){
         console.log("Failed validating auth token: " + err);
