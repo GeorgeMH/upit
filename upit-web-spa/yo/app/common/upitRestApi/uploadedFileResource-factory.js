@@ -36,7 +36,7 @@ angular.module('upit-web.common.upitRestApi')
       });
     };
 
-    self.getByUserId = function(userId) {
+    self.getByUserId = function (userId) {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
         url: '/user/' + hash,
         method: 'GET'

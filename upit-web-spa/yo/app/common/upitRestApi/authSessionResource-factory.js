@@ -12,7 +12,7 @@ angular.module('upit-web.common.upitRestApi')
       resourceName: 'authSession'
     };
 
-    var getAnonymousSession = function() {
+    var getAnonymousSession = function () {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
         url: '/anonymous/',
         method: 'POST'
@@ -35,7 +35,7 @@ angular.module('upit-web.common.upitRestApi')
       });
     };
 
-    var validate = function(sessionId) {
+    var validate = function (sessionId) {
       return SimpleResourceClient.makeRestRequest(resourceContext, {
         url: '/validate/' + sessionId,
         method: 'GET'

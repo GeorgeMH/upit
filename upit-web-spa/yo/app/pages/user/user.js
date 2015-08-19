@@ -5,8 +5,8 @@ angular.module('upit-web.page.user', [
   'ngRoute'
 ]).config(['$routeProvider', function ($routeProvider) {
 
-  var doRsolveUserByUserIdHash = ['$route', 'UserResource', function($route, UserResource) {
-    if($route.current.params.userIdHash) {
+  var doRsolveUserByUserIdHash = ['$route', 'UserResource', function ($route, UserResource) {
+    if ($route.current.params.userIdHash) {
       //return UserResource.getByIdHash($route.current.params.userIdHash); mn19n
       return UserResource.getByIdHash($route.current.params.userIdHash);
     }
@@ -31,6 +31,7 @@ angular.module('upit-web.page.user', [
     resolve: {
       resolvedUser: doRsolveUserByUserIdHash
     }
-  });;
+  });
+  ;
 
 }]);

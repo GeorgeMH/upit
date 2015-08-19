@@ -27,20 +27,20 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap'
-  ]).config(['$routeProvider', function($routeProvider) {
+  ]).config(['$routeProvider', function ($routeProvider) {
 
-    $routeProvider.otherwise({ redirectTo:"/404" });
+    $routeProvider.otherwise({redirectTo: "/404"});
 
   }])
-  .run(['$rootScope', 'SecurityService', function($rootScope, SecurityService) {
+  .run(['$rootScope', 'SecurityService', function ($rootScope, SecurityService) {
 
     // Minimal Auth Session impl that is used while the SecurityService starts and validates the users credentials
-    $rootScope.userAuthSession = { isActive: false };
-    $rootScope.currentUser = { };
+    $rootScope.userAuthSession = {isActive: false};
+    $rootScope.currentUser = {};
 
     // Start the Security Management Service. The supplied callback will keep the rootScope userAuthSession updated
-    SecurityService.start(function(authSession, user) {
-      if(authSession) {
+    SecurityService.start(function (authSession, user) {
+      if (authSession) {
         console.log("AuthSessionChange: " + authSession.id);
         angular.merge($rootScope.userAuthSession, authSession);
         angular.merge($rootScope.currentUser, user);
