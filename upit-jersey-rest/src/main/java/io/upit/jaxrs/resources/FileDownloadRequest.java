@@ -3,7 +3,6 @@ package io.upit.jaxrs.resources;
 import com.google.inject.Inject;
 import io.upit.guice.security.PreAuthorize;
 import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
-import io.upit.guice.security.authorizers.AnonymousUserAuthorizer;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

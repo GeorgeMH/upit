@@ -3,7 +3,11 @@ package io.upit.dal.jpa.models;
 import io.upit.dal.models.AuthSession;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Version;
 import java.util.Date;
 
 @Entity(name = "AuthSession")

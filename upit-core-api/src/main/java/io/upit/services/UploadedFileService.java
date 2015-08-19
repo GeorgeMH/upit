@@ -7,7 +7,6 @@ import io.upit.dal.models.UploadedFile;
 
 import java.io.InputStream;
 import java.util.List;
-import java.util.Set;
 
 public class UploadedFileService extends AbstractResourceService<UploadedFile, Long> {
 

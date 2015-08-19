@@ -8,7 +8,12 @@ import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.services.AbstractResourceService;
 
-import javax.ws.rs.*;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import java.io.Serializable;
 
 public abstract class AbstractResource<ResourceClass extends Resource<IDType>, IDType extends Serializable> {

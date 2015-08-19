@@ -3,7 +3,13 @@ package io.upit.dal.jpa.models;
 import io.upit.dal.models.FileType;
 import io.upit.dal.models.UploadedFile;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Version;
 import java.util.Date;
 
 /**
