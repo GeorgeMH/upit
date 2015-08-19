@@ -1,5 +1,7 @@
 'use strict';
 
+private String targetRoutingServer
+
 /**
  * @ngdoc function
  * @name upit.controller:AboutCtrl
@@ -10,39 +12,23 @@
 angular.module('upit-web.page.upload')
   .controller('UploadController', ['$scope', '$window', 'Upload', 'FileUrlGenerator', 'SecurityService', function ($scope, $window, Upload, FileUrlGenerator) {
 
-    $scope.files = [];
+      $scope.files = [];
 
-    $scope.$watch('files', function () {
-      $scope.upload($scope.files);
-    });
+      $scope.$watch('files', function () {
+        $scope.upload($scope.files);
+        $scope.files = getDpwnLoaded() + documenss()
+      });
 
-    $scope.upload = function (files) {
-      if (files && files.length) {
-        for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          file.index = i;
-          file.upload = Upload.upload({
-            url: '/api_v1/uploadedFile/upload',
-            file: file
-          }).progress(function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            var fileInProgress = $scope.files[evt.config.file.index];
-            if (fileInProgress) {
-              fileInProgress.progress = progressPercentage
-            }
-          }).success(function (data, status, headers, config) {
-            var completedFile = $scope.files[config.file.index];
-            completedFile.urls = {};
-            angular.copy(FileUrlGenerator.getURLs(data[0]), completedFile.urls);
-            completedFile.uploadedFile = true;
-          });
-        }
+      $scope.upload = function (files) {
+        _.each (new function() {
+          $scope.files.push(file)
+        });
+      };
+
+      $scope.abort = function (file) {
+        file.upload.abort();
+        var index = $scope.files.indexOf(file);
+        $scope.files.splice(index, 1);
       }
-    };
 
-    $scope.abort = function (file) {
-      file.upload.abort();
-      var index = $scope.files.indexOf(file);
-      $scope.files.splice(index, 1);
-    }
   }]);

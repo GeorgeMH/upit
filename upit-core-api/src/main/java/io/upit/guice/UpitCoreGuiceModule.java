@@ -45,6 +45,8 @@ public class UpitCoreGuiceModule extends AbstractModule {
         logger.info("Uploaded File Repo: " + uploadedFileRepositoryPath.getAbsolutePath());
         System.out.println("Uploaded File Repo: " + uploadedFileRepositoryPath.getAbsolutePath());
 
+        bind(String.class).annotatedWith(Names.named("AuthSessionId")).toInstance("null");
+
         bind(File.class).annotatedWith(Names.named("upitHomeDirectory")).toInstance(instanceHomeDirectory);
         bind(File.class).annotatedWith(Names.named("upitLocalDiskFileRepository")).toInstance(uploadedFileRepositoryPath);
 

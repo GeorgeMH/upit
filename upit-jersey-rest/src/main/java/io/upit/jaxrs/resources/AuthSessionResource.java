@@ -12,6 +12,7 @@ import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.guice.security.authorizers.AnonymousUserAuthorizer;
 import io.upit.jaxrs.exceptions.ResourceException;
 import io.upit.jaxrs.guice.RequestSessionFilter;
+import io.upit.jaxrs.guice.providers.AuthSessionProvider;
 import io.upit.security.AuthenticationException;
 import io.upit.services.AuthSessionService;
 import io.upit.services.UserService;

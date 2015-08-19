@@ -67,15 +67,15 @@
           <a href="#/paste/">paste</a>
         </li>
 
-        <li data-ng-class="menuClass('login')" data-ng-if="!userAuthSession || userAuthSession.anonymous">
+        <li data-ng-class="menuClass('login')" data-ng-if="null === currentUser || !currentUser.id">
           <a href="#/auth/login/">login</a>
         </li>
 
-        <li data-ng-class="menuClass('register')" data-ng-if="!userAuthSession || userAuthSession.anonymous">
+        <li data-ng-class="menuClass('register')" data-ng-if="null === currentUser || !currentUser.id">
           <a href="#/auth/register/">register</a>
         </li>
 
-        <li data-ng-class="menuClass('UserProfile')" data-ng-if="null !== currentUser && currentUser.id">
+        <li data-ng-class="menuClass('user')" data-ng-if="null !== currentUser && currentUser.id">
           <a ng-href="#/user/{{currentUser.idHash}}">profile</a>
         </li>
 
