@@ -1,7 +1,10 @@
 package io.upit.jaxrs.guice;
 
+import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import com.google.inject.persist.PersistFilter;
+import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import io.upit.jaxrs.guice.providers.JacksonJsonProviderProvider;
@@ -32,6 +35,13 @@ public class UpitJaxRSModule extends ServletModule {
         filter("/d/*", "/api_v1/*").through(RequestSessionFilter.class);
         filter("/d/*", "/api_v1/*").through(PersistFilter.class);
         serve("/d/*", "/api_v1/*").with(GuiceContainer.class, jerseyInitParams);
+    }
+
+    @Provides
+    @Named(RequestSessionFilter.AUTH_SESSION_ID_COOKIE_NAME)
+    @RequestScoped
+    String provideAuthSessionId() {
+        throw new IllegalStateException("user id must be manually seeded");
     }
 
 }

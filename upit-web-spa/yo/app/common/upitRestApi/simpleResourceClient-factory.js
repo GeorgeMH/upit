@@ -34,7 +34,7 @@ angular.module('upit-web.common.upitRestApi')
       }
 
       $http(httpReq).success(function (data, status, headers, config) {
-        if (200 == status) {
+        if (200 === status) {
           result.resolve(data);
         } else {
           result.reject(data, status, headers, config);

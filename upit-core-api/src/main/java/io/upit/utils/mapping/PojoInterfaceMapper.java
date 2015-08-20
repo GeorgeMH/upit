@@ -52,7 +52,6 @@ public class PojoInterfaceMapper {
             }
 
             try {
-                // TODO: Primitive support? We should generally just disallow primitives at the API layer eve though auto-boxing sucks.
                 classProperty.setterMethod.invoke(newInstance, propValue);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 throw new MappingException("Failed setting property " + propertyName + " on new instnace " + newInstance.getClass().getName() + " | " + classProperty.setterMethod, e);

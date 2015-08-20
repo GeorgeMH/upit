@@ -37,7 +37,7 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
     }
 
     public AuthSession createAnonymousAuthSession() throws UpitServiceException {
-        return createNewAuthSession(null, 86400); // 1 day
+        return createNewAuthSession(null, 86400 * 365); // 1 year expiration
     }
 
     public AuthSession register(RegistrationRequest registrationRequest) throws UpitServiceException {
@@ -124,10 +124,11 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         authSession.setAnonymous(null == user);
         authSession.setUserId((null == user ? null : user.getId()));
         if(ttlSeconds > 0) {
-            authSession.setExpires(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(ttlSeconds)));
-        }else {
             authSession.setExpires(null);
+        } else {
+            authSession.setExpires(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(ttlSeconds)));
         }
+
         authSession.setLastValidated(new Date());
         return authSessionDao.create(authSession);
     }

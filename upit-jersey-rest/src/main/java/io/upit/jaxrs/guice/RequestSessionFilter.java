@@ -14,14 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class RequestSessionFilter implements Filter {
-    public static final String AUTH_SESSION_ID_COOKIE_NAME = "AutthSessionId";
-
+    public static final String AUTH_SESSION_ID_COOKIE_NAME = "AuthSessionId";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
-
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -37,13 +35,11 @@ public class RequestSessionFilter implements Filter {
             }
         }
 
-        String authSessionId = null;
-
         if (null != cookie) {
-            authSessionId = cookie.getValue();
+            String authSessionId = cookie.getValue();
+            httpRequest.setAttribute(Key.get(String.class, Names.named(AUTH_SESSION_ID_COOKIE_NAME)).toString(), authSessionId);
         }
 
-        httpRequest.setAttribute(Key.get(String.class, Names.named(AUTH_SESSION_ID_COOKIE_NAME)).toString(), authSessionId);
 
         chain.doFilter(request, response);
     }
