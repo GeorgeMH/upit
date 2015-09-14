@@ -90,8 +90,8 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
             return Response.status(404).build();
         }
 
-        try {
-            final InputStream fileInputStream = uploadedFileService.getFileStream(uploadedFile);
+        try (final InputStream fileInputStream = uploadedFileService.getFileStream(uploadedFile); ){
+
             if (null == fileInputStream) {
                 return Response.status(404).build();
             }
@@ -114,7 +114,7 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
                     .size(uploadedFile.getFileSize()));
             }
             return response.build();
-        } catch (UpitServiceException e) {
+        } catch (IOException | UpitServiceException e) {
             return Response.serverError().build();
         }
     }
