@@ -15,6 +15,7 @@
     <module>upit-jersey-rest</module>
     <module>upit-web-spa</module>
     <module>upit-jpa-dal</module>
+    <module>upit-resteasy</module>
   </modules>
 
   <properties>
