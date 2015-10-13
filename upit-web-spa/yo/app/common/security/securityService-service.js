@@ -145,7 +145,7 @@ angular.module('upit-web.common.security')
         var handleError = function (err) {
           deferred.reject(err);
           return deferred.promise;
-        };
+      };
 
 
         if (currentAuthSession) {

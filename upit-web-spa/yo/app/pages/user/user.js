@@ -32,6 +32,5 @@ angular.module('upit-web.page.user', [
       resolvedUser: doRsolveUserByUserIdHash
     }
   });
-  ;
 
 }]);
