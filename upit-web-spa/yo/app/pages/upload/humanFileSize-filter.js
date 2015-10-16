@@ -15,7 +15,7 @@ angular.module('upit-web.page.upload')
         return '0 B';
       }
       var i = Math.floor(Math.log(input) / Math.log(1024));
-      return ( input / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+      return ( input / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB', 'PB'][i];
     };
 
   });

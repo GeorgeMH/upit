@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,21 +77,7 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
                 return Response.status(404).build();
             }
 
-            // TODO? Surely there is a library that does this in apache commons or something
-            StreamingOutput streamingOutput = new StreamingOutput() {
-                @Override
-                public void write(OutputStream output) throws IOException, WebApplicationException {
-                    pipe(fileInputStream, new BufferedOutputStream(output));
-                }
-
-                public void pipe(InputStream is, OutputStream os) throws IOException {
-                    int n;
-                    byte[] buffer = new byte[4096];
-                    while ((n = is.read(buffer)) > -1) {
-                        os.write(buffer, 0, n);
-                    }
-                }
-            };
+            StreamingOutput streamingOutput = (OutputStream output) -> IOUtils.copy(fileInputStream, output);
 
             Response.ResponseBuilder response = Response.ok(streamingOutput, uploadedFile.getContentType());
             response.header("content-length", uploadedFile.getFileSize() + "");
