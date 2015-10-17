@@ -28,7 +28,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -96,14 +95,7 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
                 return Response.status(404).build();
             }
 
-            // TODO: Old Jersey 1.8 ASM library isn't fully java 1.8 compatibile, this could be a one liner :(
-            // We need a better JAX-RS provider
-            StreamingOutput streamingOutput = new StreamingOutput() {
-                @Override
-                public void write(OutputStream output) throws IOException, WebApplicationException {
-                    IOUtils.copy(fileInputStream, output);
-                }
-            };
+            StreamingOutput streamingOutput = (OutputStream output) -> IOUtils.copy(fileInputStream, output);
 
             Response.ResponseBuilder response = Response.ok(streamingOutput, uploadedFile.getContentType());
             response.header("content-length", uploadedFile.getFileSize() + "");

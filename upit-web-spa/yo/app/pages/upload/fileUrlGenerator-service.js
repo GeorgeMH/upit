@@ -4,7 +4,7 @@ angular.module('upit-web.page.upload')
   .service('FileUrlGenerator', ['$location', function ($location) {
 
     var getBaseURL = function () {
-      return $location.protocol() + '://' + $location.host() + ($location.port() ? ':' + $location.port() : '');
+      return $location.protocol() + '://' + $location.host() + ($location.port() && $location.port() !== 80 && $location.port() !== 443 ? ':' + $location.port() : '');
     };
 
     var directDownload = function (uploadedFile, showExtension) {

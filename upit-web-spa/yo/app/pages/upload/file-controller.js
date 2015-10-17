@@ -10,11 +10,10 @@
 angular.module('upit-web.page.upload')
   .controller('FileController', ['$scope', 'FileUrlGenerator', 'resolvedUploadedFile', function ($scope, FileUrlGenerator, resolvedUploadedFile) {
 
-    var model = {
+    $scope.model = {
       uploadedFile: resolvedUploadedFile,
       urls: FileUrlGenerator.getURLs(resolvedUploadedFile)
     };
 
-    $scope.model = model;
 
   }]);

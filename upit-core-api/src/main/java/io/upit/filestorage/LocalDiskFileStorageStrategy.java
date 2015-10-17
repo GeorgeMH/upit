@@ -48,13 +48,6 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
                 targetTempFile.delete();
             }
             throw new FileStorageException("Failed writing file to temporary target: " + targetTempFile.getAbsolutePath(), e);
-        } finally {
-            if (null != inputStream) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                }
-            }
         }
 
         String fileHash = (new HexBinaryAdapter().marshal(messageDigest.digest()));
