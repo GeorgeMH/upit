@@ -17,9 +17,16 @@
 
   <dependencies>
 
+    <!--<dependency>-->
+      <!--<groupId>io.upit</groupId>-->
+      <!--<artifactId>upit-jersey-rest</artifactId>-->
+      <!--<version>${upit.version}</version>-->
+    <!--</dependency>-->
+
+
     <dependency>
       <groupId>io.upit</groupId>
-      <artifactId>upit-jersey-rest</artifactId>
+      <artifactId>upit-resteasy</artifactId>
       <version>${upit.version}</version>
     </dependency>
 
@@ -35,7 +42,7 @@
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.5</version>
-    </dependency>
+  </dependency>
 
     <dependency>
       <groupId>com.google.inject.extensions</groupId>
