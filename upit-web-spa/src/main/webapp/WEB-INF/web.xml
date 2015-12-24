@@ -6,8 +6,13 @@
 
   <context-param>
     <param-name>resteasy.guice.modules</param-name>
-    <param-value>io.upit.jaxrs.guice.UpitGuiceModule</param-value>
+    <param-value>io.upit.resteasy.guice.UpitGuiceModule</param-value>
   </context-param>
+
+  <!--<context-param>-->
+    <!--<param-name>resteasy.resources</param-name>-->
+    <!--<param-value>io.upit.resteasy.resources.AuthSessionResource,io.upit.resteasy.resources.FileDownloadRequest,io.upit.resteasy.resources.PasteResource,io.upit.resteasy.resources.UploadedFileResource,io.upit.resteasy.resources.UserResource</param-value>-->
+  <!--</context-param>-->
 
   <listener>
     <listener-class>
@@ -24,7 +29,7 @@
 
   <servlet-mapping>
     <servlet-name>Resteasy</servlet-name>
-    <url-pattern>/api_v1/*</url-pattern>
+    <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
 
 </web-app>

@@ -5,7 +5,7 @@ angular.module('upit-web.common.upitRestApi')
     var self = this;
 
     // TODO: Inject this
-    var urlBaseContext = "/api_v1";
+    var urlBaseContext = "/api";
 
     var getResourceURL = function (requestContext) {
       return urlBaseContext + '/' + requestContext.resourceName;
