@@ -37,7 +37,6 @@ public class UpitJpaModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        System.out.println("WTF");
         install(new JpaPersistModule("upit-dal-hibernate"));
 
         bind(Hashids.class).toProvider(HashidsProvider.class).in(Singleton.class);

@@ -1,12 +1,18 @@
 package io.upit.resteasy.guice;
 
-import com.google.inject.AbstractModule;
+import com.google.inject.persist.PersistFilter;
+import com.google.inject.servlet.GuiceFilter;
+import com.google.inject.servlet.ServletModule;
 import io.upit.dal.jpa.guice.UpitJpaModule;
 
-public class UpitGuiceModule extends AbstractModule {
+public class UpitGuiceModule extends ServletModule {
 
-    public void configure() {
+    @Override
+    public void configureServlets() {
         install(new UpitJpaModule());
+        filter("/api/*").through(GuiceFilter.class);
+        filter("/api/*").through(PersistFilter.class);
+
         install(new UpitCoreGuiceModule());
         install(new ResteasyModule());
         //install(new UpitJaxRSModule());

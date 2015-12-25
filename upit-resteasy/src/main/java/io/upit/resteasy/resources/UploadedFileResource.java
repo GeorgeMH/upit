@@ -95,7 +95,14 @@ public class UploadedFileResource extends AbstractResource<UploadedFile, Long> {
                 return Response.status(404).build();
             }
 
-            StreamingOutput streamingOutput = (OutputStream output) -> IOUtils.copy(fileInputStream, output);
+            StreamingOutput streamingOutput = (OutputStream output) -> {
+                try {
+                    IOUtils.copy(fileInputStream, output);
+                } finally {
+                    IOUtils.closeQuietly(fileInputStream);
+                    IOUtils.closeQuietly(output);
+                }
+            };
 
             Response.ResponseBuilder response = Response.ok(streamingOutput, uploadedFile.getContentType());
             response.header("content-length", uploadedFile.getFileSize() + "");

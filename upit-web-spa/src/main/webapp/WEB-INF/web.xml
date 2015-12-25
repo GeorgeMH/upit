@@ -9,11 +9,6 @@
     <param-value>io.upit.resteasy.guice.UpitGuiceModule</param-value>
   </context-param>
 
-  <!--<context-param>-->
-    <!--<param-name>resteasy.resources</param-name>-->
-    <!--<param-value>io.upit.resteasy.resources.AuthSessionResource,io.upit.resteasy.resources.FileDownloadRequest,io.upit.resteasy.resources.PasteResource,io.upit.resteasy.resources.UploadedFileResource,io.upit.resteasy.resources.UserResource</param-value>-->
-  <!--</context-param>-->
-
   <listener>
     <listener-class>
       org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener
