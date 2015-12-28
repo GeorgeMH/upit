@@ -8,7 +8,7 @@ import io.upit.resteasy.resources.PasteResource;
 import io.upit.resteasy.resources.UploadedFileResource;
 import io.upit.resteasy.resources.UserResource;
 
-public class ResteasyModule implements Module {
+public class UpitResteasyModule implements Module {
 
     public void configure(final Binder binder) {
         binder.bind(AuthSessionResource.class);

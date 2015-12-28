@@ -6,7 +6,7 @@
 
   <context-param>
     <param-name>resteasy.guice.modules</param-name>
-    <param-value>io.upit.resteasy.guice.UpitGuiceModule</param-value>
+    <param-value>io.upit.resteasy.guice.UpitWebModule</param-value>
   </context-param>
 
   <listener>
@@ -15,11 +15,17 @@
     </listener-class>
   </listener>
 
+
+
   <servlet>
     <servlet-name>Resteasy</servlet-name>
     <servlet-class>
       org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
     </servlet-class>
+    <init-param>
+      <param-name>javax.ws.rs.Application</param-name>
+      <param-value>co</param-value>
+    </init-param>
   </servlet>
 
   <servlet-mapping>

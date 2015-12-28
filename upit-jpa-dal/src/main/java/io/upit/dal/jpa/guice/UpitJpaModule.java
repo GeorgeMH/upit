@@ -38,6 +38,7 @@ public class UpitJpaModule extends AbstractModule {
     @Override
     protected void configure() {
         install(new JpaPersistModule("upit-dal-hibernate"));
+        bind(JPAInitializer.class).asEagerSingleton();
 
         bind(Hashids.class).toProvider(HashidsProvider.class).in(Singleton.class);
 
@@ -64,6 +65,9 @@ public class UpitJpaModule extends AbstractModule {
 
         bind(AuthSession.class).to(JpaAuthSession.class);
         bind(AuthSessionDAO.class).to(JpaAuthSessionDAO.class);
+
+        bind(JPAInitializer.class).asEagerSingleton();
+
     }
 
 }
