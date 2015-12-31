@@ -26,6 +26,7 @@ public class UserService extends AbstractResourceService<User, Long> {
     }
 
     public User update(User userToUpdate) {
+        // The coupling between the id and its hash here is ugly
         User persistedUser = userDAO.getById(userToUpdate.getId());
         persistedUser.setIdHash(hashIds.encode(persistedUser.getId()));
 

@@ -42,7 +42,8 @@
 <!-- Navigation -->
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-  <div class="container" data-ng-="NavigationController">
+  <!-- TODO: Make this a directive -->
+  <div class="container" data-ng-controller="NavigationController">
 
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -66,12 +67,17 @@
           <a href="#/paste/">paste</a>
         </li>
 
-        <!--<li data-ng-class="menuClass('login')">-->
-          <!--<a href="#/auth/login/">login</a>-->
-        <!--</li>-->
-        <!--<li data-ng-class="menuClass('register')">-->
-          <!--<a href="#/auth/register/">register</a>-->
-        <!--</li>-->
+        <li data-ng-class="menuClass('login')" data-ng-if="null === currentUser || !currentUser.id">
+          <a href="#/auth/login/">login</a>
+        </li>
+
+        <li data-ng-class="menuClass('register')" data-ng-if="null === currentUser || !currentUser.id">
+          <a href="#/auth/register/">register</a>
+        </li>
+
+        <li data-ng-class="menuClass('user')" data-ng-if="null !== currentUser && currentUser.id">
+          <a ng-href="#/user/{{currentUser.idHash}}">profile</a>
+        </li>
 
       </ul>
 
@@ -84,6 +90,7 @@
   <!-- /.container -->
 
 </div>
+
 
 <div class="container">
 
@@ -182,15 +189,16 @@
 <!-- build:js({.tmp,app}) scripts/upit.js -->
 <script src="app.js"></script>
 
-<script src="components/security/security.js"></script>
-<script src="components/security/securityService-service.js"></script>
+<script src="common/upitRestApi/upitRestApi.js"></script>
+<script src="common/upitRestApi/simpleResourceClient-factory.js"></script>
+<script src="common/upitRestApi/pasteResource-factory.js"></script>
+<script src="common/upitRestApi/uploadedFileResource-factory.js"></script>
+<script src="common/upitRestApi/userResource-factory.js"></script>
+<script src="common/upitRestApi/authSessionResource-factory.js"></script>
 
-<script src="components/upitRestApi/upitRestApi.js"></script>
-<script src="components/upitRestApi/simpleResourceClient-factory.js"></script>
-<script src="components/upitRestApi/pasteResource-factory.js"></script>
-<script src="components/upitRestApi/uploadedFileResource-factory.js"></script>
-<script src="components/upitRestApi/userResource-factory.js"></script>
-<script src="components/upitRestApi/authSessionResource-factory.js"></script>
+
+<script src="common/security/security.js"></script>
+<script src="common/security/securityService-service.js"></script>
 
 
 <script src="components/navigation/navigation.js"></script>
@@ -208,13 +216,16 @@
 <script src="pages/upload/upload-controller.js"></script>
 <script src="pages/upload/file-controller.js"></script>
 
-<script src="pages/user/user.js"></script>
-<script src="pages/user/user-profile-controller.js"></script>
-
 <script src="pages/auth/auth.js"></script>
 <script src="pages/auth/auth-login-controller.js"></script>
 <script src="pages/auth/auth-logout-controller.js"></script>
 <script src="pages/auth/auth-register-controller.js"></script>
+
+<script src="pages/user/user.js"></script>
+<script src="pages/user/user-profile-controller.js"></script>
+<script src="pages/user/user-file-list-controller.js"></script>
+<script src="pages/user/user-paste-list-controller.js"></script>
+
 
 <!-- endbuild -->
 

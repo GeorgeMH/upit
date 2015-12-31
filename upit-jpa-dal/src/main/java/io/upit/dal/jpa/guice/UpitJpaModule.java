@@ -3,12 +3,32 @@ package io.upit.dal.jpa.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.persist.jpa.JpaPersistModule;
-import io.upit.dal.*;
-import io.upit.dal.jpa.*;
-import io.upit.dal.jpa.models.*;
+import io.upit.dal.AclEntryDAO;
+import io.upit.dal.AuthSessionDAO;
+import io.upit.dal.AuthenticationMetaDataDAO;
+import io.upit.dal.PasteDAO;
+import io.upit.dal.PropertyDAO;
+import io.upit.dal.UploadedFileDAO;
+import io.upit.dal.UserDAO;
+import io.upit.dal.jpa.JpaAclEntryDAO;
+import io.upit.dal.jpa.JpaAuthSessionDAO;
+import io.upit.dal.jpa.JpaAuthenticationMetaDataDAO;
+import io.upit.dal.jpa.JpaPasteDAO;
+import io.upit.dal.jpa.JpaPropertyDAO;
+import io.upit.dal.jpa.JpaUploadedFileDAO;
+import io.upit.dal.jpa.JpaUserDAO;
+import io.upit.dal.jpa.models.JpaAuthSession;
+import io.upit.dal.jpa.models.JpaPaste;
+import io.upit.dal.jpa.models.JpaPropertyValue;
+import io.upit.dal.jpa.models.JpaUploadedFile;
+import io.upit.dal.jpa.models.JpaUser;
 import io.upit.dal.jpa.models.security.JpaAclEntry;
 import io.upit.dal.jpa.models.security.JpaAuthenticationMetaData;
-import io.upit.dal.models.*;
+import io.upit.dal.models.AuthSession;
+import io.upit.dal.models.Paste;
+import io.upit.dal.models.PropertyValue;
+import io.upit.dal.models.UploadedFile;
+import io.upit.dal.models.User;
 import io.upit.dal.models.security.AuthenticationMetaData;
 import io.upit.dal.models.security.acls.AclEntry;
 import org.hashids.Hashids;
@@ -18,6 +38,7 @@ public class UpitJpaModule extends AbstractModule {
     @Override
     protected void configure() {
         install(new JpaPersistModule("upit-dal-hibernate"));
+        bind(JPAInitializer.class).asEagerSingleton();
 
         bind(Hashids.class).toProvider(HashidsProvider.class).in(Singleton.class);
 
@@ -41,6 +62,12 @@ public class UpitJpaModule extends AbstractModule {
 
         bind(AuthenticationMetaData.class).to(JpaAuthenticationMetaData.class);
         bind(AuthenticationMetaDataDAO.class).to(JpaAuthenticationMetaDataDAO.class);
+
+        bind(AuthSession.class).to(JpaAuthSession.class);
+        bind(AuthSessionDAO.class).to(JpaAuthSessionDAO.class);
+
+        bind(JPAInitializer.class).asEagerSingleton();
+
     }
 
 }

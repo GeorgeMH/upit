@@ -6,8 +6,8 @@
  * @description # Paste Module
  */
 angular.module('upit-web.page.paste', [
-  'upit-web.upitRestApi',
-  'upit-web.security',
+  'upit-web.common.upitRestApi',
+  'upit-web.common.security',
 
   'ngRoute'
 ])

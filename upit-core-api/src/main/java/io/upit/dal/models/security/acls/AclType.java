@@ -4,5 +4,6 @@ public enum AclType {
     READ,
     WRITE,
     READ_AND_WRITE,
-    DELETE
+    DELETE,
+    ADMIN
 }

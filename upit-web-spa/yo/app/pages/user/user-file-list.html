@@ -1,0 +1,32 @@
+<div class="row page-header">
+  <div class="col-md-6">
+    <h1>Files
+      <small><span data-ng-bind="user.userName"></span></small>
+    </h1>
+  </div>
+
+  <div class="col-md-6">
+    <h1 class="text-right">
+      <small>
+        <a class="btn btn-primary" data-ng-href="#/user/{{user.idHash}}/files/">Files</a>
+        <a class="btn btn-primary" data-ng-href="#/user/{{user.idHash}}/pastes/">Pastes</a>
+      </small>
+    </h1>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div data-ng-if="model.isDataLoading" class="col-md-12 text-center">
+    <li class="fa fa-spinner fa-5x"></li>
+  </div>
+
+  <div data-ng-if="!model.isDataLoading" class="col-md-12 text-center">
+
+  </div>
+
+</div>
+
+
+</div>

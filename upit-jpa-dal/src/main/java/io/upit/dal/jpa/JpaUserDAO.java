@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import io.upit.dal.UserDAO;
 import io.upit.dal.jpa.models.JpaUser;
 import io.upit.dal.models.User;
+import org.hashids.Hashids;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -12,9 +13,21 @@ import javax.transaction.Transactional;
 
 public class JpaUserDAO extends EntityManagerDAO<User, JpaUser, Long> implements UserDAO {
 
+    private final Hashids hashids;
+
     @Inject
-    public JpaUserDAO(EntityManager entityManager) {
+    public JpaUserDAO(EntityManager entityManager, Hashids hashids) {
         super(User.class, JpaUser.class, entityManager);
+        this.hashids = hashids;
+    }
+
+    @Override
+    @Transactional
+    public User create(User user){
+        User ret = super.create(user);
+        ret.setIdHash(hashids.encode(ret.getId()));
+        update(ret);
+        return ret;
     }
 
     @Override

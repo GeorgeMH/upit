@@ -1,7 +1,7 @@
 package io.upit.dal;
 
 /**
- * The Class UpitDAOException represents a general exception in the upit code base
+ * The Class UpitDAOException represents a general exception in the DAL code base
  */
 public class UpitDAOException extends RuntimeException {
 

@@ -3,7 +3,13 @@ package io.upit.dal.jpa.models;
 import io.upit.dal.models.FileType;
 import io.upit.dal.models.UploadedFile;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Version;
 import java.util.Date;
 
 /**
@@ -24,6 +30,9 @@ public class JpaUploadedFile implements UploadedFile {
 
     @Column(unique = true)
     private String idHash;
+
+    @Column(unique = false)
+    private Long userId;
 
     @Column(unique = true)
     private String fileHash;
@@ -73,12 +82,24 @@ public class JpaUploadedFile implements UploadedFile {
         this.created = dateCreated;
     }
 
+    @Override
     public String getIdHash() {
         return idHash;
     }
 
+    @Override
     public void setIdHash(String idHash) {
         this.idHash = idHash;
+    }
+
+    @Override
+    public Long getUserId() {
+        return this.userId;
+    }
+
+    @Override
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

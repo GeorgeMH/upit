@@ -2,7 +2,11 @@ package io.upit.dal.jpa.models;
 
 import io.upit.dal.models.User;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Version;
 import java.util.Date;
 import java.util.Objects;
 

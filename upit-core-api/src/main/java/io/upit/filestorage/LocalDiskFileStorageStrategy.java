@@ -13,7 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.security.DigestInputStream;
@@ -43,13 +48,6 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
                 targetTempFile.delete();
             }
             throw new FileStorageException("Failed writing file to temporary target: " + targetTempFile.getAbsolutePath(), e);
-        } finally {
-            if (null != inputStream) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                }
-            }
         }
 
         String fileHash = (new HexBinaryAdapter().marshal(messageDigest.digest()));

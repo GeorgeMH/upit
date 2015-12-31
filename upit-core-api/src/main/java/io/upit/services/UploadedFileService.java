@@ -6,6 +6,7 @@ import io.upit.dal.UploadedFileDAO;
 import io.upit.dal.models.UploadedFile;
 
 import java.io.InputStream;
+import java.util.List;
 
 public class UploadedFileService extends AbstractResourceService<UploadedFile, Long> {
 
@@ -28,9 +29,12 @@ public class UploadedFileService extends AbstractResourceService<UploadedFile, L
         return parsedUploadedFile;
     }
 
-
     public UploadedFile getByIdHash(String shortHash) {
         return uploadedFileDAO.getByIdHash(shortHash);
+    }
+
+    public List<? extends UploadedFile> getFilesByUserId(long userId) {
+        return uploadedFileDAO.getByUserId(userId);
     }
 
 

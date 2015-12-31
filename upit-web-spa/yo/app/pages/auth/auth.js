@@ -2,8 +2,8 @@
 
 
 angular.module('upit-web.page.auth', [
-  'upit-web.upitRestApi',
-  'upit-web.security',
+  'upit-web.common.upitRestApi',
+  'upit-web.common.security',
   'ngRoute'
 ]).config(['$routeProvider', function ($routeProvider) {
 

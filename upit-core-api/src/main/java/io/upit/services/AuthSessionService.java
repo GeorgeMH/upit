@@ -18,6 +18,7 @@ import io.upit.security.providers.Sha512AuthenticationProvider;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class AuthSessionService extends AbstractResourceService<AuthSession, String> {
 
@@ -35,9 +36,8 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         this.userService = userService;
     }
 
-
     public AuthSession createAnonymousAuthSession() throws UpitServiceException {
-        return createNewAuthSession(null, null);
+        return createNewAuthSession(null, 86400 * 365); // 1 year expiration
     }
 
     public AuthSession register(RegistrationRequest registrationRequest) throws UpitServiceException {
@@ -54,8 +54,7 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         authenticationMetaData.setUserId(createdUser.getId());
         authenticationMetaDataDAO.create(authenticationMetaData);
 
-        // TODO: Since this requires the current user to be an anonymous session (that would be auto created), should we end the previous session?
-        return createNewAuthSession(null, null);
+        return createNewAuthSession(createdUser, 0);
     }
 
     public AuthSession login(LoginRequest loginRequest) throws UpitServiceException {
@@ -82,7 +81,7 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         }
 
         // TODO: LoginRequest should specifiy an expires date for the login session
-        return createNewAuthSession(user, null);
+        return createNewAuthSession(user, 86400); // 1 day for now?
     }
 
     public AuthSession validateSessionById(String id) throws AuthenticationException {
@@ -92,14 +91,16 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
             throw new AuthenticationException("Invalid Auth Session");
         }
 
-        if(new Date().getTime() >= realAuthSession.getExpires().getTime()){
-            realAuthSession.setActive(false);
-            authSessionDao.update(realAuthSession);
-            throw new AuthenticationException("Invalid Auth Session");
+        if (!realAuthSession.isActive()) {
+            throw new AuthenticationException("Inactive Auth Session");
         }
 
-        if (!realAuthSession.isActive()) {
-            throw new AuthenticationException("Invalid Auth Session");
+        if(null != realAuthSession.getExpires()) {
+            if (new Date().getTime() >= realAuthSession.getExpires().getTime()) {
+                realAuthSession.setActive(false);
+                authSessionDao.update(realAuthSession);
+                throw new AuthenticationException("Expired Auth Session");
+            }
         }
 
         return realAuthSession;
@@ -109,20 +110,26 @@ public class AuthSessionService extends AbstractResourceService<AuthSession, Str
         return validateSessionById(session.getId());
     }
 
-    public void endSession(AuthSession session) {
-        AuthSession realAuthSession = authSessionDao.getById(session.getId());
-        realAuthSession.setActive(false);
-        authSessionDao.update(realAuthSession);
+    public void endSession(String sessionId) {
+        AuthSession realAuthSession = authSessionDao.getById(sessionId);
+        if(null != realAuthSession) {
+            realAuthSession.setActive(false);
+            authSessionDao.update(realAuthSession);
+        }
     }
 
-    private AuthSession createNewAuthSession(User user, Date expires) throws UpitServiceException {
+    private AuthSession createNewAuthSession(User user, int ttlSeconds) throws UpitServiceException {
         AuthSession authSession = new AuthSessionImpl();
         authSession.setActive(true);
         authSession.setAnonymous(null == user);
         authSession.setUserId((null == user ? null : user.getId()));
-        authSession.setExpires(null);
-        authSession.setExpires(expires);
-        authSession.setLastValidated(null);
+        if(ttlSeconds > 0) {
+            authSession.setExpires(null);
+        } else {
+            authSession.setExpires(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(ttlSeconds)));
+        }
+
+        authSession.setLastValidated(new Date());
         return authSessionDao.create(authSession);
     }
 }

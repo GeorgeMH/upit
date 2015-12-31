@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('upit-web.page.auth')
-  .controller('AuthRegisterController', ['$scope', '$location', 'AuthSessionResource', function ($scope, $location, AuthSessionResource) {
+  .controller('AuthRegisterController', ['$scope', '$location', 'AuthSessionResource', 'SecurityService', function ($scope, $location, AuthSessionResource, SecurityService) {
 
     $scope.model = {
 
@@ -19,10 +19,10 @@ angular.module('upit-web.page.auth')
     $scope.registerUser = function () {
 
       AuthSessionResource.register($scope.model.registrationRequest)
-        .then(function (data) {
-          $location.path('/auth/login');
+        .then(function (authSession) {
+          SecurityService.setAuthSession(authSession);
         }, function (err) {
-          //TODO: Common form error handling?
+          //TODO: Common form error handling
           console.log(err);
         });
 

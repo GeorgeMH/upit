@@ -4,23 +4,33 @@
 
 <web-app>
 
-  <filter>
-    <filter-name>guiceFilter</filter-name>
-    <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>guiceFilter</filter-name>
-    <url-pattern>/api_v1/*</url-pattern>
-  </filter-mapping>
-
-  <filter-mapping>
-    <filter-name>guiceFilter</filter-name>
-    <url-pattern>/d/*</url-pattern>
-  </filter-mapping>
+  <context-param>
+    <param-name>resteasy.guice.modules</param-name>
+    <param-value>io.upit.resteasy.guice.UpitWebModule</param-value>
+  </context-param>
 
   <listener>
-    <listener-class>io.upit.jaxrs.guice.UpitContextListener</listener-class>
+    <listener-class>
+      org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener
+    </listener-class>
   </listener>
+
+
+
+  <servlet>
+    <servlet-name>Resteasy</servlet-name>
+    <servlet-class>
+      org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+    </servlet-class>
+    <init-param>
+      <param-name>javax.ws.rs.Application</param-name>
+      <param-value>co</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Resteasy</servlet-name>
+    <url-pattern>/api/*</url-pattern>
+  </servlet-mapping>
 
 </web-app>

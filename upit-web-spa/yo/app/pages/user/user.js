@@ -1,40 +1,35 @@
 'use strict';
 
-
 angular.module('upit-web.page.user', [
-  'upit-web.upitRestApi',
+  'upit-web.common.upitRestApi',
   'ngRoute'
 ]).config(['$routeProvider', function ($routeProvider) {
 
+  var doRsolveUserByUserIdHash = ['$route', 'UserResource', function ($route, UserResource) {
+    if ($route.current.params.userIdHash) {
+      //return UserResource.getByIdHash($route.current.params.userIdHash); mn19n
+      return UserResource.getByIdHash($route.current.params.userIdHash);
+    }
+    return null; // ?? redirect to 404?
+  }];
 
-  // TODO: Does this alias to /user/{id} of the currently logged in user?
-  //$routeProvider.when('user/profile', {
-  //    templateUrl: 'auth/user-profile.html',
-  //    controller: 'UserProfileController',
-  //    resolve: {
-  //        resolvedUser: {}
-  //        //resolvedPaste: ['$route', 'PasteResource', function($route, PasteResource) {
-  //        //    // Conditionally resolve the paste by the ID in the URL
-  //        //    if($route.current.params.pasteIdHash) {
-  //        //        return PasteResource.getByIdHash($route.current.params.pasteIdHash);
-  //        //    }
-  //        //    return null;
-  //        //}]
-  //    }
-  //});
-
-  $routeProvider.when('/user/{id}', {
-    templateUrl: 'user/user-profile.html',
+  $routeProvider.when('/user/:userIdHash', {
+    templateUrl: 'pages/user/user-profile.html',
     controller: 'UserProfileController',
     resolve: {
-      resolvedUser: {}
-      //resolvedPaste: ['$route', 'PasteResource', function($route, PasteResource) {
-      //    // Conditionally resolve the paste by the ID in the URL
-      //    if($route.current.params.pasteIdHash) {
-      //        return PasteResource.getByIdHash($route.current.params.pasteIdHash);
-      //    }
-      //    return null;
-      //}]
+      resolvedUser: doRsolveUserByUserIdHash
+    }
+  }).when('/user/:userIdHash/files/', {
+    templateUrl: 'pages/user/user-file-list.html',
+    controller: 'UserFileListController',
+    resolve: {
+      resolvedUser: doRsolveUserByUserIdHash
+    }
+  }).when('/user/:userIdHash/pastes/', {
+    templateUrl: 'pages/user/user-paste-list.html',
+    controller: 'UserPasteListController',
+    resolve: {
+      resolvedUser: doRsolveUserByUserIdHash
     }
   });
 

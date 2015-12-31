@@ -3,6 +3,7 @@ package io.upit.dal;
 import io.upit.dal.models.UploadedFile;
 
 import java.io.InputStream;
+import java.util.List;
 
 public interface UploadedFileDAO extends DAO<UploadedFile, Long> {
 
@@ -13,5 +14,7 @@ public interface UploadedFileDAO extends DAO<UploadedFile, Long> {
     UploadedFile getByFileHash(String fileHash);
 
     UploadedFile getByIdHash(String shortHash);
+
+    List<? extends UploadedFile> getByUserId(long userId);
 
 }

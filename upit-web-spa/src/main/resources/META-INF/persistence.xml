@@ -29,7 +29,8 @@
       <property name="hibernate.hbm2ddl.auto" value="update"/>
 
       <!-- Re-create the DB from scratch every time . testing only -->
-      <!--<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+      <!--<property name="hibernate.hbm2ddl.auto" val
+      ue="create-drop"/>-->
 
       <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
 

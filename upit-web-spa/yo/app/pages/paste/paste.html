@@ -66,6 +66,9 @@
 
     </form>
 
+    <p data-ng-if="model.pastedByUser">
+      Pasted by <span data-ng-bind="model.pastedByUser.userName"></span>
+    </p>
   </div>
 
 </div>
