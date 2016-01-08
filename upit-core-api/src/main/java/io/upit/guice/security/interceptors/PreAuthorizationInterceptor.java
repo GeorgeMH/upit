@@ -1,10 +1,10 @@
-package io.upit.resteasy.guice.security.interceptors;
+package io.upit.guice.security.interceptors;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
-import io.upit.resteasy.guice.security.MethodAuthorizer;
-import io.upit.resteasy.guice.security.PreAuthorize;
+import io.upit.guice.security.MethodAuthorizer;
+import io.upit.guice.security.PreAuthorize;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 

@@ -1,4 +1,4 @@
-package io.upit.resteasy.guice.providers;
+package io.upit.guice.providers;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;

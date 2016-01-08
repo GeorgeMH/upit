@@ -1,4 +1,4 @@
-package io.upit.resteasy.guice;
+package io.upit.guice;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;

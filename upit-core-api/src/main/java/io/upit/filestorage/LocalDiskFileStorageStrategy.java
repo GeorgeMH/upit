@@ -70,7 +70,6 @@ public class LocalDiskFileStorageStrategy implements StreamingFileStorageStrateg
             // duplicate file
             targetTempFile.delete();
         }
-
         return uploadedFile;
     }
 

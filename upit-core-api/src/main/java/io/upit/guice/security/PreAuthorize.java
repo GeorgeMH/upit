@@ -1,6 +1,6 @@
-package io.upit.resteasy.guice.security;
+package io.upit.guice.security;
 
-import io.upit.resteasy.guice.security.authorizers.AllowAllMethodAuthorizer;
+import io.upit.guice.security.authorizers.AllowAllMethodAuthorizer;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

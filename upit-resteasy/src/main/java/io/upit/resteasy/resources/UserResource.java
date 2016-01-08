@@ -3,8 +3,8 @@ package io.upit.resteasy.resources;
 import com.google.inject.Inject;
 import io.upit.dal.AuthenticationMetaDataDAO;
 import io.upit.dal.models.User;
-import io.upit.resteasy.guice.security.PreAuthorize;
-import io.upit.resteasy.guice.security.authorizers.AclEntryMethodAuthorizer;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.services.UserService;
 import org.hashids.Hashids;
 

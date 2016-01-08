@@ -3,8 +3,8 @@ package io.upit.resteasy.resources;
 import com.google.inject.persist.Transactional;
 import io.upit.UpitServiceException;
 import io.upit.dal.models.Resource;
-import io.upit.resteasy.guice.security.PreAuthorize;
-import io.upit.resteasy.guice.security.authorizers.AclEntryMethodAuthorizer;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.resteasy.exceptions.ResourceException;
 import io.upit.services.AbstractResourceService;
 

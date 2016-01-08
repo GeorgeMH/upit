@@ -1,8 +1,8 @@
 package io.upit.resteasy.resources;
 
 import com.google.inject.Inject;
-import io.upit.resteasy.guice.security.PreAuthorize;
-import io.upit.resteasy.guice.security.authorizers.AclEntryMethodAuthorizer;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

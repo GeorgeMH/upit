@@ -1,4 +1,4 @@
-package io.upit.resteasy.guice.security;
+package io.upit.guice.security;
 
 import io.upit.security.AuthorizationException;
 import org.aopalliance.intercept.MethodInvocation;

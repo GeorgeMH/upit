@@ -3,12 +3,6 @@
   "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-
-  <context-param>
-    <param-name>resteasy.guice.modules</param-name>
-    <param-value>io.upit.resteasy.guice.UpitWebModule</param-value>
-  </context-param>
-
   <listener>
     <listener-class>
       org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener
@@ -16,21 +10,16 @@
   </listener>
 
 
-
   <servlet>
     <servlet-name>Resteasy</servlet-name>
     <servlet-class>
       org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
     </servlet-class>
-    <init-param>
-      <param-name>javax.ws.rs.Application</param-name>
-      <param-value>co</param-value>
-    </init-param>
   </servlet>
 
-  <servlet-mapping>
-    <servlet-name>Resteasy</servlet-name>
-    <url-pattern>/api/*</url-pattern>
-  </servlet-mapping>
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>Resteasy</servlet-name>-->
+    <!--<url-pattern>/api/*</url-pattern>-->
+  <!--</servlet-mapping>-->
 
 </web-app>

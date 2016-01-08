@@ -2,8 +2,8 @@ package io.upit.resteasy.resources;
 
 import com.google.inject.Inject;
 import io.upit.dal.models.Paste;
-import io.upit.resteasy.guice.security.PreAuthorize;
-import io.upit.resteasy.guice.security.authorizers.AclEntryMethodAuthorizer;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.authorizers.AclEntryMethodAuthorizer;
 import io.upit.services.PasteService;
 
 import javax.ws.rs.Consumes;

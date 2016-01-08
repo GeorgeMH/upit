@@ -1,4 +1,4 @@
-package io.upit.resteasy.guice;
+package io.upit.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
@@ -6,11 +6,12 @@ import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
 import io.upit.filestorage.LocalDiskFileStorageStrategy;
 import io.upit.filestorage.StreamingFileStorageStrategy;
-import io.upit.resteasy.guice.security.PreAuthorize;
-import io.upit.resteasy.guice.security.interceptors.PreAuthorizationInterceptor;
+import io.upit.guice.security.PreAuthorize;
+import io.upit.guice.security.interceptors.PreAuthorizationInterceptor;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.hashids.Hashids;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,6 +59,7 @@ public class UpitCoreGuiceModule extends AbstractModule {
             addError("Failed building Configuration", e);
             return;
         }
+        bind(Hashids.class).toProvider(HashidsProvider.class);
         bindInterceptor(Matchers.any(), Matchers.annotatedWith(PreAuthorize.class), new PreAuthorizationInterceptor(getProvider(Injector.class)));
     }
 

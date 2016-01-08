@@ -1,4 +1,4 @@
-package io.upit.dal.jpa.guice;
+package io.upit.guice;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
