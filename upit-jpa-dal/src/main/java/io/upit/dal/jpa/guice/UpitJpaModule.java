@@ -31,8 +31,6 @@ import io.upit.dal.models.UploadedFile;
 import io.upit.dal.models.User;
 import io.upit.dal.models.security.AuthenticationMetaData;
 import io.upit.dal.models.security.acls.AclEntry;
-import io.upit.guice.HashidsProvider;
-import org.hashids.Hashids;
 
 public class UpitJpaModule extends AbstractModule {
 
@@ -40,9 +38,6 @@ public class UpitJpaModule extends AbstractModule {
     protected void configure() {
         install(new JpaPersistModule("upit-dal-hibernate"));
         bind(JPAInitializer.class).asEagerSingleton(); // Explicitly start the PersistService for us
-
-
-        bind(Hashids.class).toProvider(HashidsProvider.class).in(Singleton.class);
 
         bind(AclEntry.class).to(JpaAclEntry.class);
         bind(AclEntryDAO.class).to(JpaAclEntryDAO.class);
@@ -67,9 +62,6 @@ public class UpitJpaModule extends AbstractModule {
 
         bind(AuthSession.class).to(JpaAuthSession.class);
         bind(AuthSessionDAO.class).to(JpaAuthSessionDAO.class);
-
-        bind(JPAInitializer.class).asEagerSingleton();
-
     }
 
 }
