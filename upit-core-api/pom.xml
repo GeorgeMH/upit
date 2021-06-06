@@ -30,7 +30,7 @@
     <dependency>
       <groupId>org.apache.tika</groupId>
       <artifactId>tika-core</artifactId>
-      <version>1.6</version>
+      <version>1.22</version>
     </dependency>
 
     <!-- Import HashIds to encode/decode ids of type Long-->
